@@ -1,0 +1,222 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-image: url('https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.main-container {
+    height: 385px;
+    width: 580px;
+    padding: 5px;
+    margin: 5%;
+    background-color: rgb(235, 235, 235);
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.control-panel, .display-panel {
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.control-panel {
+    width: 55%;
+    padding: 10px;
+    background-color: rgb(184,184,184);
+}
+
+.display-panel {
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.lblText {
+    display: block;
+}
+
+.divUpper {
+    height: 35%;
+    width: 100%;
+    background-color: rgb(222, 199, 135);
+}
+  
+.divLower {
+    height: 65%;
+    width: 100%;
+    background-color: cornsilk;
+}
+
+.text {
+    font-family: 'Segoe UI';
+    font-weight: bold;
+}
+
+.lblUpper {
+    font-size: large;
+    margin-top: 4px;
+    margin-bottom: 35px;
+    padding: 8px;
+}
+
+#lblArtifactPiece {
+    color: white;
+}
+
+#lblMainAttribute {
+    color: rgb(119, 103, 54);
+}
+
+.lblLower {
+    font-size: medium;
+    color: rgb(88, 88, 88);
+    padding: 8px;
+}
+
+select {
+    font-size: medium;
+    width: 180px;
+    height: 30px;
+}
+
+select:hover {
+    border-color: black;
+}
+
+option {
+    font-size: medium;
+}
+
+button {
+    border: 1px solid gray;
+    outline: none;
+    height: 30px;
+    width: 100px;
+    background-color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+    border-color: black;
+}
+
+button:focus {
+    background-color: lightgray;
+    border-color: black;
+}
+
+.lblHeader {
+    padding: 10px;
+    align-self: center;
+}
+
+.row1 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.row1 select {
+    width: 60%;
+} 
+
+.row1 button {
+    width: 40%;
+}
+
+.row1, .row2, .row3, .row4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row2 {
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.row-btn1 button, .row-btn2 button {
+    width: 45%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.row-btn1, .row-btn2 {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.row3 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.row3 .divInnerBox {
+    margin-right: 12px;
+}
+
+.row3 .divInnerBox .lblMaxUpgradeValue {
+    margin-left: 10px;
+}
+
+.divInnerBox {
+    display: flex;
+}
+
+.row4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.row4 .divInnerBox {
+    margin-right: 10px;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 768px) {
+    .main-container, .control-panel, .display-panel {
+      width: 100%;
+    }
+
+    .main-container {
+      margin: 2%;
+    }
+}
+  
+@media only screen and (max-width: 480px) {
+    .main-container {
+      flex-wrap: wrap;
+      height: auto;
+      margin: 2%;
+    }
+
+    html {
+        height: 150vh;
+    }
+}
