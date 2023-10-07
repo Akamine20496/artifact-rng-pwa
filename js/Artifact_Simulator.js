@@ -69,7 +69,6 @@ class Artifact_Simulator {
                 this.#btnGenerate.disabled = true;
                 this.#btnLock.disabled = true;
                 this.#btnRoll.disabled = false;
-                this.#btnReroll.disabled = false;
                 this.#btnReset.disabled = false;
                 this.#btnCustomStat.disabled = true;
                 this.#btnRoll.focus();
@@ -79,6 +78,10 @@ class Artifact_Simulator {
 
         // btnRoll
         this.#btnRoll.addEventListener('click', () => {
+	    if (this.#rollCounter > 1 || this.#isNewAttribute) {
+		this.#btnReroll.disabled = false;
+	    }
+	
             if (Number(this.#pMaxUpgradeValue.innerText) === 4 && this.#isNewAttribute) {
                 this.#artifactPiece.upgradeValue();
                 this.#isNewAttribute = false;
@@ -98,7 +101,7 @@ class Artifact_Simulator {
         this.#btnReroll.addEventListener('click', () => {
             this.#artifactPiece.rerollStat();
             this.#btnRoll.disabled = false;
-            this.#btnReroll.disabled = false;
+            this.#btnReroll.disabled = true;
             this.#btnReset.disabled = false;
             this.#rollCounter = 1;
             this.#isNewAttribute = true;
