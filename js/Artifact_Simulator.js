@@ -78,10 +78,6 @@ class Artifact_Simulator {
 
         // btnRoll
         this.#btnRoll.addEventListener('click', () => {
-	    if (this.#rollCounter > 1 || this.#isNewAttribute) {
-		this.#btnReroll.disabled = false;
-	    }
-	
             if (Number(this.#pMaxUpgradeValue.innerText) === 4 && this.#isNewAttribute) {
                 this.#artifactPiece.upgradeValue();
                 this.#isNewAttribute = false;
@@ -91,10 +87,11 @@ class Artifact_Simulator {
                 
                 if(this.#rollCounter === Number(this.#pMaxUpgradeValue.innerText) + 1) {
                     this.#btnRoll.disabled = true;
-                    this.#btnReroll.disabled = false;
                     this.#btnReroll.focus();
                 }
             }
+
+            this.#btnReroll.disabled = false;
         });
 
         // btnReroll
