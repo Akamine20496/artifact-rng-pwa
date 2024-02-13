@@ -1,0 +1,23 @@
+{
+    "name": "Artifact RNG",
+    "short_name": "Artifact RNG",
+    "description": "A gambling artifact addiction for genshin player",
+    "start_url": "index.html",
+    "background_color": "white",
+    "theme_color": "white",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "../asset/Amber_Icon192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }, 
+        {
+            "src": "../asset/Amber_Icon512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ]
+}

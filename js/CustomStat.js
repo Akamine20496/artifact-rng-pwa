@@ -21,6 +21,7 @@ class Custom_Stat {
     #btnDisplayStat = document.getElementById('btnDisplayStat');
     #oneTime = true;
     // elements from the control-panel
+    #btnSkip = document.getElementById('btnSkip');
     #btnRoll = document.getElementById('btnRoll');
     #btnReset = document.getElementById('btnReset');
     #btnCustomStat = document.getElementById('btnCustomStat');
@@ -339,6 +340,8 @@ class Custom_Stat {
         this.#pMaxUpgradeValue.innerText = this.#artifact_piece.getMaxUpgrade();
         this.#btnLock.disabled = true;
         this.#btnGenerate.disabled = true;
+        
+        this.#btnSkip.disabled = false;
         this.#btnRoll.disabled = false;
         this.#btnReset.disabled = false;
         this.#btnCustomStat.disabled = true;

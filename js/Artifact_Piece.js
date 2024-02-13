@@ -32,6 +32,7 @@ class Artifact_Piece {
     #upgradeCounter = 0;
     #totalUpgrade = 0;
     #maxUpgrade = 0;
+	#skipMode = false;
 
     // class methods
     generateStat() {
@@ -84,7 +85,7 @@ class Artifact_Piece {
         this.#lblSlot1.innerText = this.#displayText(this.#att1, this.#value1);
         this.#lblSlot2.innerText = this.#displayText(this.#att2, this.#value2);
         this.#lblSlot3.innerText = this.#displayText(this.#att3, this.#value3);
-        this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
+		this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
 		
 		if (this.#maxUpgrade === 4) {
 			this.#att4 = null;
@@ -174,7 +175,10 @@ class Artifact_Piece {
 
     #displayUpgrade(lblSlot, att, prevValue, currValue) {
 		lblSlot.innerText = this.#displayText(att, currValue);
-		Dialog.showMessageDialog('Attribute Upgrade', this.#artifact.formatText(att, prevValue, currValue));
+
+		if (!this.#skipMode) {
+			Dialog.showMessageDialog('Attribute Upgrade', this.#artifact.formatText(att, prevValue, currValue));
+		}
 	}
 
     #generate() {
@@ -185,9 +189,11 @@ class Artifact_Piece {
 				this.#value4 = this.#artifact.generateValue(this.#att4);
 				this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
 				
-				Dialog.showMessageDialog('New Attribute', this.#artifact.formatText(this.#att4) 
-										+ '     ----     ' 
-										+ this.#artifact.formatValue(this.#att4, this.#value4));
+				if (!this.#skipMode) {
+					Dialog.showMessageDialog('New Attribute', this.#artifact.formatText(this.#att4) 
+											+ '     ----     ' 
+											+ this.#artifact.formatValue(this.#att4, this.#value4));
+				}
 				
 				this.#isGenerated = true;
 			}
@@ -221,7 +227,40 @@ class Artifact_Piece {
     #displayText(attribute, value) {
 		return '· %s'.replace('%s', this.#artifact.formatText(attribute, value));
 	}
-	
+
+	displaySkippedStats() {
+		if (this.#skipMode) {
+			const temp = {};
+
+			if (this.#maxUpgrade === 4) {
+				this.upgradeValue();
+
+				for (let counter = 1; counter <= 4; counter++) {
+					this.upgradeValue();
+				}
+
+				temp.s1 = `${this.#artifact.formatText(this.#att1, this.#iValue1, this.#value1)}`;
+				temp.s2 = `${this.#artifact.formatText(this.#att2, this.#iValue2, this.#value2)}`;
+				temp.s3 = `${this.#artifact.formatText(this.#att3, this.#iValue3, this.#value3)}`;
+				temp.s4 = `${'%s   ---------   %f1'.replace('%s', this.#artifact.formatText(this.#att4))
+												.replace('%f1', this.#artifact.formatValue(this.#att4, this.#value4))}`;
+			} else {
+				for (let counter = 1; counter <= 5; counter++) {
+					this.upgradeValue();
+				}
+
+				temp.s1 = `${this.#artifact.formatText(this.#att1, this.#iValue1, this.#value1)}`;
+				temp.s2 = `${this.#artifact.formatText(this.#att2, this.#iValue2, this.#value2)}`;
+				temp.s3 = `${this.#artifact.formatText(this.#att3, this.#iValue3, this.#value3)}`;
+				temp.s4 = `${this.#artifact.formatText(this.#att4, this.#iValue4, this.#value4)}`;
+			}
+
+			Dialog.showMessageDialog('Final Stats', `${temp.s1}\n${temp.s2}\n${temp.s3}\n${temp.s4}`);
+		} else {
+			throw new Error('Invalid Argument: must be boolean!');
+		}
+	}
+
 	setArtifactPiece(artifactPiece) {
 		this.#artifactPiece = artifactPiece;
 	}
@@ -234,6 +273,16 @@ class Artifact_Piece {
 		this.#maxUpgrade = maxUpgrade;
 	}
 	
+	setSkipMode(mode) {
+		if (String(mode) === 'true') {
+			this.#skipMode = true;
+		} else if (String(mode) === 'false') {
+			this.#skipMode = false;
+		} else {
+			throw new Error('Invalid Argument: only true or false in string!');
+		}
+	}
+
 	setSlot(att1, att2, att3, att4) {
 		this.#att1 = att1;
 		this.#att2 = att2;
@@ -247,7 +296,7 @@ class Artifact_Piece {
 		this.#value3 = this.#iValue3 = value3;
 		this.#value4 = this.#iValue4 = value4;
 	}
-	
+
 	getArtifactPiece() {
 		return this.#artifactPiece;
 	}

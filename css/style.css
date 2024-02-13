@@ -133,6 +133,7 @@ button:focus {
     justify-content: space-between;
     margin-top: 20px;
     margin-bottom: 20px;
+    gap: 2px;
 }
 
 .row1 select {
@@ -164,6 +165,10 @@ button:focus {
 .row-btn1, .row-btn2 {
     display: flex;
     justify-content: space-evenly;
+}
+
+.row-btn2 {
+    gap: 5px;
 }
 
 .row3 {

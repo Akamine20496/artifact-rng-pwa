@@ -4,12 +4,25 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="./asset/Amber Icon.jpg" type="image/png">
-        <link rel="stylesheet" href="./css/style.css">
-        <link rel="stylesheet" href="./css/modalCustomStat.css">
-        <link rel="stylesheet" href="./css/dialog.css">
-        <!-- Top Javascript Scripts -->
-        <script defer src="./js/jquery-3.7.0.min.js"></script>
+        <meta name="theme-color" content="white">
+        <link rel="icon" href="asset/Amber_Icon192.png" type="image/png">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/modalCustomStat.css">
+        <link rel="stylesheet" href="css/dialog.css">
+        <link rel="manifest" href="json/manifest.json">
+        <link rel="apple-touch-icon" href="asset/Amber_Icon192.png">
+        <script defer src="js/jquery-3.7.0.min.js"></script>
+        <script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("js/serviceworker.js").then(reg => {
+                    console.log("SW Registered!");
+                    console.log(reg)
+                }).catch(err => {
+                    console.log("SW Registration Failed!");
+                    console.log(err)
+                });
+            }
+        </script>
         <title>Artifact RNG</title>
     </head>
     <body>
@@ -79,6 +92,7 @@
                         <button disabled id="btnReroll" class="text">Reroll</button>
                     </div>
                     <div class="row-btn2">
+                        <button disabled id="btnSkip" class="text">Skip</button>
                         <button disabled id="btnRoll" class="text">Roll</button>
                         <button disabled id="btnReset" class="text">Reset</button>
                     </div>
@@ -112,14 +126,14 @@
             </div>
         </div>
         <!-- Bottom Javascript Scripts -->
-        <script defer src="./js/Dialog.js"></script>
-        <script defer src="./js/Stat.js"></script>
-        <script defer src="./js/Attribute.js"></script>
-        <script defer src="./js/Artifact.js"></script>
-        <script defer src="./js/Artifact_Piece.js"></script>
-        <script defer src="./js/Artifact_Simulator.js"></script>
-        <script defer src="./js/CustomStat.js"></script>
-        <script defer src="./js/customStatModal.js"></script>
-        <script defer src="./js/main.js"></script>
+        <script defer src="js/Dialog.js"></script>
+        <script defer src="js/Stat.js"></script>
+        <script defer src="js/Attribute.js"></script>
+        <script defer src="js/Artifact.js"></script>
+        <script defer src="js/Artifact_Piece.js"></script>
+        <script defer src="js/Artifact_Simulator.js"></script>
+        <script defer src="js/CustomStat.js"></script>
+        <script defer src="js/customStatModal.js"></script>
+        <script defer src="js/main.js"></script>
     </body>
 </html>

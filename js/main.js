@@ -11,6 +11,7 @@ $(document).ready(() => {
                 + "Lock - Locks the combo box and some buttons that are not needed\n"
                 + "Generate - Displays main stat selected by the user, artifact piece, and\n"
                 + "generates random sub-stats and their values\n"
+                + "Skip - Directly upgrades the artifact to max\n"
                 + "Roll - Upgrades random value of the sub-stat\n"
                 + "Reroll - Removes the upgrades of their sub-stats\n"
                 + "Reset - Clears the main stat, sub-stats and their values\n"

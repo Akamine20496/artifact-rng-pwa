@@ -419,20 +419,20 @@ class Artifact extends Attribute {
         return Math.round(value).toString();
     }
 
-    isUnique(att1, att2, att3, att4) {
-        // checks if the type of all parameters are not string
-        if (typeof att1 !== 'string' && typeof att2 !== 'string' && typeof att3 !== 'string' && typeof att4 !== 'string') {
-            throw new TypeError('Invalid Data Type: All Arguments must be a string.');
-        }
-
+    isUnique(...attributes) {
         const map = new Map();
-        map.set(att1, 1);
-        map.set(att2, 1);
-        map.set(att3, 1);
-        map.set(att4, 1);
+
+        attributes.forEach(attribute => {
+            // checks if the type of all parameters are not string
+            if (typeof attribute !== 'string' && attribute !== null) {
+                throw new TypeError('Invalid Data Type: All Arguments must be a string.');
+            } else {
+                map.set(attribute, 1);
+            }
+        });
 
         // If map size is equal to 4, all attributes are unique
-        return map.size === 4;
+        return map.size === attributes.length;
     }
 
     // GENERATING RANDOM ATTRIBUTE
