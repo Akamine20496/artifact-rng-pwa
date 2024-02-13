@@ -15,6 +15,7 @@ const assets = [
     "./js/jquery-3.7.0.min.js",
     "./js/main.js",
     "./js/Stat.js",
+    "./asset/Amber Icon.jpg",
     "./asset/Amber_Icon192.png",
     "./asset/Amber_Icon512.png"
 ];
