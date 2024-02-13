@@ -23,7 +23,7 @@ const assets = [
 // install
 self.addEventListener("install", evt => {
     evt.waitUntil(
-      caches.open("artifact_rng-cache")
+      caches.open("artifact_rngCache")
       .then(cache => cache.addAll(assets))
       .catch(err => console.error(err))
     );
