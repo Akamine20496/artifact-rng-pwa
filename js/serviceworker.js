@@ -1,5 +1,4 @@
 const assets = [
-    "../",
     "../index.html",
     "../json/manifest.json",
     "../css/dialog.css",
