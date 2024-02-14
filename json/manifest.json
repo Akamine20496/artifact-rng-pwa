@@ -2,7 +2,7 @@
     "name": "Artifact RNG",
     "short_name": "Artifact RNG",
     "description": "A gambling artifact addiction for genshin player",
-    "start_url": "index.html",
+    "start_url": "../index.html",
     "background_color": "white",
     "theme_color": "white",
     "display": "standalone",
