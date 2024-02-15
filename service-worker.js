@@ -1,31 +1,31 @@
 const CACHE_NAME = 'artifact-rng-cache';
 
 const ASSETS = [
-    "/",
-    "index.html",
-    "./json/manifest.json",
-    "./css/dialog.css",
-    "./css/modalCustomStat.css",
-    "./css/style.css",
-    "./js/main.js",
-    "./js/Stat.js",
-    "./js/Artifact_Piece.js",
-    "./js/Artifact_Simulator.js",
-    "./js/Artifact.js",
-    "./js/Attribute.js",
-    "./js/CustomStat.js",
-    "./js/customStatModel.js",
-    "./js/Dialog.js",
-    "./js/jquery-3.7.0.min.js",
-    "./asset/Amber Icon.jpg",
-    "./asset/Amber_Icon192.png",
-    "./asset/Amber_Icon512.png",
+    "../",
+    "../index.html",
+    "../json/manifest.json",
+    "../css/dialog.css",
+    "../css/modalCustomStat.css",
+    "../css/style.css",
+    "./main.js",
+    "./Stat.js",
+    "./Artifact_Piece.js",
+    "./Artifact_Simulator.js",
+    "./Artifact.js",
+    "./Attribute.js",
+    "./CustomStat.js",
+    "./customStatModel.js",
+    "./Dialog.js",
+    "./jquery-3.7.0.min.js",
+    "../asset/Amber Icon.jpg",
+    "../asset/Amber_Icon192.png",
+    "../asset/Amber_Icon512.png",
     "https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg"
 ];
 
 // install
-self.addEventListener('install', e => {
-    e.waitUntil((async () => {
+self.addEventListener('install', event => {
+    event.waitUntil((async () => {
         const cache = await caches.open(CACHE_NAME);
         console.log('Adding cache: ', cache);
         cache.addAll(ASSETS);
@@ -48,25 +48,25 @@ self.addEventListener("activate", event => {
 });
 
 // fetch
-self.addEventListener('fetch', e => {
-    e.respondWith((async () => {
+self.addEventListener('fetch', event => {
+    event.respondWith((async () => {
         const cache = await caches.open(CACHE_NAME);
 
         // get the resource from the cache
-        const cachedResponse = await cache.match(e.request);
+        const cachedResponse = await cache.match(event.request);
         console.log('Cached Response', cachedResponse);
         if (cachedResponse) {
             return cachedResponse;
         } else {
             try {
                 // if the resource was not in the cache, try the network
-                const fetchResponse = await fetch(e.request);
+                const fetchResponse = await fetch(event.request);
 
                 // save the resource in the cache and return it
-                cache.put(e.request, fetchResponse.clone());
+                cache.put(event.request, fetchResponse.clone());
 
                 return fetchResponse;
-            } catch (e) {
+            } catch (event) {
                 // The network failed
                 console.log('Network Failed');
             }
