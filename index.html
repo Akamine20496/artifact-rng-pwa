@@ -10,20 +10,8 @@
         <link rel="stylesheet" href="css/modalCustomStat.css">
         <link rel="stylesheet" href="css/dialog.css">
         <link rel="manifest" href="json/manifest.json">
-        <script>
-            window.onload = () => {
-                if ("serviceWorker" in navigator) {
-                    navigator.serviceWorker.register("service-worker.js")
-                        .then(registration => {
-                            console.log("Service Worker Registered", registration.scope);
-                        })
-                        .catch(err => {
-                            console.log("Service Worker Registration Failed", registration.scope);
-                        });
-                }
-            };
-        </script>
         <script defer src="js/jquery-3.7.0.min.js"></script>
+        <script defer src="app.js"></script>
         <title>Artifact RNG</title>
     </head>
     <body>
