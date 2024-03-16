@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    user-select: none;
 }
 
 html {
@@ -12,7 +13,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -215,11 +215,15 @@ button:focus {
     }
 }
   
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 0px) and (max-width: 550px) {
     .main-container {
       flex-wrap: wrap;
       height: auto;
       margin: 2%;
+    }
+
+    .main-container button, .main-container select {
+        height: 38px;
     }
 
     html {

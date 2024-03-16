@@ -1,3 +1,7 @@
+* {
+    user-select: none;
+}
+
 #messageDialog, #inputDialog {
     border: none;           /* Remove the border */
     border-radius: 8px;    /* Make it rounder */
@@ -5,8 +9,6 @@
     font-family: 'Segoe UI';
     background-color: #f1f1f1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    opacity: 0;
     animation: fade-in 0.3s ease;
     animation-fill-mode: forwards;
 }
@@ -21,7 +23,7 @@
   
 #messageDialog::-webkit-scrollbar-thumb, #inputDialog::-webkit-scrollbar-thumb {
     background-color: #888;
-    border-radius: 5px;
+    border-radius: 10px;
 }
   
 #messageDialog::-webkit-scrollbar-thumb:hover, #inputDialog::-webkit-scrollbar-thumb:hover {

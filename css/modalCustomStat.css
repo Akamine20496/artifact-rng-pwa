@@ -7,6 +7,8 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
+    animation: fade-in 0.3s ease;
+    animation-fill-mode: forwards;
 }
   
 #modalContent {
@@ -90,6 +92,9 @@ ul li::before {
     float: right;
     font-size: 28px;
     font-weight: bold;
+
+    margin-left: 100%;
+    margin-bottom: 10px;
 }
   
 .close:hover, .close:focus {
@@ -125,16 +130,26 @@ ul li::before {
 .row-btns .row-btn1 button, .row-btns .row-btn2 button {
     width: 48%;
 }
+
+#cboValue1, #cboValue2, #cboValue3, #cboValue4 {
+    width: 50%;
+}
   
 /* Media query for mobile screens */
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1113px) {
     #modalContent {
         width: 80%;
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 768px) {
+    #modalContent {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 550px) {
     #modalOverlay {
         overflow-y: scroll;
     }
@@ -143,7 +158,11 @@ ul li::before {
         width: 90%;
         transform: translateY(-35%);
     }
-      
+    
+    #modalContent button, #modalContent select {
+        height: 38px;
+    }
+
     .content-col-1, .content-col-2 {
         width: 100%;
     }
@@ -159,5 +178,18 @@ ul li::before {
     .custom-stat-container {
         flex-wrap: wrap;
     }
+
+    #cboValue1, #cboValue2, #cboValue3, #cboValue4 {
+        width: 40%;
+    }
 }
-  
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    
+    to {
+      opacity: 1;
+    }
+}
