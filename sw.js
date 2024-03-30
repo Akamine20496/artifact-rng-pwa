@@ -17,7 +17,7 @@ const ASSETS = [
     "./js/CustomStat.js",
     "./js/customStatModel.js",
     "./js/Dialog.js",
-    "./js/jquery-3.7.0.min.js",
+    "./jquery/jquery-3.7.0.min.js",
     "./asset/Amber Icon.jpg",
     "./asset/Amber_Icon192.png",
     "./asset/Amber_Icon512.png",
@@ -27,14 +27,14 @@ const ASSETS = [
 // install
 self.addEventListener('install', event => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
-    event.waitUntil((async () => {
+    event.waitUntil(async () => {
         // Open a new cache storage with the specified CACHE_NAME
         const cache = await caches.open(CACHE_NAME);
         // Log a message indicating the opening of the cache
         console.log('Adding cache: ', ASSETS);
         // Add all specified ASSETS to the cache
         cache.addAll(ASSETS);
-    })());
+    });
 });
 
 // activate
@@ -68,7 +68,7 @@ self.addEventListener('fetch', event => {
 
         // get the resource from the cache
         const cachedResponse = await cache.match(event.request);
-        console.log('Cached Response', cachedResponse);
+
         if (cachedResponse) {
             return cachedResponse;
         } else {

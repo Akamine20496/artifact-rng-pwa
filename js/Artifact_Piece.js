@@ -233,6 +233,7 @@ class Artifact_Piece {
 			const temp = {};
 
 			if (this.#maxUpgrade === 4) {
+				// generate new attribute first
 				this.upgradeValue();
 
 				for (let counter = 1; counter <= 4; counter++) {

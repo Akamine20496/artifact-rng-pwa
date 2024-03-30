@@ -45,10 +45,10 @@ class Custom_Stat {
             this.#cboArtifactPiece.appendChild(optionLabel);
 
             // adds the artifact pieces to the <select> element
-            for (let i = 0; i < arrArtifactPiece.length; i++) {
+            for (const artifactPiece of arrArtifactPiece) {
                 const option = document.createElement('option');
-                option.value = arrArtifactPiece[i];
-                option.innerText = arrArtifactPiece[i];
+                option.value = artifactPiece;
+                option.innerText = artifactPiece;
                 option.setAttribute('class', 'text');
                 this.#cboArtifactPiece.appendChild(option);
             }
@@ -183,7 +183,7 @@ class Custom_Stat {
                     await Dialog.showInputDialog('Add Sub-Stat', text);
                     const response = await Dialog.getInputText();
 
-                    if (response !== null) {
+                    if (response !== '') {
                         if (this.#equals(attribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
                             await Dialog.showMessageDialog('Artifact RNG', `${attribute} is already been added!`);
                         } else {
@@ -213,6 +213,8 @@ class Custom_Stat {
                                 await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to add the stat!');
                             }
                         }
+                    } else if (response === '') {
+                        await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to add the stat!');
                     } else {
                         // outputs null when cancelled
                         isAdded = true;
@@ -238,7 +240,7 @@ class Custom_Stat {
                 await Dialog.showInputDialog('Remove Sub-Stat', text);
                 const response = await Dialog.getInputText();
                 
-                if (response !== null) {
+                if (response !== '') {
                     if (await Dialog.getInputLength() > 0) {
                         switch (response) {
                             case "1":
@@ -264,8 +266,10 @@ class Custom_Stat {
                     } else {
                         await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
                     }
+                } else if (response === '') {
+                    await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
                 } else {
-                    // outputs null if cancelled
+                    // outputs null when cancelled
                     isRemoved = true;
                 }
             } while(!isRemoved);
@@ -377,21 +381,28 @@ class Custom_Stat {
     }
 
     #isNone(...lblAttributes) {
+        let isNone = false;
+
         for (const lblAttr of lblAttributes) {
             if (lblAttr.innerText === 'None') {
-              return true;
+                isNone = true;
+                break;
             }
         }
-        return false;
+
+        return isNone;
     }
 
     #equals(attribute, ...lblAttributes) {
+        let isEqual = false; 
+
         for (const lblAttr of lblAttributes) {
             if (attribute === lblAttr.innerText) {
-                return true;
+                isEqual = true;
+                break;
             }
         }
-        return false;
+        return isEqual;
     }
 
     #setStatValue(cboValue, listValue) {
@@ -407,10 +418,10 @@ class Custom_Stat {
         cboValue.appendChild(optionLabel);
 
         // adds the artifact pieces to the <select> element
-        for (let i = 0; i < listValue.length; i++) {
+        for (const value of listValue) {
             const option = document.createElement('option');
-            option.value = listValue[i];
-            option.innerText = listValue[i];
+            option.value = value;
+            option.innerText = value;
             option.setAttribute('class', 'text');
             cboValue.appendChild(option);
         }
@@ -429,10 +440,10 @@ class Custom_Stat {
         this.#cboMainStat.appendChild(optionLabel);
 
         // adds the artifact pieces to the <select> element
-        for (let i = 0; i < artifactPiece.length; i++) {
+        for (const piece of artifactPiece) {
             const option = document.createElement('option');
-            option.value = artifactPiece[i];
-            option.innerText = artifactPiece[i];
+            option.value = piece;
+            option.innerText = piece;
             option.setAttribute('class', 'text');
             this.#cboMainStat.appendChild(option);
         }
@@ -440,9 +451,9 @@ class Custom_Stat {
 
     #setSubStatList(listAttribute) {
         // adds the artifact pieces to the <select> element
-        for (let i = 0; i < listAttribute.length; i++) {
+        for (const attribute of listAttribute) {
             const li = document.createElement('li');
-            li.innerText = listAttribute[i];
+            li.innerText = attribute;
             this.#subStatList.appendChild(li);
         }
     }

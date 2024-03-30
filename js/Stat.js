@@ -3,19 +3,19 @@ class Stat {
     // private variables
     #attribute = null;
     #probability = 0.00;
-    #values = new Array();
+    #values = [];
 
     // constructor method
-    constructor(arg1, arg2) {
+    constructor(attName, attValue) {
         // accepts string and number (double)
-        if (typeof arg1 === 'string' && typeof arg2 === 'number') {
-            this.#attribute = arg1;
-            this.#probability = arg2;
+        if (typeof attName === 'string' && typeof attValue === 'number') {
+            this.#attribute = attName;
+            this.#probability = attValue;
         } 
         // accepts string and array
-        else if (typeof arg1 === 'string' && Array.isArray(arg2)) {
-            this.#attribute = arg1;
-            this.#values = arg2;
+        else if (typeof attName === 'string' && Array.isArray(attValue)) {
+            this.#attribute = attName;
+            this.#values = attValue;
         }
     }
 

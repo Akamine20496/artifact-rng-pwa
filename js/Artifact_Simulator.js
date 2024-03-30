@@ -32,11 +32,11 @@ class Artifact_Simulator {
             this.#cboArtifactPiece.appendChild(optionLabel);
 
             // adds the artifact pieces to the <select> element
-            for (let i = 0; i < arrArtifactPiece.length; i++) {
+            for (const artifactPiece of arrArtifactPiece) {
                 const option = document.createElement('option');
                 option.setAttribute('class', 'text');
-                option.value = arrArtifactPiece[i];
-                option.innerText = arrArtifactPiece[i];
+                option.value = artifactPiece;
+                option.innerText = artifactPiece;
                 this.#cboArtifactPiece.appendChild(option);
             }
         }
@@ -62,7 +62,7 @@ class Artifact_Simulator {
                 Dialog.showMessageDialog('Artifact RNG', 'Click the \'Lock\' first.');
             } else {
                 const selectedPiece = this.#cboArtifactPiece.value;
-		this.#artifactPiece.setArtifactPiece(selectedPiece);
+		        this.#artifactPiece.setArtifactPiece(selectedPiece);
                 this.#artifactPiece.generateStat();
 
                 this.#pMaxUpgradeValue.innerText = this.#artifactPiece.getMaxUpgrade();
@@ -74,6 +74,7 @@ class Artifact_Simulator {
                 this.#btnReset.disabled = false;
                 this.#btnCustomStat.disabled = true;
                 this.#btnRoll.focus();
+
                 Dialog.showMessageDialog('Artifact RNG', 'Stats has been generated!');
             }
         });
@@ -93,14 +94,16 @@ class Artifact_Simulator {
             this.#artifactPiece.setSkipMode('false');
             this.#btnSkip.disabled = true;
 
-            if (Number(this.#pMaxUpgradeValue.innerText) === 4 && this.#isNewAttribute) {
+            const maxUpgradeValue = Number(this.#pMaxUpgradeValue.innerText);
+
+            if (maxUpgradeValue === 4 && this.#isNewAttribute) {
                 this.#artifactPiece.upgradeValue();
                 this.#isNewAttribute = false;
-            } else if (this.#rollCounter <= Number(this.#pMaxUpgradeValue.innerText)) {
+            } else if (this.#rollCounter <= maxUpgradeValue) {
                 this.#artifactPiece.upgradeValue();
                 this.#rollCounter++;
                 
-                if (this.#rollCounter === Number(this.#pMaxUpgradeValue.innerText) + 1) {
+                if (this.#rollCounter === maxUpgradeValue + 1) {
                     this.#btnRoll.disabled = true;
                     this.#btnReroll.focus();
                 }
@@ -116,15 +119,18 @@ class Artifact_Simulator {
             this.#btnRoll.disabled = false;
             this.#btnReroll.disabled = true;
             this.#btnReset.disabled = false;
-            this.#rollCounter = 1;
             this.#isNewAttribute = true;
+
+            this.#rollCounter = 1;
+
             this.#btnRoll.focus();
         });
 
         // btnReset
         this.#btnReset.addEventListener('click', () => {
             this.#pMaxUpgradeValue.innerText = 0;
-            this.#artifactPiece.resetStat();
+            this.#rollCounter = 1;
+
             this.#btnLock.disabled = false;
             this.#btnGenerate.disabled = false;
             this.#btnSkip.disabled = true;
@@ -132,10 +138,11 @@ class Artifact_Simulator {
             this.#btnReroll.disabled = true;
             this.#btnReset.disabled = true;
             this.#btnCustomStat.disabled = false;
-            this.#rollCounter = 1;
             this.#isNewAttribute = true;
-            this.#pMaxUpgradeValue.innerText = 0;
+
+            this.#artifactPiece.resetStat();
             this.#btnGenerate.focus();
+
             Dialog.showMessageDialog('Artifact RNG', 'Stats are removed!');
         });
 

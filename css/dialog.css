@@ -1,7 +1,3 @@
-* {
-    user-select: none;
-}
-
 #messageDialog, #inputDialog {
     border: none;           /* Remove the border */
     border-radius: 8px;    /* Make it rounder */

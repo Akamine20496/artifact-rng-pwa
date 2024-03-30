@@ -31,6 +31,7 @@ class Attribute {
 	static GEO_DMG_BONUS = 'Geo DMG Bonus%';
 	static PHYSICAL_DMG_BONUS = 'Physical DMG Bonus%';
 	static HEALING_BONUS = 'Healing Bonus%';
+    
     // static array variables
     static STATS = [
         new Stat(this.HP_FLAT, this.HP_FLAT_VALUE),

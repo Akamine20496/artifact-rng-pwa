@@ -439,11 +439,11 @@ class Artifact extends Attribute {
 
     #generatedAttribute(listAttribute) {
         // boolean variable
-        let isStatClass = false;
+        let isNotStatClass = false;
         // checks if the element inside the array is Stat Class
         for (const stats of listAttribute) {
-            if (stats.constructor.name === 'Stat') {
-                isStatClass = true;
+            if (!stats instanceof Stat) {
+                isNotStatClass = true;
                 break;
             }
         }
@@ -453,7 +453,7 @@ class Artifact extends Attribute {
             throw new TypeError('Invalid Data Type: must be an array.');
         } 
         // checks if the array is not Stat Class
-        else if (!isStatClass) {
+        else if (isNotStatClass) {
             throw new Error('Invalid Data Type: the element must be a Stat Class.');
         }
 
@@ -475,11 +475,11 @@ class Artifact extends Attribute {
 
     #generatedValue(attributeValue) {
         // boolean variable
-        let isNumber = false;
+        let isNotNumber = false;
         // checks if the element inside the array is a number
         for (const values of attributeValue) {
-            if (Number(values)) {
-                isNumber = true;
+            if (!typeof values === 'number') {
+                isNotNumber = true;
                 break;
             }
         }
@@ -489,7 +489,7 @@ class Artifact extends Attribute {
             throw new TypeError('Invalid Data Type: must be an array.');
         } 
         // checks if it is not a number
-        else if (!isNumber) {
+        else if (isNotNumber) {
             throw new TypeError('Invalid Data Type: the element must be a number.');
         }
 
@@ -509,6 +509,7 @@ class Artifact extends Attribute {
     }
 
     // NUMBER GENERATOR
+    
     // Generates number from 0.0... to 99.9...
     generateNumber() {
         return Math.random() * 100;
