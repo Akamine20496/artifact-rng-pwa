@@ -1,11 +1,19 @@
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js")
-            .then(registration => {
-                console.log("Service Worker Registered", registration.scope);
-            })
-            .catch(error => {
-                console.log(`Service Worker Registration Failed: ${error}`, registration.scope);
-            });
+        await navigator.serviceWorker.register('sw.js', {
+            scope: '/'
+        })
+        .then(registration => {
+            if (registration.installing) {
+                console.log('Service worker installing');
+            } else if (registration.waiting) {
+                console.log('Service worker installed');
+            } else if (registration.active) {
+                console.log('Service worker active');
+            }
+        })
+        .catch(error => {
+            console.error(`Registration failed with ${error}`)
+        });
     }
 });

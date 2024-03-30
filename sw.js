@@ -33,7 +33,7 @@ self.addEventListener('install', event => {
         // Log a message indicating the opening of the cache
         console.log('Adding cache: ', ASSETS);
         // Add all specified ASSETS to the cache
-        cache.addAll(ASSETS);
+        await cache.addAll(ASSETS);
     });
 });
 
@@ -63,7 +63,7 @@ self.addEventListener("activate", event => {
 
 // fetch
 self.addEventListener('fetch', event => {
-    event.respondWith((async () => {
+    event.respondWith(async () => {
         const cache = await caches.open(CACHE_NAME);
 
         // get the resource from the cache
@@ -85,5 +85,5 @@ self.addEventListener('fetch', event => {
                 console.log('Network Failed: ' + event);
             }
         }
-    })());
+    });
 });
