@@ -1,4 +1,5 @@
-const CACHE_NAME = 'artifact-rng-cache';
+const cacheNaming = 'artifact-rng-cache';
+const CACHE_NAME = 'artifact-rng-cache-v2';
 
 const ASSETS = [
     "/",
@@ -38,25 +39,24 @@ self.addEventListener('install', event => {
 });
 
 // activate
+const deleteCache = async (key) => {
+    // delete cache
+    console.info('Deleting old cache', key);
+    await caches.delete(key);
+};
+
+const deleteOldCaches = async () => {
+    // retrieve all caches
+    const keyList = await caches.keys();
+    // get all caches that is same to the name but different versions
+    const cachesToDelete = keyList.filter(key => key.startsWith(cacheNaming) && !key === CACHE_NAME);
+    // remove those filters caches
+    await Promise.all(cachesToDelete.map(deleteCache));
+};
+
 self.addEventListener("activate", event => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
-    event.waitUntil(
-        // Retrieve all cache storage keys
-        caches.keys().then(cacheNames => {
-            // Iterate through each cache storage key
-            cacheNames.forEach(name => {
-                // Check if the cache storage key matches the specified CACHE_NAME
-                if (name === CACHE_NAME) {
-                    // If it matches, log a message indicating deletion of the old cache
-                    console.log('Deleting old cache:', name);
-                    // Delete the cache with the matching name
-                    caches.delete(name);
-                }
-            })
-        }).then(() => {
-            self.skipWaiting();
-        })
-    );
+    event.waitUntil(deleteOldCaches());
     // Immediately take control of clients
     self.clients.claim();
 });
@@ -81,8 +81,10 @@ self.addEventListener('fetch', event => {
 
                 return fetchResponse;
             } catch (event) {
-                // The network failed
-                console.log('Network Failed: ' + event);
+                return new Response('Network error happened', {
+                    status: 408,
+                    headers: {'Content-Type': 'text/plain'}
+                });
             }
         }
     });
