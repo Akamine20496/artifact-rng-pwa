@@ -47,7 +47,7 @@ const deleteOldCaches = async () => {
     // retrieve all caches
     const keyList = await caches.keys();
     // get all caches that is same to the name but different versions
-    const cachesToDelete = keyList.filter(key => key.startsWith(cacheNaming) && !key === CACHE_NAME);
+    const cachesToDelete = keyList.filter(key => key.startsWith(cacheNaming) && key !== CACHE_NAME);
     // remove those filters caches
     await Promise.all(cachesToDelete.map(deleteCache));
 };
