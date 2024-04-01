@@ -78,7 +78,7 @@ self.addEventListener('fetch', event => {
                 cache.put(event.request, fetchResponse.clone());
 
                 return fetchResponse;
-            } catch (error) {
+            } catch {
                 return new Response('Network error happened', {
                     status: 408,
                     headers: {'Content-Type': 'text/plain'}
