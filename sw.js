@@ -31,8 +31,6 @@ self.addEventListener('install', event => {
     event.waitUntil((async () => {
         // Open a new cache storage with the specified CACHE_NAME
         const cache = await caches.open(CACHE_NAME);
-        // Log a message indicating the opening of the cache
-        console.log('Adding cache: ', ASSETS);
         // Add all specified ASSETS to the cache
         await cache.addAll(ASSETS);
     })());
