@@ -28,14 +28,14 @@ const ASSETS = [
 // install
 self.addEventListener('install', event => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
-    event.waitUntil(async () => {
+    event.waitUntil((async () => {
         // Open a new cache storage with the specified CACHE_NAME
         const cache = await caches.open(CACHE_NAME);
         // Log a message indicating the opening of the cache
         console.log('Adding cache: ', ASSETS);
         // Add all specified ASSETS to the cache
         await cache.addAll(ASSETS);
-    });
+    })());
 });
 
 // activate
@@ -56,14 +56,14 @@ const deleteOldCaches = async () => {
 
 self.addEventListener("activate", event => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
-    event.waitUntil(deleteOldCaches());
+    event.waitUntil(deleteOldCaches().then(self.skipWaiting()));
     // Immediately take control of clients
     self.clients.claim();
 });
 
 // fetch
 self.addEventListener('fetch', event => {
-    event.respondWith(async () => {
+    event.respondWith((async () => {
         const cache = await caches.open(CACHE_NAME);
 
         // get the resource from the cache
@@ -80,12 +80,12 @@ self.addEventListener('fetch', event => {
                 cache.put(event.request, fetchResponse.clone());
 
                 return fetchResponse;
-            } catch (event) {
+            } catch (error) {
                 return new Response('Network error happened', {
                     status: 408,
                     headers: {'Content-Type': 'text/plain'}
                 });
             }
         }
-    });
+    })());
 });
