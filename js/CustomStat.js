@@ -172,6 +172,7 @@ class Custom_Stat {
                 element.removeClass('selected');
 
                 // Do-While Loop
+                outerLoop:
                 do {
                     // retrieve the selected attribute from sessionStorage
                     const attribute = sessionStorage.getItem('selectedStat');
@@ -183,7 +184,7 @@ class Custom_Stat {
                     await Dialog.showInputDialog('Add Sub-Stat', text);
                     const response = await Dialog.getInputText();
 
-                    if (response !== '') {
+                    if (response !== '' && response !== null) {
                         if (this.#equals(attribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
                             await Dialog.showMessageDialog('Artifact RNG', `${attribute} is already been added!`);
                         } else {
@@ -216,8 +217,7 @@ class Custom_Stat {
                     } else if (response === '') {
                         await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to add the stat!');
                     } else {
-                        // outputs null when cancelled
-                        isAdded = true;
+                        break outerLoop;
                     }
                 } while (!isAdded);
             } else {
@@ -233,6 +233,7 @@ class Custom_Stat {
             && this.#isNone(this.#lblAttr3) && this.#isNone(this.#lblAttr4)) {
                 Dialog.showMessageDialog('Artifact RNG', 'Slots are empty!');
         } else {
+            outerLoop:
             do {
                 const text = 'Enter the number to remove a sub-stat and click \'OK\'\n'
                             + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
@@ -240,7 +241,7 @@ class Custom_Stat {
                 await Dialog.showInputDialog('Remove Sub-Stat', text);
                 const response = await Dialog.getInputText();
                 
-                if (response !== '') {
+                if (response !== '' && response !== null) {
                     if (await Dialog.getInputLength() > 0) {
                         switch (response) {
                             case "1":
@@ -270,7 +271,7 @@ class Custom_Stat {
                     await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
                 } else {
                     // outputs null when cancelled
-                    isRemoved = true;
+                    break outerLoop;
                 }
             } while(!isRemoved);
         }

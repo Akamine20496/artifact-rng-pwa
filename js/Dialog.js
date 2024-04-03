@@ -37,7 +37,10 @@ class Dialog {
                 btnOk.addEventListener('click', () => {
                     // store the value to the session storage
                     sessionStorage.setItem('inputValue', input.value);
-                    // remove the element
+                    // close the dialog
+                    inputDialog.close();
+
+                    // remove the element                                       
                     $(inputDialog).remove();
 
                     // Resolve the promise to indicate that the modal has been closed
@@ -47,6 +50,10 @@ class Dialog {
                 btnCancel.addEventListener('click', () => {
                     // remove the stored value
                     sessionStorage.removeItem('inputValue');
+
+                    // close the dialog
+                    inputDialog.close();
+
                     // remove the element
                     $(inputDialog).remove();
 
@@ -95,8 +102,11 @@ class Dialog {
                 btnOk.addEventListener('click', () => {
                     // Close the modal
                     messageDialog.close();
-                    // remove the element
-                    $(messageDialog).remove();
+                    
+                    setTimeout(() => {
+                        // remove the element
+                        $(messageDialog).remove(); 
+                    }, 20);
 
                     // Resolve the promise to indicate that the modal has been closed
                     resolve();
