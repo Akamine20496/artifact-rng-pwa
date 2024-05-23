@@ -124,6 +124,10 @@ button:focus {
     border-color: black;
 }
 
+button:disabled {
+    pointer-events: none;
+}
+
 .lblHeader {
     padding: 10px;
     align-self: center;

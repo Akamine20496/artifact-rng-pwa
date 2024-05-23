@@ -1,5 +1,5 @@
 const cacheNaming = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v4';
+const CACHE_NAME = 'artifact-rng-cache-v5';
 
 const ASSETS = [
     "/",
@@ -79,7 +79,7 @@ self.addEventListener('fetch', event => {
 
                 return fetchResponse;
             } catch {
-                return new Response('Network error happened', {
+                return new Response('Failed to fetch resources online.', {
                     status: 408,
                     headers: {'Content-Type': 'text/plain'}
                 });
