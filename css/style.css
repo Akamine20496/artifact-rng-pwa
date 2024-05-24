@@ -3,6 +3,10 @@
     user-select: none;
 }
 
+*:disabled {
+    pointer-events: none;
+}
+
 html {
     width: 100%;
     height: 100%;
@@ -122,10 +126,6 @@ button:hover {
 button:focus {
     background-color: lightgray;
     border-color: black;
-}
-
-button:disabled {
-    pointer-events: none;
 }
 
 .lblHeader {
