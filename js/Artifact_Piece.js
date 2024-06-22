@@ -1,5 +1,8 @@
+import Dialog from "./Dialog";
+import Artifact from "./Artifact";
+
 // Class Artifact_Piece
-class Artifact_Piece {
+export default class Artifact_Piece {
     // variables
     #artifact = new Artifact();
     #lblArtifactPiece = document.getElementById('lblArtifactPiece');

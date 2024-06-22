@@ -1,5 +1,9 @@
+import Dialog from "./Dialog";
+import Attribute from "./Attribute";
+import Artifact from "./Artifact";
+
 // Class Custom Stat
-class Custom_Stat {
+export default class Custom_Stat {
     #modalOverlay = document.getElementById('modalOverlay');
     #artifact = new Artifact();
     #artifact_piece = null;
@@ -54,8 +58,8 @@ class Custom_Stat {
             }
 
             this.#setMainStatList(this.#artifact.getFlower());
-            this.#defaultValue(this.#cboValue1, this.#cboValue2, 
-                                this.#cboValue3, this.#cboValue4);
+            this.#defaultValue(this.#cboValue1, this.#cboValue2,
+                this.#cboValue3, this.#cboValue4);
         }
 
         // cboArtifactPiece
@@ -107,9 +111,9 @@ class Custom_Stat {
 
         // shortcut to open the btnAddSubStat
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && this.#subStatList.children.length !== 0 && 
+            if (event.key === 'Enter' && this.#subStatList.children.length !== 0 &&
                 $(this.#subStatList).children().hasClass('selected')) {
-                    this.#btnAddSubStat.dispatchEvent(new Event('click'));
+                this.#btnAddSubStat.dispatchEvent(new Event('click'));
             }
         });
 
@@ -125,26 +129,26 @@ class Custom_Stat {
 
         // btnRemoveAll
         this.#btnRemoveAll.addEventListener('click', () => {
-            if (this.#isNone(this.#lblAttr1) && this.#isNone(this.#lblAttr2) 
+            if (this.#isNone(this.#lblAttr1) && this.#isNone(this.#lblAttr2)
                 && this.#isNone(this.#lblAttr3) && this.#isNone(this.#lblAttr4)) {
-                    Dialog.showMessageDialog('Artifact RNG', 'There are no sub-stats!');
-			} else {
+                Dialog.showMessageDialog('Artifact RNG', 'There are no sub-stats!');
+            } else {
                 this.#lblAttr1.innerText = 'None';
                 this.#lblAttr2.innerText = 'None';
                 this.#lblAttr3.innerText = 'None';
                 this.#lblAttr4.innerText = 'None';
 
-                this.#defaultValue(this.#cboValue1, this.#cboValue2, 
-                                    this.#cboValue3, this.#cboValue4);
+                this.#defaultValue(this.#cboValue1, this.#cboValue2,
+                    this.#cboValue3, this.#cboValue4);
 
                 Dialog.showMessageDialog('Artifact RNG', 'Sub-stats are removed!');
-			}
+            }
         });
 
         // btnSave (btnDisplayStat)
         this.#btnDisplayStat.addEventListener('click', () => {
             const attribute = this.#cboMainStat.value;
-				
+
             if (this.#isNone(this.#lblAttr1, this.#lblAttr2, this.#lblAttr3)) {
                 Dialog.showMessageDialog('Artifact RNG', 'Add Sub-stats!');
             } else if (this.#equals(attribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
@@ -159,69 +163,59 @@ class Custom_Stat {
 
     async #addSubStat() {
         if (this.#subStatList.children.length === 0) {
-            Dialog.showMessageDialog('Artifact RNG', 'List is empty!');
+            await Dialog.showMessageDialog('Artifact RNG', 'List is empty!');
         } else {
             if (this.#getSelectedIndex() >= 0) {
                 let isAdded = false;
 
                 // retrieve the element of the selected attribute
                 const element = $(this.#subStatList).find('li.selected:first');
-                // store to the session storage
-                sessionStorage.setItem('selectedStat', element.text());
+                // store the selected attribute
+                const selectedAttribute = element.text();
                 // remove the class name 'selected'
                 element.removeClass('selected');
 
                 // Do-While Loop
-                outerLoop:
                 do {
-                    // retrieve the selected attribute from sessionStorage
-                    const attribute = sessionStorage.getItem('selectedStat');
-
                     // text of the prompt
                     const text = 'Enter the number to add a sub-stat and click \'OK\'\n'
-                                + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
+                        + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
 
-                    await Dialog.showInputDialog('Add Sub-Stat', text);
-                    const response = await Dialog.getInputText();
+                    const response = await Dialog.showInputDialog('Add Sub-Stat', text);
 
-                    if (response !== '' && response !== null) {
-                        if (this.#equals(attribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
-                            await Dialog.showMessageDialog('Artifact RNG', `${attribute} is already been added!`);
+                    if ((response.output !== null) && (response.outputLength > 0)) {
+                        if (this.#equals(selectedAttribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
+                            await Dialog.showMessageDialog('Artifact RNG', `${selectedAttribute} is already been added!`);
                         } else {
-                            if (await Dialog.getInputLength() > 0) {
-                                switch (response) {
-                                    case '1':
-                                        this.#addStat(this.#lblAttr1, attribute, this.#cboValue1);
-                                        isAdded = true;
-                                        break;
-                                    case '2':
-                                        this.#addStat(this.#lblAttr2, attribute, this.#cboValue2);
-                                        isAdded = true;
-                                        break;
-                                    case '3':
-                                        this.#addStat(this.#lblAttr3, attribute, this.#cboValue3);
-                                        isAdded = true;
-                                        break;
-                                    case '4':
-                                        this.#addStat(this.#lblAttr4, attribute, this.#cboValue4);
-                                        isAdded = true;
-                                        break;
-                                    default:
-                                        await Dialog.showMessageDialog('Artifact RNG', 'Enter a number only from 1 to 4!');
-                                        break;
-                                }
-                            } else {
-                                await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to add the stat!');
+                            switch (response.output) {
+                                case '1':
+                                    this.#addStat(this.#lblAttr1, selectedAttribute, this.#cboValue1);
+                                    isAdded = true;
+                                    break;
+                                case '2':
+                                    this.#addStat(this.#lblAttr2, selectedAttribute, this.#cboValue2);
+                                    isAdded = true;
+                                    break;
+                                case '3':
+                                    this.#addStat(this.#lblAttr3, selectedAttribute, this.#cboValue3);
+                                    isAdded = true;
+                                    break;
+                                case '4':
+                                    this.#addStat(this.#lblAttr4, selectedAttribute, this.#cboValue4);
+                                    isAdded = true;
+                                    break;
+                                default:
+                                    await Dialog.showMessageDialog('Artifact RNG', 'Enter a number only from 1 to 4!');
                             }
                         }
-                    } else if (response === '') {
-                        await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to add the stat!');
+                    } else if (response.operation === Dialog.CANCEL) {
+                        break; // stop loop
                     } else {
-                        break outerLoop;
+                        await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
                     }
                 } while (!isAdded);
             } else {
-                Dialog.showMessageDialog('Artifact RNG', 'Select a substat to add!');
+                await Dialog.showMessageDialog('Artifact RNG', 'Select a substat to add!');
             }
         }
     }
@@ -229,51 +223,43 @@ class Custom_Stat {
     async #removeSubStat() {
         let isRemoved = false;
 
-        if (this.#isNone(this.#lblAttr1) && this.#isNone(this.#lblAttr2) 
+        if (this.#isNone(this.#lblAttr1) && this.#isNone(this.#lblAttr2)
             && this.#isNone(this.#lblAttr3) && this.#isNone(this.#lblAttr4)) {
-                Dialog.showMessageDialog('Artifact RNG', 'Slots are empty!');
+                await Dialog.showMessageDialog('Artifact RNG', 'Slots are empty!');
         } else {
-            outerLoop:
             do {
                 const text = 'Enter the number to remove a sub-stat and click \'OK\'\n'
-                            + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
+                    + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
 
-                await Dialog.showInputDialog('Remove Sub-Stat', text);
-                const response = await Dialog.getInputText();
-                
-                if (response !== '' && response !== null) {
-                    if (await Dialog.getInputLength() > 0) {
-                        switch (response) {
-                            case "1":
-                                this.#removeStat(this.#lblAttr1, this.#cboValue1);
-                                isRemoved = true;
-                                break;
-                            case "2":
-                                this.#removeStat(this.#lblAttr2, this.#cboValue2);
-                                isRemoved = true;
-                                break;
-                            case "3":
-                                this.#removeStat(this.#lblAttr3, this.#cboValue3);
-                                isRemoved = true;
-                                break;
-                            case "4":
-                                this.#removeStat(this.#lblAttr4, this.#cboValue4);
-                                isRemoved = true;
-                                break;
-                            default:
-                                await Dialog.showMessageDialog('Artifact RNG', 'Enter a number only from 1 to 4!');
-                                break;
-                        }
-                    } else {
-                        await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
+                const response = await Dialog.showInputDialog('Remove Sub-Stat', text);
+
+                if ((response.output !== null) && (response.outputLength > 0)) {
+                    switch (response.output) {
+                        case "1":
+                            this.#removeStat(this.#lblAttr1, this.#cboValue1);
+                            isRemoved = true;
+                            break;
+                        case "2":
+                            this.#removeStat(this.#lblAttr2, this.#cboValue2);
+                            isRemoved = true;
+                            break;
+                        case "3":
+                            this.#removeStat(this.#lblAttr3, this.#cboValue3);
+                            isRemoved = true;
+                            break;
+                        case "4":
+                            this.#removeStat(this.#lblAttr4, this.#cboValue4);
+                            isRemoved = true;
+                            break;
+                        default:
+                            await Dialog.showMessageDialog('Artifact RNG', 'Enter a number only from 1 to 4!');
                     }
-                } else if (response === '') {
-                    await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
+                } else if (response.operation === Dialog.CANCEL) {
+                    break; // stop the loop
                 } else {
-                    // outputs null when cancelled
-                    break outerLoop;
+                    await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
                 }
-            } while(!isRemoved);
+            } while (!isRemoved);
         }
     }
 
@@ -281,71 +267,71 @@ class Custom_Stat {
         for (const cboValue of cboValues) {
             // empty the list
             $(cboValue).empty();
-    
+
             // create an option label
             const optionLabel = document.createElement('option');
             optionLabel.disabled = true;
             optionLabel.innerText = '-- Select a Value --';
             optionLabel.setAttribute('class', 'text');
-    
+
             // zero value
             const value = document.createElement('option');
             value.value = '0';
             value.innerText = 0;
             value.setAttribute('class', 'text');
-    
+
             cboValue.append(optionLabel, value);
         }
     }
 
     #removeStat(lblAttr, cboValue) {
-		let temp = null;
-		
-		if (this.#isNone(lblAttr)) {
+        let temp = null;
+
+        if (this.#isNone(lblAttr)) {
             Dialog.showMessageDialog('Artifact RNG', `The slot is empty!`);
-			temp = lblAttr.innerText;
-		} else {
-			temp = lblAttr.innerText;
-			lblAttr.innerText = 'None';
+            temp = lblAttr.innerText;
+        } else {
+            temp = lblAttr.innerText;
+            lblAttr.innerText = 'None';
             this.#defaultValue(cboValue);
-		}
-		
-		if (temp !== 'None') {
+        }
+
+        if (temp !== 'None') {
             Dialog.showMessageDialog('Artifact RNG', `${temp} is removed!`);
-		}
-	}
+        }
+    }
 
     #displayStats() {
         const artifactPiece = this.#cboArtifactPiece.value;
-		const mainAttribute = this.#cboMainStat.value;
-		
-		let att1 = this.#lblAttr1.innerText;
-		let att2 = this.#lblAttr2.innerText;
-		let att3 = this.#lblAttr3.innerText;
-		let att4 = this.#lblAttr4.innerText;
-		
-		const value1 = Number(this.#cboValue1.value);
-		const value2 = Number(this.#cboValue2.value);
-		const value3 = Number(this.#cboValue3.value);
-		const value4 = Number(this.#cboValue4.value);
+        const mainAttribute = this.#cboMainStat.value;
 
-		if(att4 === 'None') {
-			att4 = null;
-			this.#artifact_piece.setMaxUpgrade(4);
-		} else {
-			this.#artifact_piece.setMaxUpgrade(5);
-		}
-		
-		this.#artifact_piece.setArtifactPiece(artifactPiece);
-		this.#artifact_piece.setMainAttribute(mainAttribute);
-		this.#artifact_piece.setSlot(att1, att2, att3, att4);
-		this.#artifact_piece.setValue(value1, value2, value3, value4);
+        let att1 = this.#lblAttr1.innerText;
+        let att2 = this.#lblAttr2.innerText;
+        let att3 = this.#lblAttr3.innerText;
+        let att4 = this.#lblAttr4.innerText;
+
+        const value1 = Number(this.#cboValue1.value);
+        const value2 = Number(this.#cboValue2.value);
+        const value3 = Number(this.#cboValue3.value);
+        const value4 = Number(this.#cboValue4.value);
+
+        if (att4 === 'None') {
+            att4 = null;
+            this.#artifact_piece.setMaxUpgrade(4);
+        } else {
+            this.#artifact_piece.setMaxUpgrade(5);
+        }
+
+        this.#artifact_piece.setArtifactPiece(artifactPiece);
+        this.#artifact_piece.setMainAttribute(mainAttribute);
+        this.#artifact_piece.setSlot(att1, att2, att3, att4);
+        this.#artifact_piece.setValue(value1, value2, value3, value4);
 
         this.#artifact_piece.generateStat();
         this.#pMaxUpgradeValue.innerText = this.#artifact_piece.getMaxUpgrade();
         this.#btnLock.disabled = true;
         this.#btnGenerate.disabled = true;
-        
+
         this.#btnSkip.disabled = false;
         this.#btnRoll.disabled = false;
         this.#btnReset.disabled = false;
@@ -357,7 +343,7 @@ class Custom_Stat {
     #getSelectedIndex() {
         return $(this.#subStatList).children('.selected').index();
     }
-    
+
 
     #addStat(lblAttr, selectedAttribute, cboValue) {
         lblAttr.innerText = selectedAttribute;
@@ -367,7 +353,7 @@ class Custom_Stat {
 
     #setValue(lblAttr, cboValue) {
         let isMatch = false;
-		
+
         for (const attributes of Attribute.STATS) {
             if (lblAttr.innerText === attributes.getAttribute()) {
                 this.#setStatValue(cboValue, attributes.getValues());
@@ -395,15 +381,7 @@ class Custom_Stat {
     }
 
     #equals(attribute, ...lblAttributes) {
-        let isEqual = false; 
-
-        for (const lblAttr of lblAttributes) {
-            if (attribute === lblAttr.innerText) {
-                isEqual = true;
-                break;
-            }
-        }
-        return isEqual;
+        return lblAttributes.some(lblAttr => attribute === lblAttr.innerText);
     }
 
     #setStatValue(cboValue, listValue) {

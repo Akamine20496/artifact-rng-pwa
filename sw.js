@@ -1,5 +1,5 @@
 const cacheNaming = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v5.2';
+const CACHE_NAME = 'artifact-rng-cache-v5.3';
 
 const ASSETS = [
     "/",
@@ -37,13 +37,13 @@ self.addEventListener('install', event => {
 });
 
 // activate
-const deleteCache = async (key) => {
+async function deleteCache(key) {
     // delete cache
     console.info('Deleting old cache', key);
     await caches.delete(key);
 };
 
-const deleteOldCaches = async () => {
+async function deleteOldCaches() {
     // retrieve all caches
     const keyList = await caches.keys();
     // get all caches that is same to the name but different versions

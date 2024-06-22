@@ -1,10 +1,11 @@
 {
+    "registerType": "prompt",
     "name": "Artifact RNG",
     "short_name": "Artifact RNG",
     "description": "A gambling artifact rolling addiction for genshin player",
     "start_url": "../",
-    "background_color": "white",
-    "theme_color": "white",
+    "background_color": "#0433A7",
+    "theme_color": "#E5E8F1",
     "display": "standalone",
     "icons": [
         {

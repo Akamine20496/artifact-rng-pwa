@@ -1,9 +1,12 @@
+import Dialog from './Dialog';
+import Artifact_Simulator from './Artifact_Simulator';
+
 // ready function
 $(document).ready(() => {
     // Credits
-    console.log('%cArtifact RNG by AKAMiNE', 'color: red; font-size: 20px; font-weight: bold;');
-    console.log('%cCredits to Genshin Impact Wiki for the data', 'color: red; font-size: 20px; font-weight: bold;');
-    console.log('%chttps://genshin-impact.fandom.com/wiki/Artifact/Distribution', 'text-decoration: underline; cursor: pointer;');
+    console.log('%cArtifact RNG by AKAMiNE', 'font-family: SegoeUI; color: red; font-size: 20px; font-weight: bold;');
+    console.log('%cCredits to Genshin Impact Wiki for the data', 'font-family: SegoeUI; color: red; font-size: 20px; font-weight: bold;');
+    console.log('%chttps://genshin-impact.fandom.com/wiki/Artifact/Distribution', 'font-family: SegoeUI; text-decoration: underline; cursor: pointer;');
 
     const messages = {
         artifactSimulator: "This application is exclusive only for 5 star artifact\n"
@@ -20,7 +23,8 @@ $(document).ready(() => {
                 + "If the sub-stats are 4, it will have 5 Upgrades\n\n"
                 + "Occasionally, it will display wrong decimals due to rounding error.\n\n"
                 + "Click 'OK' to continue.",
-        customStat: "Select a artifact piece and main stat. After selecting main stat,\n"
+        customStat: "Custom Stat\n\n"
+                + "Select a artifact piece and main stat. After selecting main stat,\n"
                 + "the sub-stats will be displayed to the list.\n\n"
                 + "Select a sub-stat from the list and click 'Add Sub Stat'.\n"
                 + "Select what slot to add the sub-stat then click 'OK'.\n\n"
@@ -30,7 +34,7 @@ $(document).ready(() => {
                 + "After setting up the stats, click 'Save' then click the\n"
                 + "'Roll' to upgrade the value.\n\n"
                 + "You can place 3 or 4 sub-stats.\n\n"
-                + "Tip for Desktop Users:\n\n"
+                + "Tip for Desktop Users:\n"
                 + "Select the sub-stat you want to add and press \"ENTER\".\n"
                 + "It is the shortcut way instead of selecting a sub-stat then clicking the button.\n\n"
                 + "Click 'OK' to continue."

@@ -1,4 +1,8 @@
-class Dialog {
+// Class Dialog
+export default class Dialog {
+    static OK = 1;
+    static CANCEL = 0;
+
     static async showInputDialog(textTitle, textMessage) {
         // create elemeents
         const inputDialog = document.createElement('dialog');
@@ -25,6 +29,21 @@ class Dialog {
         inputDialog.append(title, message, input, divButtons);
         $('body').prepend(inputDialog);
 
+        /*
+            dialogData      =   contains the data of the input dialog
+
+            output          =   output of the dialog (input). null is default value
+            outputLength    =   length of the output
+            operation       =   operations of the buttons in dialog. 0 is default value
+                                1 - Ok
+                                0 - Cancel
+        */
+        const dialogData = {
+            output: null,
+            outputLength: 0,
+            operation: 0,
+        };
+
         return new Promise((resolve) => {
             if (!inputDialog.open) {
                 // Display the modal with the message
@@ -35,42 +54,37 @@ class Dialog {
                 message.innerText = textMessage;
 
                 btnOk.addEventListener('click', () => {
-                    // store the value to the session storage
-                    sessionStorage.setItem('inputValue', input.value);
                     // close the dialog
                     inputDialog.close();
 
                     // remove the element                                       
                     $(inputDialog).remove();
 
+                    // update the data of dialog
+                    dialogData.output = !input.value ? null : input.value;
+                    dialogData.outputLength = input.value.length;
+                    dialogData.operation = 1;
+
                     // Resolve the promise to indicate that the modal has been closed
-                    resolve();
+                    resolve(dialogData);
                 });
 
                 btnCancel.addEventListener('click', () => {
-                    // remove the stored value
-                    sessionStorage.removeItem('inputValue');
-
                     // close the dialog
                     inputDialog.close();
 
                     // remove the element
                     $(inputDialog).remove();
 
+                    // update the data of dialog
+                    dialogData.outputLength = input.value.length;
+                    dialogData.operation = 0;
+
                     // Resolve the promise to indicate that the modal has been closed
-                    resolve();
+                    resolve(dialogData);
                 });
             }
         });
-    }
-
-    static async getInputText() {
-        return sessionStorage.getItem('inputValue');
-    }
-
-    static async getInputLength() {
-        const inputValue = sessionStorage.getItem('inputValue');
-        return Number(inputValue.length);
     }
 
     static async showMessageDialog(textTitle, textMessage) {
@@ -102,10 +116,10 @@ class Dialog {
                 btnOk.addEventListener('click', () => {
                     // Close the modal
                     messageDialog.close();
-                    
+
                     setTimeout(() => {
                         // remove the element
-                        $(messageDialog).remove(); 
+                        $(messageDialog).remove();
                     }, 20);
 
                     // Resolve the promise to indicate that the modal has been closed
