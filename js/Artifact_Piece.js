@@ -258,7 +258,7 @@ class Artifact_Piece {
 
 			Dialog.showMessageDialog('Final Stats', `${temp.s1}\n${temp.s2}\n${temp.s3}\n${temp.s4}`);
 		} else {
-			throw new Error('Invalid Argument: must be boolean!');
+			throw new TypeError('Invalid Argument: must be boolean!');
 		}
 	}
 
