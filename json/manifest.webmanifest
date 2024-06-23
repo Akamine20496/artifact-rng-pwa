@@ -1,0 +1,32 @@
+{
+    "registerType": "prompt",
+    "name": "Artifact RNG",
+    "short_name": "Artifact RNG",
+    "description": "A gambling artifact rolling addiction for genshin player",
+    "scope": "../",
+    "start_url": "../",
+    "background_color": "#0433A7",
+    "theme_color": "#E5E8F1",
+    "display-override": ["fullscreen", "minimal-ui"],
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "../asset/Amber Icon.jpg",
+            "sizes": "1200x1200",
+            "type": "image/jpeg",
+            "purpose": "maskable"
+        },
+        {
+            "src": "../asset/Amber_Icon192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        }, 
+        {
+            "src": "../asset/Amber_Icon512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

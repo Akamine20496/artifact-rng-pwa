@@ -1,6 +1,6 @@
-import Dialog from "./Dialog";
 import Attribute from "./Attribute";
 import Artifact from "./Artifact";
+import Dialog from "./Dialog";
 
 // Class Custom Stat
 export default class Custom_Stat {

@@ -1,3 +1,4 @@
+import Artifact from "./Artifact";
 import Dialog from "./Dialog";
 import Artifact_Piece from "./Artifact_Piece";
 import Custom_Stat from "./CustomStat";

@@ -1,5 +1,5 @@
 const cacheNaming = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v5.3';
+const CACHE_NAME = 'artifact-rng-cache-v5.3.1';
 
 const ASSETS = [
     "/",
@@ -26,14 +26,16 @@ const ASSETS = [
 ];
 
 // install
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
-    event.waitUntil((async () => {
-        // Open a new cache storage with the specified CACHE_NAME
-        const cache = await caches.open(CACHE_NAME);
-        // Add all specified ASSETS to the cache
-        await cache.addAll(ASSETS);
-    }));
+    event.waitUntil(
+        (async () => {
+            // Open a new cache storage with the specified CACHE_NAME
+            const cache = await caches.open(CACHE_NAME);
+            // Add all specified ASSETS to the cache
+            await cache.addAll(ASSETS);
+        })()
+    );
 });
 
 // activate
@@ -52,7 +54,7 @@ async function deleteOldCaches() {
     await Promise.all(cachesToDelete.map(deleteCache));
 };
 
-self.addEventListener("activate", event => {
+self.addEventListener("activate", (event) => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
     event.waitUntil(deleteOldCaches().then(self.skipWaiting()));
     // Immediately take control of clients
@@ -60,30 +62,32 @@ self.addEventListener("activate", event => {
 });
 
 // fetch
-self.addEventListener('fetch', event => {
-    event.respondWith((async () => {
-        const cache = await caches.open(CACHE_NAME);
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        (async () => {
+            const cache = await caches.open(CACHE_NAME);
 
-        // get the resource from the cache
-        const cachedResponse = await cache.match(event.request);
+            // get the resource from the cache
+            const cachedResponse = await cache.match(event.request);
 
-        if (cachedResponse) {
-            return cachedResponse;
-        } else {
-            try {
-                // if the resource was not in the cache, try the network
-                const fetchResponse = await fetch(event.request);
+            if (cachedResponse) {
+                return cachedResponse;
+            } else {
+                try {
+                    // if the resource was not in the cache, try the network
+                    const fetchResponse = await fetch(event.request);
 
-                // save the resource in the cache and return it
-                cache.put(event.request, fetchResponse.clone());
+                    // save the resource in the cache and return it
+                    await cache.put(event.request, fetchResponse.clone());
 
-                return fetchResponse;
-            } catch {
-                return new Response('Failed to fetch resources online.', {
-                    status: 408,
-                    headers: {'Content-Type': 'text/plain'}
-                });
+                    return fetchResponse;
+                } catch {
+                    return new Response('Failed to fetch resources online.', {
+                        status: 408,
+                        headers: { 'Content-Type': 'text/plain' }
+                    });
+                }
             }
-        }
-    })());
+        })()
+    );
 });

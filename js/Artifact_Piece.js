@@ -1,5 +1,5 @@
-import Dialog from "./Dialog";
 import Artifact from "./Artifact";
+import Dialog from "./Dialog";
 
 // Class Artifact_Piece
 export default class Artifact_Piece {
