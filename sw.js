@@ -34,7 +34,7 @@ self.addEventListener('install', (event) => {
             const cache = await caches.open(CACHE_NAME);
             // Add all specified ASSETS to the cache
             await cache.addAll(ASSETS);
-        })()
+        })
     );
 });
 
