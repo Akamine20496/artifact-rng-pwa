@@ -1,5 +1,5 @@
 const cacheNaming = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v5.3.1';
+const CACHE_NAME = 'artifact-rng-cache-v5.3.2';
 
 const ASSETS = [
     "/",
@@ -32,6 +32,7 @@ self.addEventListener('install', (event) => {
         (async () => {
             // Open a new cache storage with the specified CACHE_NAME
             const cache = await caches.open(CACHE_NAME);
+            console.info('Caching Resources');
             // Add all specified ASSETS to the cache
             await cache.addAll(ASSETS);
         })
@@ -41,7 +42,7 @@ self.addEventListener('install', (event) => {
 // activate
 async function deleteCache(key) {
     // delete cache
-    console.info('Deleting old cache', key);
+    console.info(`Deleting old cache: ${key}`);
     await caches.delete(key);
 };
 
