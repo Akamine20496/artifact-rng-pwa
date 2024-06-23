@@ -1,6 +1,3 @@
-import Dialog from './Dialog';
-import Artifact_Simulator from './Artifact_Simulator';
-
 // ready function
 $(document).ready(() => {
     // Credits

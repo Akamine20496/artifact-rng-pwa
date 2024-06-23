@@ -1,5 +1,5 @@
 // Class Stat
-export default class Stat {
+class Stat {
     // private variables
     #attribute = null;
     #probability = 0.00;

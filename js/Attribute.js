@@ -1,7 +1,5 @@
-import Stat from "./Stat";
-
 // Class Attribute
-export default class Attribute {
+class Attribute {
     // static variables
     static HP_FLAT_VALUE = [209.13, 239.00, 268.88, 298.75];
     static ATK_FLAT_VALUE = [13.62, 15.56, 17.51, 19.45];

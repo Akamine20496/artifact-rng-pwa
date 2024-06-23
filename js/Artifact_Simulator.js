@@ -1,10 +1,5 @@
-import Artifact from "./Artifact";
-import Dialog from "./Dialog";
-import Artifact_Piece from "./Artifact_Piece";
-import Custom_Stat from "./CustomStat";
-
 // Class Artifact_Simulator
-export default class Artifact_Simulator {
+class Artifact_Simulator {
     #artifactPiece = new Artifact_Piece();
     #customStat = new Custom_Stat();
     #cboArtifactPiece = document.getElementById('cboArtifactPiece1');

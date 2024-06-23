@@ -1,9 +1,5 @@
-import Attribute from "./Attribute";
-import Artifact from "./Artifact";
-import Dialog from "./Dialog";
-
 // Class Custom Stat
-export default class Custom_Stat {
+class Custom_Stat {
     #modalOverlay = document.getElementById('modalOverlay');
     #artifact = new Artifact();
     #artifact_piece = null;

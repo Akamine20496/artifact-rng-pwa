@@ -1,5 +1,5 @@
 // Class Dialog
-export default class Dialog {
+class Dialog {
     static OK = 1;
     static CANCEL = 0;
 

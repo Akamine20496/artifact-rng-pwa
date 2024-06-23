@@ -1,8 +1,5 @@
-import Stat from "./Stat";
-import Attribute from "./Attribute";
-
 // Class Artifact
-export default class Artifact extends Attribute {
+class Artifact extends Attribute {
     // Array of Stats (Attribute and Probability)
     #listFlower = [new Stat(Attribute.HP_FLAT, 100.00)];
 	#listFeather = [new Stat(Attribute.ATK_FLAT, 100.00)];
