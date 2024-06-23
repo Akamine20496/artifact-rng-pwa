@@ -85,13 +85,13 @@ class Artifact_Simulator {
             this.#btnReroll.disabled = false;
             this.#btnReroll.focus();
 
-            this.#artifactPiece.setSkipMode('true');
+            this.#artifactPiece.setSkipMode(true);
             this.#artifactPiece.displaySkippedStats();
         });
 
         // btnRoll
         this.#btnRoll.addEventListener('click', () => {
-            this.#artifactPiece.setSkipMode('false');
+            this.#artifactPiece.setSkipMode(false);
             this.#btnSkip.disabled = true;
 
             const maxUpgradeValue = Number(this.#pMaxUpgradeValue.innerText);

@@ -275,12 +275,12 @@ class Artifact_Piece {
 	}
 	
 	setSkipMode(mode) {
-		if (String(mode) === 'true') {
+		if (mode === true) {
 			this.#skipMode = true;
-		} else if (String(mode) === 'false') {
+		} else if (mode === false) {
 			this.#skipMode = false;
 		} else {
-			throw new Error('Invalid Argument: only true or false in string!');
+			throw new TypeError('Invalid Argument: only true or false in string!');
 		}
 	}
 
