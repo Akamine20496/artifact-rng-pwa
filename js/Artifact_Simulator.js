@@ -10,6 +10,8 @@ class Artifact_Simulator {
     #btnReset = document.getElementById('btnReset');
     #btnLock = document.getElementById('btnLock');
     #btnCustomStat = document.getElementById('btnCustomStat');
+    #chkRandomStat = document.getElementById('chkRandomStat');
+    #chkFullUpgrade = document.getElementById('chkFullUpgrade');
     #pMaxUpgradeValue = document.getElementById('pMaxUpgradeValue');
     #rollCounter = 1;
     #isNewAttribute = true;
@@ -46,11 +48,27 @@ class Artifact_Simulator {
             if (this.#isLock) {
                 this.#btnCustomStat.disabled = false;
                 this.#cboArtifactPiece.disabled = true;
+
+                if (this.#chkRandomStat.checked) {
+                    this.#chkRandomStat.disabled = true;
+                    this.#chkFullUpgrade.disabled = true;
+                } else {
+                    this.#chkRandomStat.disabled = true;
+                }
+
                 this.#isLock = false;
                 this.#btnLock.innerText = 'Unlock';
             } else {
                 this.#btnCustomStat.disabled = true;
                 this.#cboArtifactPiece.disabled = false;
+
+                if (this.#chkRandomStat.checked) {
+                    this.#chkRandomStat.disabled = false;
+                    this.#chkFullUpgrade.disabled = false;
+                } else {
+                    this.#chkRandomStat.disabled = false;
+                }
+
                 this.#isLock = true;
                 this.#btnLock.innerText = 'Lock';
             }
@@ -58,7 +76,31 @@ class Artifact_Simulator {
 
         // btnGenerate
         this.#btnGenerate.addEventListener('click', () => {
-            if (this.#isLock) {
+            if (this.#isLock && this.#chkRandomStat.checked) {
+                const selectedPiece = Artifact.generateRandomPiece();
+                this.#artifactPiece.setArtifactPiece(selectedPiece);
+                this.#artifactPiece.generateStat();
+
+                this.#pMaxUpgradeValue.innerText = this.#artifactPiece.getMaxUpgrade();
+
+                this.#cboArtifactPiece.disabled = true;
+                this.#btnGenerate.disabled = true;
+                this.#btnLock.disabled = true;
+                this.#btnSkip.disabled = false;
+                this.#btnRoll.disabled = false;
+                this.#btnReset.disabled = false;
+                this.#btnCustomStat.disabled = true;
+
+                this.#chkRandomStat.disabled = true;
+                this.#chkFullUpgrade.disabled = true;
+
+                if (this.#chkRandomStat.checked && this.#chkFullUpgrade.checked) {
+                    this.#btnSkip.dispatchEvent(new Event('click'));
+                } else {
+                    this.#btnRoll.focus();
+                    Dialog.showMessageDialog('Artifact RNG', 'Stats has been generated!');
+                }
+            } else if (this.#isLock) {
                 Dialog.showMessageDialog('Artifact RNG', 'Click the \'Lock\' first.');
             } else {
                 const selectedPiece = this.#cboArtifactPiece.value;
@@ -79,6 +121,7 @@ class Artifact_Simulator {
             }
         });
 
+        // btnSkip
         this.#btnSkip.addEventListener('click', () => {
             this.#btnSkip.disabled = true;
             this.#btnRoll.disabled = true;
@@ -128,6 +171,17 @@ class Artifact_Simulator {
 
         // btnReset
         this.#btnReset.addEventListener('click', () => {
+            if (!this.#isLock) {
+                this.#btnCustomStat.disabled = false;
+            }
+
+            if (this.#isLock && this.#chkRandomStat.checked) {
+                this.#cboArtifactPiece.disabled = false;
+
+                this.#chkRandomStat.disabled = false;
+                this.#chkFullUpgrade.disabled = false;
+            }
+
             this.#pMaxUpgradeValue.innerText = 0;
             this.#rollCounter = 1;
 
@@ -149,6 +203,16 @@ class Artifact_Simulator {
         // btnCustomStat
         this.#btnCustomStat.addEventListener('click', () => {
             this.#customStat.setAsMemoryAddress(this.#artifactPiece);
+        });
+
+        // chkRandomStat
+        this.#chkRandomStat.addEventListener('click', () => {
+            if (this.#chkRandomStat.checked) {
+                this.#chkFullUpgrade.disabled = false;
+            } else {
+                this.#chkFullUpgrade.disabled = true;
+                this.#chkFullUpgrade.checked = false;
+            }
         });
     }
 }

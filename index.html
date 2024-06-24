@@ -1,67 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme_color" content="#E5E8F1">
-        <meta name="keywords" content="artifact rng, artifact rng pwa, artifact rolling simulator, artifact simulator">
-        <meta name="description" content="Genshin Impact Artifact Simulator Online, available as Progressive Web Apps (PWA)">
-        <meta name="author" content="AKAMiNE">
-        <link rel="icon" href="asset/Amber Icon.jpg" type="image/jpeg">
-        <!-- CSS -->
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/modalCustomStat.css">
-        <link rel="stylesheet" href="css/dialog.css">
-        <!-- Manifest -->
-        <link rel="manifest" href="json/manifest.webmanifest">
-        <!-- Top Javascript Scripts -->
-        <script defer src="jquery/jquery-3.7.0.min.js"></script>
-        <script defer src="app.js"></script>
-        <title>Artifact RNG</title>
-    </head>
-    <body>
-        <!-- Custom Stat Window -->
-        <div id="modalOverlay">
-            <div id="modalContent">
-                <span id="btnClose" class="close">&times;</span>
-                <div class="custom-stat-container">
-                    <div class="content-col-1">
-                        <label class="text lblHeader modal-header">ARTIFACT PIECE</label>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme_color" content="#E5E8F1">
+    <meta name="keywords" content="artifact rng, artifact rng pwa, artifact rolling simulator, artifact simulator">
+    <meta name="description"
+        content="Genshin Impact Artifact Simulator Online, available as Progressive Web Apps (PWA)">
+    <meta name="author" content="AKAMiNE">
+    <link rel="icon" href="asset/Amber Icon.jpg" type="image/jpeg">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modalCustomStat.css">
+    <link rel="stylesheet" href="css/dialog.css">
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest/manifest.webmanifest">
+    <!-- Top Javascript Scripts -->
+    <script defer src="jquery/jquery-3.7.0.min.js"></script>
+    <script defer src="app.js"></script>
+    <title>Artifact RNG</title>
+</head>
+
+<body>
+    <!-- Custom Stat Window -->
+    <div id="modalOverlay">
+        <div id="modalContent">
+            <span id="btnClose" class="close">&times;</span>
+            <div class="custom-stat-container">
+                <div class="content-col-1">
+                    <div class="row6">
+                        <p class="text lblHeader modal-header">ARTIFACT PIECE</p>
                         <select id="cboArtifactPiece2" class="text modal-combo-box"></select>
-                        <label class="text lblHeader modal-header">MAIN STAT</label>
+                        <p class="text lblHeader modal-header">MAIN STAT</p>
                         <select id="cboMainStat" class="text modal-combo-box"></select>
-                        <div class="list-container">
-                            <label id="listHeader" class="text">SUB STATS</label>
-                            <ul id="subStatList"></ul>
+                    </div>
+                    <div class="list-container">
+                        <p id="listHeader" class="text">SUB STATS</p>
+                        <ul id="subStatList"></ul>
+                    </div>
+                </div>
+                <div class="content-col-2">
+                    <div class="row7">
+                        <p class="text lblHeader modal-header">STAT DETAILS</p>
+                        <div class="slots">
+                            <div class="slot-1">
+                                <p id="lblAttr1" class="text">None</p>
+                                <select id="cboValue1" class="text"></select>
+                            </div>
+                            <div class="slot-2">
+                                <p id="lblAttr2" class="text">None</p>
+                                <select id="cboValue2" class="text"></select>
+                            </div>
+                            <div class="slot-3">
+                                <p id="lblAttr3" class="text">None</p>
+                                <select id="cboValue3" class="text"></select>
+                            </div>
+                            <div class="slot-4">
+                                <p id="lblAttr4" class="text">None</p>
+                                <select id="cboValue4" class="text"></select>
+                            </div>
                         </div>
                     </div>
-                    <div class="content-col-2">
-                        <label class="text lblHeader modal-header">STAT DETAILS</label>
-                        <div class="slot-1">
-                            <p id="lblAttr1" class="text">None</p>
-                            <select id="cboValue1" class="text"></select>
-                        </div>
-                        <div class="slot-2">
-                            <p id="lblAttr2" class="text">None</p>
-                            <select id="cboValue2" class="text"></select>
-                        </div>
-                        <div class="slot-3">
-                            <p id="lblAttr3" class="text">None</p>
-                            <select id="cboValue3" class="text"></select>
-                        </div>
-                        <div class="slot-4">
-                            <p id="lblAttr4" class="text">None</p>
-                            <select id="cboValue4" class="text"></select>
-                        </div>
-                        <label class="text lblHeader modal-header">OPERATIONS</label>
+                    <div class="row8">
+                        <p class="text lblHeader modal-header">OPERATIONS</p>
                         <div class="row-btns">
                             <div class="row-btn1">
-                                <button id="btnAddSubStat" class="text">Add Sub Stat</button>
+                                <button id="btnAddSubStat" class="text">Add Sub-Stat</button>
                                 <button id="btnRemoveAll" class="text">Remove All</button>
                             </div>
                             <div class="row-btn2">
-                                <button id="btnRemoveSubStat" class="text">Remove Sub Stat</button>
+                                <button id="btnRemoveSubStat" class="text">Remove Sub-Stat</button>
                                 <button id="btnDisplayStat" class="text">Save</button>
                             </div>
                         </div>
@@ -69,17 +79,21 @@
                 </div>
             </div>
         </div>
-        <!-- Main Window -->
-        <div class="main-container">
-            <!-- Control Panel -->
-            <div class="control-panel">
-                <label class="text lblHeader">ARTIFACT PIECE</label>
-                <div class="row1">
+    </div>
+    <!-- Main Window -->
+    <div class="main-container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="row1">
+                <p class="text lblHeader">ARTIFACT PIECE</p>
+                <div class="row1-col1">
                     <select id="cboArtifactPiece1" class="text"></select>
                     <button id="btnLock" class="text">Lock</button>
                 </div>
-                <label class="text lblHeader">OPERATIONS</label>
-                <div class="row2">
+            </div>
+            <div class="row2">
+                <p class="text lblHeader">OPERATIONS</p>
+                <div class="row2-col1">
                     <div class="row-btn1">
                         <button id="btnGenerate" class="text">Generate</button>
                         <button disabled id="btnReroll" class="text">Reroll</button>
@@ -90,43 +104,53 @@
                         <button disabled id="btnReset" class="text">Reset</button>
                     </div>
                 </div>
-                <div class="row3">
-                    <label class="text lblHeader">STATUS</label>
-                    <div class="divInnerBox">
-                        <p class="text lblMaxUpgrade">Max Upgrade: </p>
-                        <p id="pMaxUpgradeValue" class="text lblMaxUpgradeValue">0</p>
-                    </div>
-                </div>
-                <div class="row4">
-                    <label class="text lblHeader">OTHER</label>
-                    <div class="divInnerBox">
-                        <button disabled id="btnCustomStat" class="text">Custom Stat</button>
-                    </div>
+            </div>
+            <div class="row3">
+                <p class="text lblHeader">STATUS</p>
+                <div class="row3-col1">
+                    <p class="text lblMaxUpgrade">Max Upgrade: </p>
+                    <p id="pMaxUpgradeValue" class="text">0</p>
                 </div>
             </div>
-            <!-- Display Panel -->
-            <div class="display-panel">
-                <div class="divUpper">
-                    <p id="lblArtifactPiece" class="text lblUpper">None</p>
-                    <p id="lblMainAttribute" class="text lblUpper">None</p>
+            <div class="row4">
+                <p class="text lblHeader">OTHER</p>
+                <button disabled id="btnCustomStat" class="text">Custom Stat</button>
+            </div>
+            <div class="row5">
+                <div class="row5-col1">
+                    <input type="checkbox" id="chkRandomStat">
+                    <label for="chkRandomStat" class="text">Random Stat</label>
                 </div>
-                <div class="divLower">
-                    <p id="lblSlot1" class="text lblLower">· None</p>
-                    <p id="lblSlot2" class="text lblLower">· None</p>
-                    <p id="lblSlot3" class="text lblLower">· None</p>
-                    <p id="lblSlot4" class="text lblLower">· None</p>
+                <div class="row5-col2">
+                    <input type="checkbox" id="chkFullUpgrade" disabled>
+                    <label for="chkFullUpgrade" class="text">Full Upgrade</label>
                 </div>
             </div>
         </div>
-        <!-- Bottom Javascript Scripts -->
-        <script defer src="js/Dialog.js"></script>
-        <script defer src="js/Stat.js"></script>
-        <script defer src="js/Attribute.js"></script>
-        <script defer src="js/Artifact.js"></script>
-        <script defer src="js/Artifact_Piece.js"></script>
-        <script defer src="js/CustomStat.js"></script>
-        <script defer src="js/Artifact_Simulator.js"></script>
-        <script defer src="js/customStatModal.js"></script>
-        <script defer src="js/main.js"></script>
-    </body>
+        <!-- Display Panel -->
+        <div class="display-panel">
+            <div class="divUpper">
+                <p id="lblArtifactPiece" class="text lblUpper">None</p>
+                <p id="lblMainAttribute" class="text lblUpper">None</p>
+            </div>
+            <div class="divLower">
+                <p id="lblSlot1" class="text lblLower">· None</p>
+                <p id="lblSlot2" class="text lblLower">· None</p>
+                <p id="lblSlot3" class="text lblLower">· None</p>
+                <p id="lblSlot4" class="text lblLower">· None</p>
+            </div>
+        </div>
+    </div>
+    <!-- Bottom Javascript Scripts -->
+    <script defer src="js/Dialog.js"></script>
+    <script defer src="js/Stat.js"></script>
+    <script defer src="js/Attribute.js"></script>
+    <script defer src="js/Artifact.js"></script>
+    <script defer src="js/Artifact_Piece.js"></script>
+    <script defer src="js/CustomStat.js"></script>
+    <script defer src="js/Artifact_Simulator.js"></script>
+    <script defer src="js/customStatModal.js"></script>
+    <script defer src="js/main.js"></script>
+</body>
+
 </html>

@@ -1,11 +1,11 @@
 const cacheNaming = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v5.3.5';
+const CACHE_NAME = 'artifact-rng-cache-v5.4.0';
 
 const ASSETS = [
     "/",
     "/index.html",
     "/app.js",
-    "./json/manifest.json",
+    "./manifest/manifest.webmanifest",
     "./css/dialog.css",
     "./css/modalCustomStat.css",
     "./css/style.css",

@@ -147,11 +147,12 @@ class Artifact extends Attribute {
 
     // artifact piece and their sub stats
 
-    #FLOWER = 'Flower of Life';
-	#FEATHER = 'Plume of Death';
-	#SANDS = 'Sands of Eon';
-	#GOBLET = 'Goblet of Eonothem';
-	#CIRCLET = 'Circlet of Logos';
+    static FLOWER = 'Flower of Life';
+	static FEATHER = 'Plume of Death';
+	static SANDS = 'Sands of Eon';
+	static GOBLET = 'Goblet of Eonothem';
+	static CIRCLET = 'Circlet of Logos';
+
 	#PIECE = [
         'Flower of Life', 'Plume of Death', 
         'Sands of Eon', 'Goblet of Eonothem',
@@ -174,26 +175,14 @@ class Artifact extends Attribute {
         'Elemental Mastery', 'CRIT Rate%', 'CRIT DMG%'
     ];
 
-    // get methods
+    static generateRandomPiece() {
+        const listPiece = [
+            Artifact.FLOWER, Artifact.FEATHER, Artifact.SANDS,
+            Artifact.GOBLET, Artifact.CIRCLET
+        ];
 
-    get flower() {
-        return this.#FLOWER;
-    }
-
-    get feather() {
-        return this.#FEATHER;
-    }
-
-    get sands() {
-        return this.#SANDS;
-    }
-
-    get goblet() {
-        return this.#GOBLET;
-    }
-
-    get circlet() {
-        return this.#CIRCLET;
+        const randomIndex = Math.floor(Math.random() * listPiece.length);
+        return listPiece[randomIndex];
     }
 
     getPiece() {
@@ -229,15 +218,15 @@ class Artifact extends Attribute {
         }
 
         switch (artifactPiece) {
-            case this.#FLOWER:
+            case Artifact.FLOWER:
                 return this.#listFlower[0].getAttribute();
-            case this.#FEATHER:
+            case Artifact.FEATHER:
                 return this.#listFeather[0].getAttribute();
-            case this.#SANDS:
+            case Artifact.SANDS:
                 return this.#generatedAttribute(this.#listSands);
-            case this.#GOBLET:
+            case Artifact.GOBLET:
                 return this.#generatedAttribute(this.#listGoblet);
-            case this.#CIRCLET:
+            case Artifact.CIRCLET:
                 return this.#generatedAttribute(this.#listCirclet);
         }
 

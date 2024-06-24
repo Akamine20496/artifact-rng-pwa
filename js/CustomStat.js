@@ -63,19 +63,19 @@ class Custom_Stat {
             const selectedValue = this.#cboArtifactPiece.value;
 
             switch (selectedValue) {
-                case this.#artifact.flower:
+                case Artifact.FLOWER:
                     this.#setMainStatList(this.#artifact.getFlower());
                     break;
-                case this.#artifact.feather:
+                case Artifact.FLOWER:
                     this.#setMainStatList(this.#artifact.getFeather());
                     break;
-                case this.#artifact.sands:
+                case Artifact.SANDS:
                     this.#setMainStatList(this.#artifact.getSands());
                     break;
-                case this.#artifact.goblet:
+                case Artifact.GOBLET:
                     this.#setMainStatList(this.#artifact.getGoblet());
                     break;
-                case this.#artifact.circlet:
+                case Artifact.CIRCLET:
                     this.#setMainStatList(this.#artifact.getCirclet());
                     break;
             }
@@ -105,12 +105,17 @@ class Custom_Stat {
             this.#cboMainStat.dispatchEvent(new Event('change'));
         });
 
-        // shortcut to open the btnAddSubStat
+        // shortcut to open the btnAddSubStat (desktop)
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && this.#subStatList.children.length !== 0 &&
                 $(this.#subStatList).children().hasClass('selected')) {
                 this.#btnAddSubStat.dispatchEvent(new Event('click'));
             }
+        });
+
+        // shortcut to open the btnAddSubStat (desktop and mobile)
+        $('#subStatList').on('dblclick', 'li.selected', () => {
+            this.#btnAddSubStat.dispatchEvent(new Event('click'));
         });
 
         // btnAddSubStat
@@ -174,10 +179,18 @@ class Custom_Stat {
                 // Do-While Loop
                 do {
                     // text of the prompt
-                    const text = 'Enter the number to add a sub-stat and click \'OK\'\n'
-                        + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
+                    const message = `
+                        <p>
+                            Enter the number to add a sub-stat and click 
+                            <b>'OK'</b>
+                        </p>
+                        <p><b>[1]</b> Slot 1</p>
+                        <p><b>[2]</b> Slot 2</p>
+                        <p><b>[3]</b> Slot 3</p>
+                        <p><b>[4]</b> Slot 4</p>
+                    `;
 
-                    const response = await Dialog.showInputDialog('Add Sub-Stat', text);
+                    const response = await Dialog.showInputDialog('Add Sub-Stat', message);
 
                     if ((response.output !== null) && (response.outputLength > 0)) {
                         if (this.#equals(selectedAttribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
@@ -221,13 +234,21 @@ class Custom_Stat {
 
         if (this.#isNone(this.#lblAttr1) && this.#isNone(this.#lblAttr2)
             && this.#isNone(this.#lblAttr3) && this.#isNone(this.#lblAttr4)) {
-                await Dialog.showMessageDialog('Artifact RNG', 'Slots are empty!');
+            await Dialog.showMessageDialog('Artifact RNG', 'Slots are empty!');
         } else {
             do {
-                const text = 'Enter the number to remove a sub-stat and click \'OK\'\n'
-                    + '[1] Slot 1\n[2] Slot 2\n[3] Slot 3\n[4] Slot 4';
+                const message = `
+                    <p>
+                        Enter the number to remove a sub-stat and click 
+                        <b>'OK'</b>
+                    </p>
+                    <p><b>[1]</b> Slot 1</p>
+                    <p><b>[2]</b> Slot 2</p>
+                    <p><b>[3]</b> Slot 3</p>
+                    <p><b>[4]</b> Slot 4</p>
+                `;
 
-                const response = await Dialog.showInputDialog('Remove Sub-Stat', text);
+                const response = await Dialog.showInputDialog('Remove Sub-Stat', message);
 
                 if ((response.output !== null) && (response.outputLength > 0)) {
                     switch (response.output) {

@@ -1,6 +1,12 @@
-#messageDialog, #inputDialog {
-    border: none;           /* Remove the border */
-    border-radius: 8px;    /* Make it rounder */
+dialog {
+    justify-self: center;
+    align-self: center;
+    min-width: 300px;
+    min-height: 150px;
+    border: none;
+    /* Remove the border */
+    border-radius: 8px;
+    /* Make it rounder */
     padding: 20px;
     font-family: 'Segoe UI';
     background-color: #f1f1f1;
@@ -9,25 +15,89 @@
     animation-fill-mode: forwards;
 }
 
-#messageDialog::-webkit-scrollbar, #inputDialog::-webkit-scrollbar {
+#messageDialog h4,
+#inputDialog h4 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#messageDialog p,
+#inputDialog p {
+    margin: 1rem 0;
+}
+
+#messageDialog #btnOk {
+    width: 100%;
+}
+
+#messageDialog button,
+#inputDialog button {
+    flex: 1; /* Make the buttons equal width */
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+#messageDialog button:last-child,
+#inputDialog button:last-child {
+    background-color: #6c757d;
+}
+
+#messageDialog button:hover,
+#inputDialog button:hover {
+    background-color: #0056b3;
+}
+
+#messageDialog button:focus,
+#inputDialog button:focus {
+    background-color: #004288;
+}
+
+#messageDialog button:last-child:hover,
+#inputDialog button:last-child:hover {
+    background-color: #4d5558;
+}
+
+#messageDialog button:last-child:focus,
+#inputDialog button:last-child:focus {
+    background-color: #3c4346;
+}
+
+#messageDialog::-webkit-scrollbar,
+#inputDialog::-webkit-scrollbar {
     width: 5px;
 }
-  
-#messageDialog::-webkit-scrollbar-track, #inputDialog::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+
+#messageDialog::-webkit-scrollbar-track,
+#inputDialog::-webkit-scrollbar-track {
+    display: none;
 }
-  
-#messageDialog::-webkit-scrollbar-thumb, #inputDialog::-webkit-scrollbar-thumb {
+
+#messageDialog::-webkit-scrollbar-thumb,
+#inputDialog::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px;
 }
-  
-#messageDialog::-webkit-scrollbar-thumb:hover, #inputDialog::-webkit-scrollbar-thumb:hover {
+
+#messageDialog::-webkit-scrollbar-thumb:hover,
+#inputDialog::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
-  
-#messageDialog::-webkit-scrollbar-button, #inputDialog::-webkit-scrollbar-button {
+
+#messageDialog::-webkit-scrollbar-button,
+#inputDialog::-webkit-scrollbar-button {
     display: none;
+}
+
+#inputDialog input[type="text"] {
+    text-indent: 10px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
 }
 
 #txtInput {
@@ -38,16 +108,16 @@
 #divButtons {
     margin-top: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 10px;
 }
 
 @keyframes fade-in {
     from {
-      opacity: 0;
+        opacity: 0;
     }
-    
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
 }

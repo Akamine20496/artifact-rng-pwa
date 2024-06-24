@@ -1,8 +1,20 @@
 // Class Dialog
 class Dialog {
+    /**
+     * State of the Input Dialog OK (1)
+     */
     static OK = 1;
+    /**
+     * State of the Input Dialog CANCEL (0)
+     */
     static CANCEL = 0;
 
+    /**
+     * method of Dialog Class that allows user input
+     * @param {innerText} textTitle Title of the dialog (only plain text)
+     * @param {innerHTML} textMessage Message of the dialog for user input (allows element tags)
+     * @returns data of dialog upon resolve().
+     */
     static async showInputDialog(textTitle, textMessage) {
         // create elemeents
         const inputDialog = document.createElement('dialog');
@@ -29,15 +41,15 @@ class Dialog {
         inputDialog.append(title, message, input, divButtons);
         $('body').prepend(inputDialog);
 
-        /*
-            dialogData      =   contains the data of the input dialog
-
-            output          =   output of the dialog (input). null is default value
-            outputLength    =   length of the output
-            operation       =   operations of the buttons in dialog. 0 is default value
-                                1 - Ok
-                                0 - Cancel
-        */
+        /**
+         * dialogData       =   contains the data of the input dialog
+         * 
+         * output           =   output of the dialog (input). null is default value
+         * outputLength     =   length of the output
+         * operation        =   operations of the buttons in dialog. 0 is default value
+         *                      1 - OK
+         *                      0 - CANCEL
+         */
         const dialogData = {
             output: null,
             outputLength: 0,
@@ -51,7 +63,7 @@ class Dialog {
 
                 // show the message
                 title.innerText = textTitle;
-                message.innerText = textMessage;
+                message.innerHTML = textMessage;
 
                 btnOk.addEventListener('click', () => {
                     // close the dialog
@@ -87,6 +99,12 @@ class Dialog {
         });
     }
 
+    /**
+     * method of Dialog Class that shows message
+     * @param {innerText} textTitle Title of the dialog (only plain text)
+     * @param {innerHTML} textMessage Message of the dialog for user input (allows element tags)
+     * @returns nothing, it is only for displaying messages
+     */
     static async showMessageDialog(textTitle, textMessage) {
         // create the elements
         const messageDialog = document.createElement('dialog');
@@ -110,7 +128,7 @@ class Dialog {
                 messageDialog.showModal();
                 // show the message
                 title.innerText = textTitle;
-                message.innerText = textMessage;
+                message.innerHTML = textMessage;
 
                 // Listen for the close event of the modal
                 btnOk.addEventListener('click', () => {
