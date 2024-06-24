@@ -2,7 +2,7 @@
     "registerType": "prompt",
     "name": "Artifact RNG",
     "short_name": "Artifact RNG",
-    "description": "Am artifact rolling simulator for genshin players",
+    "description": "An artifact rolling simulator for genshin players",
     "scope": "../",
     "start_url": "../",
     "theme_color": "#E5E8F1",
