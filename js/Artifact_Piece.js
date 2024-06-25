@@ -177,7 +177,7 @@ class Artifact_Piece {
 		lblSlot.innerText = this.#displayText(att, currValue);
 
 		if (!this.#skipMode) {
-			Dialog.showMessageDialog('Attribute Upgrade', this.#artifact.formatText(att, prevValue, currValue));
+			Dialog.showMessageDialog('Sub-Stat Upgrade', this.#artifact.formatText(att, prevValue, currValue));
 		}
 	}
 
@@ -190,7 +190,7 @@ class Artifact_Piece {
 				this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
 
 				if (!this.#skipMode) {
-					Dialog.showMessageDialog('New Attribute', this.#artifact.formatText(this.#att4)
+					Dialog.showMessageDialog('New Sub-Stat', this.#artifact.formatText(this.#att4)
 						+ '     ----     '
 						+ this.#artifact.formatValue(this.#att4, this.#value4));
 				}
