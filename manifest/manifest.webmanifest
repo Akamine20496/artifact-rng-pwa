@@ -6,7 +6,7 @@
     "scope": "../",
     "start_url": "../",
     "theme_color": "#E5E8F1",
-    "background_color": "#0433A7",
+    "background_color": "#E5E8F1",
     "display-override": ["fullscreen", "minimal-ui"],
     "display": "standalone",
     "icons": [
