@@ -66,7 +66,7 @@ class Custom_Stat {
                 case Artifact.FLOWER:
                     this.#setMainStatList(this.#artifact.getFlower());
                     break;
-                case Artifact.FLOWER:
+                case Artifact.FEATHER:
                     this.#setMainStatList(this.#artifact.getFeather());
                     break;
                 case Artifact.SANDS:
