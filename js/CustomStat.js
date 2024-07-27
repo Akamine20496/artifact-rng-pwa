@@ -109,7 +109,8 @@ class Custom_Stat {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && this.#subStatList.children.length !== 0 &&
                 $(this.#subStatList).children().hasClass('selected')) {
-                this.#btnAddSubStat.dispatchEvent(new Event('click'));
+                    event.preventDefault();
+                    this.#btnAddSubStat.dispatchEvent(new Event('click'));
             }
         });
 
@@ -183,11 +184,15 @@ class Custom_Stat {
                         <p>
                             Enter the number to add a sub-stat and click 
                             <b>'OK'</b>
+                            
+                            <br><br>
+
+                            Selected Sub-Stat: <b>${selectedAttribute}</b>
                         </p>
-                        <p><b>[1]</b> Slot 1</p>
-                        <p><b>[2]</b> Slot 2</p>
-                        <p><b>[3]</b> Slot 3</p>
-                        <p><b>[4]</b> Slot 4</p>
+                        <p><b>[1]</b> Slot 1 (${this.#lblAttr1.innerText})</p>
+                        <p><b>[2]</b> Slot 2 (${this.#lblAttr2.innerText})</p>
+                        <p><b>[3]</b> Slot 3 (${this.#lblAttr3.innerText})</p>
+                        <p><b>[4]</b> Slot 4 (${this.#lblAttr4.innerText})</p>
                     `;
 
                     const response = await Dialog.showInputDialog('Add Sub-Stat', message);
@@ -242,10 +247,10 @@ class Custom_Stat {
                         Enter the number to remove a sub-stat and click 
                         <b>'OK'</b>
                     </p>
-                    <p><b>[1]</b> Slot 1</p>
-                    <p><b>[2]</b> Slot 2</p>
-                    <p><b>[3]</b> Slot 3</p>
-                    <p><b>[4]</b> Slot 4</p>
+                    <p><b>[1]</b> Slot 1 (${this.#lblAttr1.innerText})</p>
+                    <p><b>[2]</b> Slot 2 (${this.#lblAttr2.innerText})</p>
+                    <p><b>[3]</b> Slot 3 (${this.#lblAttr3.innerText})</p>
+                    <p><b>[4]</b> Slot 4 (${this.#lblAttr4.innerText})</p>
                 `;
 
                 const response = await Dialog.showInputDialog('Remove Sub-Stat', message);
@@ -301,11 +306,17 @@ class Custom_Stat {
         }
     }
 
-    #removeStat(lblAttr, cboValue) {
+    async #addStat(lblAttr, selectedAttribute, cboValue) {
+        lblAttr.innerText = selectedAttribute;
+        this.#setValue(lblAttr, cboValue);
+        await Dialog.showMessageDialog('Artifact RNG', `${selectedAttribute} is added!`);
+    }
+
+    async #removeStat(lblAttr, cboValue) {
         let temp = null;
 
         if (this.#isNone(lblAttr)) {
-            Dialog.showMessageDialog('Artifact RNG', `The slot is empty!`);
+            await Dialog.showMessageDialog('Artifact RNG', `The slot is empty!`);
             temp = lblAttr.innerText;
         } else {
             temp = lblAttr.innerText;
@@ -314,7 +325,7 @@ class Custom_Stat {
         }
 
         if (temp !== 'None') {
-            Dialog.showMessageDialog('Artifact RNG', `${temp} is removed!`);
+            await Dialog.showMessageDialog('Artifact RNG', `${temp} is removed!`);
         }
     }
 
@@ -361,29 +372,6 @@ class Custom_Stat {
         return $(this.#subStatList).children('.selected').index();
     }
 
-
-    #addStat(lblAttr, selectedAttribute, cboValue) {
-        lblAttr.innerText = selectedAttribute;
-        this.#setValue(lblAttr, cboValue);
-        Dialog.showMessageDialog('Artifact RNG', `${selectedAttribute} is added!`);
-    }
-
-    #setValue(lblAttr, cboValue) {
-        let isMatch = false;
-
-        for (const attributes of Attribute.STATS) {
-            if (lblAttr.innerText === attributes.getAttribute()) {
-                this.#setStatValue(cboValue, attributes.getValues());
-                isMatch = true;
-                break;
-            }
-        }
-
-        if (!isMatch) {
-            throw new Error(`Invalid Attribute: ${attribute}`);
-        }
-    }
-
     #isNone(...lblAttributes) {
         let isNone = false;
 
@@ -420,6 +408,22 @@ class Custom_Stat {
             option.innerText = value;
             option.setAttribute('class', 'text');
             cboValue.appendChild(option);
+        }
+    }
+
+    #setValue(lblAttr, cboValue) {
+        let isMatch = false;
+
+        for (const attributes of Attribute.STATS) {
+            if (lblAttr.innerText === attributes.getAttribute()) {
+                this.#setStatValue(cboValue, attributes.getValues());
+                isMatch = true;
+                break;
+            }
+        }
+
+        if (!isMatch) {
+            throw new Error(`Invalid Attribute: ${attribute}`);
         }
     }
 

@@ -175,7 +175,33 @@ class Artifact extends Attribute {
         'Elemental Mastery', 'CRIT Rate%', 'CRIT DMG%'
     ];
 
-    static generateRandomPiece() {
+    
+    getPiece() {
+        return this.#PIECE;
+    }
+    
+    getFlower() {
+        return this.#FLOWER_OF_LIFE;
+    }
+
+    getFeather() {
+        return this.#PLUME_OF_DEATH;
+    }
+    
+    getSands() {
+        return this.#SANDS_OF_EON;
+    }
+    
+    getGoblet() {
+        return this.#GOBLET_OF_EONOTHEM;
+    }
+    
+    getCirclet() {
+        return this.#CIRCLET_OF_LOGOS;
+    }
+    
+    // class methods
+    generateRandomPiece() {
         const listPiece = [
             Artifact.FLOWER, Artifact.FEATHER, Artifact.SANDS,
             Artifact.GOBLET, Artifact.CIRCLET
@@ -184,32 +210,6 @@ class Artifact extends Attribute {
         const randomIndex = Math.floor(Math.random() * listPiece.length);
         return listPiece[randomIndex];
     }
-
-    getPiece() {
-        return this.#PIECE;
-    }
-
-    getFlower() {
-        return this.#FLOWER_OF_LIFE;
-    }
-
-    getFeather() {
-        return this.#PLUME_OF_DEATH;
-    }
-
-    getSands() {
-        return this.#SANDS_OF_EON;
-    }
-
-    getGoblet() {
-        return this.#GOBLET_OF_EONOTHEM;
-    }
-
-    getCirclet() {
-        return this.#CIRCLET_OF_LOGOS;
-    }
-
-    // class methods
 
     generateMainAttribute(artifactPiece) {
         // checks if the type is not string
@@ -272,18 +272,12 @@ class Artifact extends Attribute {
     noOfMaxUpgrade() {
 		const noOfSubStatChance = this.generateNumber();
 		const maxUpgrades = [4, 5];
-		const probabilities = [50.00, 50.00];
-		let cumulativeProbability = 0;
 		
-		for (let i = 0; i < maxUpgrades.length; i++) {
-			cumulativeProbability += probabilities[i];
-			if (noOfSubStatChance < cumulativeProbability) {
-				return maxUpgrades[i];
-			}
-		}
-		
-		// If we reach here, something went wrong, just return the first element
-		return maxUpgrades[0];
+        if (noOfSubStatChance <= 50.00) {
+            return maxUpgrades[0];
+        } else {
+            return maxUpgrades[1];
+        }
 	}
 
     noOfUpgrade() {
@@ -294,7 +288,7 @@ class Artifact extends Attribute {
 
         for (let i = 0; i < upgradeTimes.length; i++) {
             cumulativeProbability += probabilities[i];
-            if (upgradeChance < cumulativeProbability) {
+            if (upgradeChance <= cumulativeProbability) {
                 return upgradeTimes[i];
             }
         }
@@ -451,7 +445,7 @@ class Artifact extends Attribute {
 
         for (let i = 0; i < listAttribute.length; i++) {
             cumulativeProbability += listAttribute[i].getProbability();
-            if (attributeChance < cumulativeProbability) {
+            if (attributeChance <= cumulativeProbability) {
                 return listAttribute[i].getAttribute();
             }
         }
@@ -488,7 +482,7 @@ class Artifact extends Attribute {
 
         for (let i = 0; i < attributeValue.length; i++) {
             cumulativeProbability += probabilities[i];
-            if (valueChance < cumulativeProbability) {
+            if (valueChance <= cumulativeProbability) {
                 return attributeValue[i];
             }
         }
@@ -499,8 +493,10 @@ class Artifact extends Attribute {
 
     // NUMBER GENERATOR
     
-    // Generates number from 0.0... to 99.9...
+    // Generates number from 0.0 to 100.00
     generateNumber() {
-        return Math.random() * 100;
+        const min = 0;
+        const max = 100;
+        return (Math.random() * (max - min) + min).toFixed(2);
     }
 }

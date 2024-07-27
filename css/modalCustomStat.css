@@ -75,7 +75,6 @@
 
 #subStatList li {
     cursor: pointer;
-    font-family: 'Segoe UI';
     font-weight: bold;
     text-align: left;
     user-select: none;

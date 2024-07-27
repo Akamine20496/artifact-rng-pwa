@@ -26,13 +26,18 @@ $(document).keydown((event) => {
     if (selectedIndex !== -1) {
         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
             event.preventDefault();
-            const direction = (event.key === 'ArrowUp') ? -1 : 1;
-            const targetIndex = selectedIndex + direction;
-            if (targetIndex >= 0 && targetIndex < subStats.length) {
-                setSelectedIndex(targetIndex);
+
+            const hasClassSelected = subStats[selectedIndex].classList.contains('selected');
+
+            if (hasClassSelected) {
+                const direction = (event.key === 'ArrowUp') ? -1 : 1;
+                const targetIndex = selectedIndex + direction;
+                if (targetIndex >= 0 && targetIndex < subStats.length) {
+                    setSelectedIndex(targetIndex);
+                }
+
+                subStatList.scrollTop += (event.key === 'ArrowUp') ? -20 : 20;
             }
-    
-            subStatList.scrollTop += (event.key === 'ArrowUp') ? -20 : 20;
         }
     }
 });

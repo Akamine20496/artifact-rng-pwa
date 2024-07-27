@@ -77,7 +77,7 @@ class Artifact_Simulator {
         // btnGenerate
         this.#btnGenerate.addEventListener('click', () => {
             if (this.#isLock && this.#chkRandomStat.checked) {
-                const selectedPiece = Artifact.generateRandomPiece();
+                const selectedPiece = new Artifact().generateRandomPiece();
                 this.#artifactPiece.setArtifactPiece(selectedPiece);
                 this.#artifactPiece.generateStat();
 

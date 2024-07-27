@@ -65,6 +65,19 @@ class Dialog {
                 title.innerText = textTitle;
                 message.innerHTML = textMessage;
 
+                // focus on the text field
+                input.focus();
+
+                function handleOnKeyDownInputDialog(event) {
+                    if (event.key === 'Enter' && document.activeElement === input) {
+                        event.preventDefault();
+                        btnOk.dispatchEvent(new Event('click'));
+                    }
+                }
+
+                // add keydown listener
+                document.addEventListener('keydown', handleOnKeyDownInputDialog);
+
                 btnOk.addEventListener('click', () => {
                     // close the dialog
                     inputDialog.close();
@@ -76,6 +89,9 @@ class Dialog {
                     dialogData.output = !input.value ? null : input.value;
                     dialogData.outputLength = input.value.length;
                     dialogData.operation = 1;
+
+                    // remove keydown listener
+                    document.removeEventListener('keydown', handleOnKeyDownInputDialog);
 
                     // Resolve the promise to indicate that the modal has been closed
                     resolve(dialogData);
@@ -91,6 +107,9 @@ class Dialog {
                     // update the data of dialog
                     dialogData.outputLength = input.value.length;
                     dialogData.operation = 0;
+
+                    // remove keydown listener
+                    document.removeEventListener('keydown', handleOnKeyDownInputDialog);
 
                     // Resolve the promise to indicate that the modal has been closed
                     resolve(dialogData);
@@ -126,9 +145,23 @@ class Dialog {
             if (!messageDialog.open) {
                 // Display the modal with the message
                 messageDialog.showModal();
+
                 // show the message
                 title.innerText = textTitle;
                 message.innerHTML = textMessage;
+
+                // focus on the button
+                btnOk.focus();
+
+                function handleOnKeyDownMessageDialog(event) {
+                    if (event.key === 'Enter' && document.activeElement === btnOk) {
+                        event.preventDefault();
+                        btnOk.dispatchEvent(new Event('click'));
+                    }
+                }
+
+                // add keydown listener
+                document.addEventListener('keydown', handleOnKeyDownMessageDialog);
 
                 // Listen for the close event of the modal
                 btnOk.addEventListener('click', () => {
@@ -139,6 +172,9 @@ class Dialog {
                         // remove the element
                         $(messageDialog).remove();
                     }, 20);
+
+                    // remove keydown listener
+                    document.removeEventListener('keydown', handleOnKeyDownMessageDialog);
 
                     // Resolve the promise to indicate that the modal has been closed
                     resolve();

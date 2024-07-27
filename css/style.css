@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 *:disabled {
@@ -40,7 +41,6 @@ body {
 }
 
 .text {
-    font-family: 'Segoe UI';
     font-weight: bold;
 }
 
@@ -188,8 +188,8 @@ button:focus {
     background-color: white;
 }
 
-.row5 .row5-col1 > *,
-.row5 .row5-col2 > * {
+.row5 .row5-col1>*,
+.row5 .row5-col2>* {
     cursor: pointer;
 }
 
@@ -288,7 +288,7 @@ button:focus {
     .row1 button {
         width: 40%;
     }
-    
+
     .row2 .row-btn2 button {
         width: 32%;
     }
@@ -349,7 +349,7 @@ button:focus {
     .row1 button {
         width: 40%;
     }
-    
+
     .row2 .row-btn2 button {
         width: 32%;
     }
@@ -365,16 +365,16 @@ button:focus {
 @media (min-width: 768px) and (max-width: 992px) {
     /* Styles for large screens (laptops/desktops) */
     /* You can define specific styles here for laptops/desktops if needed */
-  }
-  
-  /* Extra-large screens */
-  @media (min-width: 992px) and (max-width: 1200px) {
+}
+
+/* Extra-large screens */
+@media (min-width: 992px) and (max-width: 1200px) {
     /* Styles for extra-large screens (desktops) */
     /* You can define specific styles here for desktops if needed */
-  }
-  
-  /* Extra-extra-large screens */
-  @media (min-width: 1200px) {
+}
+
+/* Extra-extra-large screens */
+@media (min-width: 1200px) {
     /* Styles for extra-extra-large screens (large desktops) */
     /* You can define specific styles here for large desktops if needed */
-  }
+}

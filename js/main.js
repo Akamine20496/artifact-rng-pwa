@@ -56,6 +56,9 @@ $(document).ready(() => {
                 (Need 'Random Stat' to be selected first)
             </p> <br>
             <p>
+                These flags only works if it's "Unlock". Otherwise, it will not work when it's "Lock".
+            </p> <br>
+            <p>
                 Occasionally, it may display incorrect decimals due to rounding errors.
             </p> <br>
             <p class='center'>

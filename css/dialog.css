@@ -8,7 +8,6 @@ dialog {
     border-radius: 8px;
     /* Make it rounder */
     padding: 20px;
-    font-family: 'Segoe UI';
     background-color: #f1f1f1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     animation: fade-in 0.3s ease;
@@ -34,7 +33,7 @@ dialog {
 #messageDialog button,
 #inputDialog button {
     flex: 1; /* Make the buttons equal width */
-    padding: 0.5rem 1rem;
+    padding: 0 1rem;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -96,7 +95,6 @@ dialog {
 
 #inputDialog input[type="text"] {
     text-indent: 10px;
-    font-family: 'Segoe UI';
     font-weight: bold;
 }
 
