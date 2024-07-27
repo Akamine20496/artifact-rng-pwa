@@ -29,13 +29,13 @@ const ASSETS = [
 self.addEventListener('install', (event) => {
     // Extend the lifetime of the event until all promises inside waitUntil resolve
     event.waitUntil(
-        (async () => {
+        async () => {
             // Open a new cache storage with the specified CACHE_NAME
             const cache = await caches.open(CACHE_NAME);
             console.info('Caching Resources');
             // Add all specified ASSETS to the cache
             await cache.addAll(ASSETS);
-        })
+        }
     );
 });
 
