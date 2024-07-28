@@ -20,8 +20,9 @@ body {
     height: 100%;
     background-image: url('https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +199,7 @@ button:focus {
 .divUpper {
     height: 35%;
     width: 100%;
-    background-color: rgb(222, 199, 135);
+    background-color: #D8B421;
     padding: 8px 8px;
     display: flex;
     flex-direction: column;
@@ -208,7 +209,7 @@ button:focus {
 .divLower {
     height: 65%;
     width: 100%;
-    background-color: cornsilk;
+    background-color: #FFFFE1;
     padding: 8px 8px;
     display: flex;
     flex-direction: column;
@@ -236,6 +237,12 @@ button:focus {
 }
 
 /* Media Queries */
+
+@media only screen and (max-height: 600px) {
+    body {
+        height: 180vh;
+    }
+}
 
 /* Small screens */
 @media only screen and (max-width: 576px) {
