@@ -229,7 +229,7 @@ class Custom_Stat {
                     }
                 } while (!isAdded);
             } else {
-                await Dialog.showMessageDialog('Artifact RNG', 'Select a substat to add!');
+                await Dialog.showMessageDialog('Artifact RNG', 'Select a sub-stat to add!');
             }
         }
     }
