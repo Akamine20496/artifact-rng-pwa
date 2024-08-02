@@ -25,22 +25,18 @@ class Artifact_Simulator {
             const arrArtifactPiece = new Artifact().getPiece();
 
             // create an option label
-            const optionLabel = document.createElement('option');
-            optionLabel.disabled = true;
-            optionLabel.innerText = '-- Select a Piece --';
-            optionLabel.setAttribute('class', 'text');
+            const optionGroup = document.createElement('optgroup');
+            optionGroup.label = '-- Select a Piece --';
 
-            // append the option label to the <select> element
-            this.#cboArtifactPiece.appendChild(optionLabel);
-
-            // adds the artifact pieces to the <select> element
             for (const artifactPiece of arrArtifactPiece) {
                 const option = document.createElement('option');
                 option.setAttribute('class', 'text');
                 option.value = artifactPiece;
                 option.innerText = artifactPiece;
-                this.#cboArtifactPiece.appendChild(option);
+                optionGroup.appendChild(option);
             }
+
+            this.#cboArtifactPiece.appendChild(optionGroup);
         }
 
         // btnLock
@@ -104,11 +100,11 @@ class Artifact_Simulator {
                 Dialog.showMessageDialog('Artifact RNG', 'Click the \'Lock\' first.');
             } else {
                 const selectedPiece = this.#cboArtifactPiece.value;
-		        this.#artifactPiece.setArtifactPiece(selectedPiece);
+                this.#artifactPiece.setArtifactPiece(selectedPiece);
                 this.#artifactPiece.generateStat();
 
                 this.#pMaxUpgradeValue.innerText = this.#artifactPiece.getMaxUpgrade();
-                
+
                 this.#btnGenerate.disabled = true;
                 this.#btnLock.disabled = true;
                 this.#btnSkip.disabled = false;
@@ -145,7 +141,7 @@ class Artifact_Simulator {
             } else if (this.#rollCounter <= maxUpgradeValue) {
                 this.#artifactPiece.upgradeValue();
                 this.#rollCounter++;
-                
+
                 if (this.#rollCounter === maxUpgradeValue + 1) {
                     this.#btnRoll.disabled = true;
                     this.#btnReroll.focus();

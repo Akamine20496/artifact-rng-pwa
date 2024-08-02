@@ -36,22 +36,19 @@ class Custom_Stat {
             const arrArtifactPiece = this.#artifact.getPiece();
 
             // create an option label
-            const optionLabel = document.createElement('option');
-            optionLabel.disabled = true;
-            optionLabel.innerText = '-- Select a Piece --';
-            optionLabel.setAttribute('class', 'text');
-
-            // append the option label to the <select> element
-            this.#cboArtifactPiece.appendChild(optionLabel);
-
+            const optionGroup = document.createElement('optgroup');
+            optionGroup.label = '-- Select a Piece --';
+            
             // adds the artifact pieces to the <select> element
             for (const artifactPiece of arrArtifactPiece) {
                 const option = document.createElement('option');
                 option.value = artifactPiece;
                 option.innerText = artifactPiece;
                 option.setAttribute('class', 'text');
-                this.#cboArtifactPiece.appendChild(option);
+                optionGroup.appendChild(option);
             }
+
+            this.#cboArtifactPiece.appendChild(optionGroup);
 
             this.#setMainStatList(this.#artifact.getFlower());
             this.#defaultValue(this.#cboValue1, this.#cboValue2,
@@ -84,7 +81,7 @@ class Custom_Stat {
         // cboMainStat
         // change event listener
         this.#cboMainStat.addEventListener('change', () => {
-            let arrAttributes = new Array();
+            let arrAttributes = [];
             const selectedValue = this.#cboMainStat.value;
 
             // empty the list
@@ -96,7 +93,7 @@ class Custom_Stat {
                 Attribute.ATTRIBUTES.forEach(element => arrAttributes.push(element));
             }
 
-            this.#listHeader.innerText = `SUB STATS (${selectedValue})`;
+            this.#listHeader.innerText = `SUB-STAT LIST (${selectedValue})`;
             this.#setSubStatList(arrAttributes);
         });
 
@@ -291,18 +288,16 @@ class Custom_Stat {
             $(cboValue).empty();
 
             // create an option label
-            const optionLabel = document.createElement('option');
-            optionLabel.disabled = true;
-            optionLabel.innerText = '-- Select a Value --';
-            optionLabel.setAttribute('class', 'text');
+            const optionGroup = document.createElement('optgroup');
+            optionGroup.label = '-- Select a Value --';
 
             // zero value
             const value = document.createElement('option');
-            value.value = '0';
+            value.value = 0;
             value.innerText = 0;
             value.setAttribute('class', 'text');
 
-            cboValue.append(optionLabel, value);
+            cboValue.append(optionGroup, value);
         }
     }
 
@@ -394,21 +389,19 @@ class Custom_Stat {
         $(cboValue).empty();
 
         // create an option label
-        const optionLabel = document.createElement('option');
-        optionLabel.disabled = true;
-        optionLabel.innerText = '-- Select a Value --';
-        optionLabel.setAttribute('class', 'text');
-
-        cboValue.appendChild(optionLabel);
-
+        const optionGroup = document.createElement('optgroup');
+        optionGroup.label = '-- Select a Value --';
+        
         // adds the artifact pieces to the <select> element
         for (const value of listValue) {
             const option = document.createElement('option');
             option.value = value;
             option.innerText = value;
             option.setAttribute('class', 'text');
-            cboValue.appendChild(option);
+            optionGroup.appendChild(option);
         }
+
+        cboValue.appendChild(optionGroup);
     }
 
     #setValue(lblAttr, cboValue) {
@@ -432,12 +425,8 @@ class Custom_Stat {
         $(this.#cboMainStat).empty();
 
         // create an option label
-        const optionLabel = document.createElement('option');
-        optionLabel.disabled = true;
-        optionLabel.innerText = '-- Select Main Stat --';
-        optionLabel.setAttribute('class', 'text');
-
-        this.#cboMainStat.appendChild(optionLabel);
+        const optionGroup = document.createElement('optgroup');
+        optionGroup.label = '-- Select Main Stat --';
 
         // adds the artifact pieces to the <select> element
         for (const piece of artifactPiece) {
@@ -445,8 +434,10 @@ class Custom_Stat {
             option.value = piece;
             option.innerText = piece;
             option.setAttribute('class', 'text');
-            this.#cboMainStat.appendChild(option);
+            optionGroup.appendChild(option);
         }
+
+        this.#cboMainStat.appendChild(optionGroup);
     }
 
     #setSubStatList(listAttribute) {

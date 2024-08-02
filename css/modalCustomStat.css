@@ -37,6 +37,11 @@
     background-color: lightgray;
 }
 
+#listHeader {
+    font-size: small;
+    padding: 2px 0;
+}
+
 #subStatList {
     height: 150px;
     list-style-type: none;
