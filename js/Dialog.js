@@ -105,7 +105,6 @@ class Dialog {
                     $(inputDialog).remove();
 
                     // update the data of dialog
-                    dialogData.outputLength = input.value.length;
                     dialogData.operation = 0;
 
                     // remove keydown listener

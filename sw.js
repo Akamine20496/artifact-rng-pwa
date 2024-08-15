@@ -1,5 +1,5 @@
 const cacheNaming = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v7.0.0';
+const CACHE_NAME = 'artifact-rng-cache-v7.0.1';
 
 const ASSETS = [
     "/",
