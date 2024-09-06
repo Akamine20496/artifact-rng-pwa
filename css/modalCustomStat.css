@@ -89,6 +89,22 @@
     content: none;
 }
 
+.substat-label-checkbox-part {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox-part {
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+    align-self: center;
+    font-size: smaller;
+    padding: 4px 8px;
+    background-color: white;
+}
+
 /* The Close Button */
 
 .close {
@@ -146,11 +162,12 @@
 .row-btns {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    row-gap: 5px;
 }
 
 .row-btns .row-btn1,
 .row-btns .row-btn2 {
+    display: flex;
     justify-content: space-between;
 }
 
@@ -180,20 +197,14 @@
     }
 }
 
-@media only screen and (max-width: 768px) {
-    #modalContent {
-        width: 90%;
-    }
-}
-
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 760px) {
     #modalOverlay {
         overflow-y: scroll;
     }
 
     #modalContent {
         margin-top: 55vh;
-        width: 90%;
+        width: 65vw;
         transform: translateY(-35%);
     }
 
@@ -225,6 +236,18 @@
     #cboValue3,
     #cboValue4 {
         width: 40%;
+    }
+}
+
+@media only screen and (max-width: 630px) {
+    #modalContent {
+        width: 75vw;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    #modalContent {
+        width: 85vw;
     }
 }
 

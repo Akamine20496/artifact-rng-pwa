@@ -5,9 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme_color" content="#E5E8F1">
+        <meta name="author" content="AKAMiNE">
         <meta name="keywords" content="artifact rng, artifact rng pwa, artifact rolling simulator, artifact simulator">
         <meta name="description" content="Genshin Impact Artifact Simulator Online, available as Progressive Web Apps (PWA)">
-        <meta name="author" content="AKAMiNE">
         <link rel="icon" href="asset/Amber Icon.jpg" type="image/jpeg">
         <!-- CSS -->
         <link rel="stylesheet" href="css/style.css">
@@ -16,8 +16,8 @@
         <!-- Manifest -->
         <link rel="manifest" href="manifest/manifest.webmanifest">
         <!-- Top Javascript Scripts -->
-        <script defer src="jquery/jquery-3.7.0.min.js"></script>
-        <script defer src="app.js"></script>
+        <script src="jquery/jquery-3.7.1.min.js"></script>
+        <script async src="app.js"></script>
         <title>Artifact RNG</title>
     </head>
     <body>
@@ -40,7 +40,15 @@
                     </div>
                     <div class="content-col-2">
                         <div class="row7">
-                            <p class="text lblHeader modal-header">SUB-STATS</p>
+                            <div class="substat-label-checkbox-part">
+                                <div class="substat-label-part">
+                                    <p class="text lblHeader modal-header">SUB-STATS</p>
+                                </div>
+                                <div class="checkbox-part">
+                                    <input type="checkbox" id="chkDefinedAffixMode">
+                                    <label for="chkDefinedAffixMode" class="text">Defined Affix Mode</label>
+                                </div>
+                            </div>
                             <div class="slots">
                                 <div class="slot-1">
                                     <p id="lblAttr1" class="text">None</p>
@@ -69,7 +77,7 @@
                                 </div>
                                 <div class="row-btn2">
                                     <button id="btnRemoveSubStat" class="text">Remove Sub-Stat</button>
-                                    <button id="btnDisplayStat" class="text">Save</button>
+                                    <button id="btnDisplayStat" class="text">Display Stats</button>
                                 </div>
                             </div>
                         </div>
@@ -138,15 +146,17 @@
                 </div>
             </div>
         </div>
+        <!-- Version Tag -->
+        <div class="current-version" id="currentVersion"></div>
         <!-- Bottom Javascript Scripts -->
-        <script defer src="js/Dialog.js"></script>
-        <script defer src="js/Stat.js"></script>
-        <script defer src="js/Attribute.js"></script>
-        <script defer src="js/Artifact.js"></script>
-        <script defer src="js/Artifact_Piece.js"></script>
-        <script defer src="js/CustomStat.js"></script>
-        <script defer src="js/Artifact_Simulator.js"></script>
-        <script defer src="js/customStatModal.js"></script>
-        <script defer src="js/main.js"></script>
+        <script src="js/Dialog.js"></script>
+        <script src="js/Stat.js"></script>
+        <script src="js/Attribute.js"></script>
+        <script src="js/Artifact.js"></script>
+        <script src="js/ArtifactPiece.js"></script>
+        <script src="js/CustomStat.js"></script>
+        <script src="js/customStatModal.js"></script>
+        <script src="js/ArtifactSimulator.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

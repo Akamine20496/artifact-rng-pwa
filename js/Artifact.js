@@ -231,7 +231,7 @@ class Artifact extends Attribute {
         }
 
         // Throw an exception if none of the cases is met
-		throw new Error("Invalid artifact piece: " + artifactPiece);
+		throw new Error(`Invalid artifact piece: ${artifactPiece}`);
     }
 
     generateSubAttribute(mainAttribute) {
@@ -266,24 +266,24 @@ class Artifact extends Attribute {
         }
 
         // Throw an exception if none of the cases or the isNotSpecial condition is met
-	    throw new Error("Invalid attribute: " + mainAttribute);
+	    throw new Error(`Invalid attribute: ${mainAttribute}`);
     }
 
-    noOfMaxUpgrade() {
+    generateMaxUpgrade() {
 		const noOfSubStatChance = this.generateNumber();
 		const maxUpgrades = [4, 5];
 		
-        if (noOfSubStatChance <= 50.00) {
+        if (noOfSubStatChance <= 66.00) {
             return maxUpgrades[0];
         } else {
             return maxUpgrades[1];
         }
 	}
 
-    noOfUpgrade() {
-        const upgradeChance = this.generateNumber();
+    generateNoOfUpgrade() {
+        const upgradeChance = this.generateNumber() - 0.01;
         const upgradeTimes = [0, 1, 2, 3, 4, 5];
-        const probabilities = [23.73, 39.55, 26.37, 8.79, 1.46, 0.10];
+        const probabilities = [23.73, 39.55, 26.37, 8.79, 1.46, 0.09];
         let cumulativeProbability = 0;
 
         for (let i = 0; i < upgradeTimes.length; i++) {
@@ -324,7 +324,7 @@ class Artifact extends Attribute {
 
         // Throw an exception if we reach here meaning 
         // that the attribute is not in the array of stats
-		throw new Error("Invalid attribute: " + attribute);
+		throw new Error(`Invalid attribute: ${attribute}`);
     }
 
     formatText(attribute, value1, value2) {
@@ -405,14 +405,7 @@ class Artifact extends Attribute {
     isUnique(...attributes) {
         const map = new Map();
 
-        attributes.forEach(attribute => {
-            // checks if the type of all parameters are not string
-            if (typeof attribute !== 'string' && attribute !== null) {
-                throw new TypeError('Invalid Data Type: All Arguments must be a string.');
-            } else {
-                map.set(attribute, 1);
-            }
-        });
+        attributes.forEach(attribute => map.set(attribute, 1));
 
         // If map size is equal to 4, all attributes are unique
         return map.size === attributes.length;

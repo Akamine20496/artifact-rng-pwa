@@ -18,8 +18,10 @@ $(btnOpenModal).click(() => {
 });
 
 $(subStatList).click((event) => {
-    const clickedItem = event.target;
-    setSelectedIndex(Array.from(subStats).indexOf(clickedItem));
+    if ($(subStatList).children().length !== 0) {
+        const clickedItem = event.target;
+        setSelectedIndex(Array.from(subStats).indexOf(clickedItem));
+    }
 });
 
 $(document).keydown((event) => {

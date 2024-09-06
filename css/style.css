@@ -189,8 +189,8 @@ button:focus {
     background-color: white;
 }
 
-.row5 .row5-col1>*,
-.row5 .row5-col2>* {
+.row5 .row5-col1 > *,
+.row5 .row5-col2 > * {
     cursor: pointer;
 }
 
@@ -234,6 +234,22 @@ button:focus {
     font-size: medium;
     color: rgb(88, 88, 88);
     margin: 4px 0;
+}
+
+.current-version {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 4.150rem;
+    height: 2.150rem;
+    background-color: #fafc80;
+    border-radius: 0.500rem;
+    margin: 0 0.850rem 0.850rem 0;
+    opacity: 0.5;
+    font-weight: 900;
 }
 
 /* Media Queries */
@@ -308,6 +324,7 @@ button:focus {
 /* Medium screens */
 @media only screen and (min-width: 576px) and (max-width: 768px) {
     .main-container {
+        width: 70vw;
         flex-wrap: wrap;
         height: auto;
     }
