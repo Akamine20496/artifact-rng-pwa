@@ -379,6 +379,7 @@ class CustomStat {
                         </p>
                         <p>
                             <b>Cannot display stats if</b>
+                            <p class='indent'>All Slots are empty</p>
                             <p class='indent'>Slot 1 and Slot 2 are empty but Slot 3 and Slot 4 are filled</p>
                         </p>
                     `;

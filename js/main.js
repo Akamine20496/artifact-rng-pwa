@@ -1,5 +1,5 @@
 $(() => {
-    const CURRENT_VERSION = 'v8.0.0';
+    const CURRENT_VERSION = 'v8.0.1';
     
     $('#currentVersion').text(CURRENT_VERSION);
 
@@ -143,6 +143,7 @@ $(() => {
             </p>
             <p>
                 <b>Cannot display stats if</b>
+                <p class='indent'>All Slots are empty</p>
                 <p class='indent'>Slot 1 and Slot 2 are empty but Slot 3 and Slot 4 are filled</p>
             </p> <br>
             <p>
