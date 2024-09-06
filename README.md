@@ -33,8 +33,8 @@ To install the PWA on your device:
 ## Acknowledgments
 
 - Thanks to the Genshin Wiki and KeqingMains (this is a website) for the datas used in the Web Application.
-* [Genshin Wiki](https://genshin-impact.fandom.com/wiki/Artifact/Distribution)
-* [KeqingMains](https://keqingmains.com/misc/artifacts/#Substats)
+  [Genshin Wiki](https://genshin-impact.fandom.com/wiki/Artifact/Distribution)
+  [KeqingMains](https://keqingmains.com/misc/artifacts/#Substats)
 - Special thanks to my friend for testing my web app.
 
 ## Disclaimer
