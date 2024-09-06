@@ -243,8 +243,9 @@ button:focus {
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 4.150rem;
-    height: 2.150rem;
+    min-width: 4.150rem;
+    min-height: 2.150rem;
+    padding: 0.500rem;
     background-color: #fafc80;
     border-radius: 0.500rem;
     margin: 0 0.850rem 0.850rem 0;
