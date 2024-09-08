@@ -1,11 +1,10 @@
 $(() => {
-    const CURRENT_VERSION = 'v8.0.2';
+    const CURRENT_VERSION = 'v8.0.3';
     
     $('#currentVersion').text(CURRENT_VERSION);
 
     // Credits
-    console.info(`
-            %c
+    console.info(`%c
             Artifact RNG by AKAMiNE
             Credits to the links below for the data
 
@@ -20,8 +19,7 @@ $(() => {
             generating 3 sub-stats and 4 sub-stats respectively.
         `, 'font-family: Segoe UI; color: red; font-size: 0.750rem; font-weight: bold; line-height: 1rem;'
     );
-    console.info(`
-            %c
+    console.info(`%c
             https://genshin-impact.fandom.com/wiki/Artifact/Distribution
 
             https://keqingmains.com/misc/artifacts/#Substats
@@ -50,7 +48,7 @@ $(() => {
             </p>
             <p>
                 <b>Generate</b>: Displays the artifact piece selected by the user 
-                and generates random main stat (for sands, goblet, circlet piece) sub-stats.
+                and generates random main stat (for sands, goblet, circlet piece) and sub-stats.
             </p>
             <p>
                 <b>Roll</b>: Upgrades a random value of a sub-stat.

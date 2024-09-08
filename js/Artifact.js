@@ -281,7 +281,7 @@ class Artifact extends Attribute {
 	}
 
     generateNoOfUpgrade() {
-        const upgradeChance = this.generateNumber() - 0.01;
+        const upgradeChance = (this.generateNumber() - 0.01).toFixed(2);
         const upgradeTimes = [0, 1, 2, 3, 4, 5];
         const probabilities = [23.73, 39.55, 26.37, 8.79, 1.46, 0.09];
         let cumulativeProbability = 0;

@@ -1,4 +1,4 @@
-# Artifact RNG
+# Artifact RNG PWA
 
 You can preview roll your artifact or just generate random stats.
 

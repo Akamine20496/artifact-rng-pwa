@@ -160,7 +160,7 @@ class ArtifactPiece {
 
 		for (let i = 0; i < slots.length; i++) {
 			cumulativeProbability += probabilities[i];
-			if (slotChance < cumulativeProbability) {
+			if (slotChance <= cumulativeProbability) {
 				return slots[i];
 			}
 		}
