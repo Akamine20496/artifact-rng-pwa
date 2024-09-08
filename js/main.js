@@ -1,6 +1,5 @@
 $(() => {
-    const CURRENT_VERSION = 'v8.0.3';
-    
+    const CURRENT_VERSION = 'v8.0.4';
     $('#currentVersion').text(CURRENT_VERSION);
 
     // Credits
