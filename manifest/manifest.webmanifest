@@ -1,7 +1,7 @@
 {
     "registerType": "prompt",
-    "name": "Artifact RNG",
-    "short_name": "Artifact RNG",
+    "name": "Artifact RNG PWA",
+    "short_name": "Artifact RNG PWA",
     "description": "An artifact rolling simulator for genshin players",
     "scope": "../",
     "start_url": "../",
