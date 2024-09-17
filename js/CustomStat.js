@@ -111,7 +111,6 @@ class CustomStat {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && this.#subStatList.children.length !== 0 &&
                 $(this.#subStatList).children().hasClass('selected')) {
-                    event.preventDefault();
                     this.#btnAddSubStat.dispatchEvent(new Event('click'));
             }
         });

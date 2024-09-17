@@ -9,12 +9,12 @@ let selectedIndex = -1;
 
 // When the user clicks on <span> (x), close the modal
 $(btnClose).click(() => {
-    $(modalOverlay).hide();
+    $(modalOverlay).fadeOut('fast');
     $('.selected:first').removeClass('selected');
 });
 
 $(btnOpenModal).click(() => {
-    $(modalOverlay).show();
+    $(modalOverlay).fadeIn('fast').css('display', 'flex');
 });
 
 $(subStatList).click((event) => {

@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Arial, Verdana, sans-serif;
+}
+
+*:disabled {
+    pointer-events: none;
+}
+
+html, body {
+    height: 100%;
+    overflow-y: auto;
+}
+
+body {
+    background-image: url('https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 5%;
+}
+
+.main-container {
+    height: 400px;
+    width: 580px;
+    padding: 5px;
+    margin: auto;
+    background-color: rgb(235, 235, 235);
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.text {
+    font-weight: bold;
+}
+
+select {
+    font-size: medium;
+    width: 180px;
+    height: 30px;
+}
+
+select:hover {
+    border-color: black;
+}
+
+option {
+    font-size: medium;
+}
+
+button {
+    border: 1px solid gray;
+    outline: none;
+    height: 30px;
+    width: 100px;
+    background-color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+    border-color: black;
+}
+
+button:focus {
+    background-color: lightgray;
+    border-color: black;
+}
+
+.lblHeader {
+    padding: 10px;
+    align-self: center;
+}
+
+.control-panel,
+.display-panel {
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.control-panel {
+    width: 55%;
+    padding: 10px;
+    background-color: rgb(184, 184, 184);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.display-panel {
+    width: 45%;
+}
+
+/* Control Panel */
+
+.row1 p,
+.row2 p,
+.row3 p,
+.row4 p,
+.row5 p {
+    padding: 5px;
+    text-align: left;
+}
+
+.row1 .row1-col1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.row2 .row2-col1 {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.row2 .row2-col1 button {
+    width: 95px;
+}
+
+.row2 .row-btn1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.row2 .row-btn1 button {
+    width: 48%;
+}
+
+.row2 .row-btn2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.row3 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.row3 .row3-col1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.row4 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.row4 button {
+    width: 50%;
+}
+
+.row5 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.row5 .row5-col1,
+.row5 .row5-col2 {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-self: center;
+    font-size: small;
+    padding: 4px 8px;
+    background-color: white;
+}
+
+.row5 .row5-col1 > *,
+.row5 .row5-col2 > * {
+    cursor: pointer;
+}
+
+/* Display Panel */
+
+.divUpper {
+    height: 35%;
+    width: 100%;
+    background-color: #D8B421;
+    padding: 8px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 45%;
+}
+
+.divLower {
+    height: 65%;
+    width: 100%;
+    background-color: #FFFFE1;
+    padding: 8px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10%;
+}
+
+.lblUpper {
+    text-align: left;
+    font-size: large;
+}
+
+#lblArtifactPiece {
+    color: white;
+}
+
+#lblMainAttribute {
+    color: rgb(119, 103, 54);
+}
+
+.lblLower {
+    font-size: medium;
+    color: rgb(88, 88, 88);
+    margin: 4px 0;
+}
+
+.current-version {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: 4.150rem;
+    min-height: 2.150rem;
+    padding: 0.500rem;
+    background-color: #fafc80;
+    border-radius: 0.500rem;
+    margin: 0 0.850rem 0.850rem 0;
+    opacity: 0.5;
+    font-weight: 900;
+}
+
+/* Media Queries */
+
+@media only screen and (max-height: 600px) {
+    
+}
+
+/* Small screens */
+@media only screen and (max-width: 576px) {
+    .main-container {
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .control-panel,
+    .display-panel {
+        width: 100%;
+    }
+
+    .control-panel {
+        font-size: 1rem;
+    }
+
+    .display-panel {
+        min-height: 25rem;
+    }
+
+    .divUpper,
+    .divLower {
+        padding: 1rem;
+    }
+
+    .divUpper p,
+    .divLower p {
+        font-size: large;
+    }
+
+    .main-container button,
+    .main-container select {
+        height: 38px;
+    }
+
+    .row1,
+    .row2,
+    .row3,
+    .row4,
+    .row5 {
+        margin: 8px 0;
+        width: 100%;
+    }
+
+    .row1 select {
+        width: 60%;
+    }
+
+    .row1 button {
+        width: 40%;
+    }
+
+    .row2 .row-btn2 button {
+        width: 32%;
+    }
+
+    html {
+        height: 140vh;
+    }
+}
+
+/* Medium screens */
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+    .main-container {
+        width: 70vw;
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .control-panel,
+    .display-panel {
+        width: 100%;
+    }
+
+    .control-panel {
+        font-size: 1rem;
+    }
+
+    .display-panel {
+        min-height: 25rem;
+    }
+
+    .divUpper,
+    .divLower {
+        padding: 1rem;
+    }
+
+    .divUpper p,
+    .divLower p {
+        font-size: larger;
+    }
+
+    .main-container button,
+    .main-container select {
+        height: 38px;
+    }
+
+    .row1,
+    .row2,
+    .row3,
+    .row4,
+    .row5 {
+        margin: 8px 0;
+        width: 100%;
+    }
+
+    .row1 select {
+        width: 60%;
+    }
+
+    .row1 button {
+        width: 40%;
+    }
+
+    .row2 .row-btn2 button {
+        width: 32%;
+    }
+
+    html {
+        height: 140vh;
+    }
+}
+
+/* When Not Lazy, I'll do this */
+
+/* Large screens */
+@media (min-width: 768px) and (max-width: 992px) {
+    /* Styles for large screens (laptops/desktops) */
+    /* You can define specific styles here for laptops/desktops if needed */
+}
+
+/* Extra-large screens */
+@media (min-width: 992px) and (max-width: 1200px) {
+    /* Styles for extra-large screens (desktops) */
+    /* You can define specific styles here for desktops if needed */
+}
+
+/* Extra-extra-large screens */
+@media (min-width: 1200px) {
+    /* Styles for extra-extra-large screens (large desktops) */
+    /* You can define specific styles here for large desktops if needed */
+}

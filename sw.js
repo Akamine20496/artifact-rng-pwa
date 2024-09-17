@@ -1,27 +1,27 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const CACHE_NAME = 'artifact-rng-cache-v8.0.5';
+const CACHE_NAME = `${CACHE_NAMING}-v8.0.6`;
 
 const ASSETS = [
     "/",
-    "/index.html",
-    "/app.js",
-    "./manifest/manifest.webmanifest",
-    "./css/dialog.css",
-    "./css/modalCustomStat.css",
-    "./css/style.css",
-    "./jquery/jquery-3.7.1.min.js",
-    "./js/main.js",
-    "./js/Stat.js",
-    "./js/ArtifactPiece.js",
-    "./js/ArtifactSimulator.js",
-    "./js/Artifact.js",
-    "./js/Attribute.js",
-    "./js/CustomStat.js",
-    "./js/customStatModel.js",
-    "./js/Dialog.js",
-    "./asset/Amber Icon.jpg",
-    "./asset/Amber_Icon192.png",
-    "./asset/Amber_Icon512.png",
+    "index.html",
+    "app.js",
+    "manifest/manifest.webmanifest",
+    "css/dialog.css",
+    "css/modalCustomStat.css",
+    "css/main.css",
+    "jquery/jquery-3.7.1.min.js",
+    "js/main.js",
+    "js/Stat.js",
+    "js/ArtifactPiece.js",
+    "js/ArtifactSimulator.js",
+    "js/Artifact.js",
+    "js/Attribute.js",
+    "js/CustomStat.js",
+    "js/customStatModel.js",
+    "js/Dialog.js",
+    "asset/Amber Icon.jpg",
+    "asset/Amber_Icon192.png",
+    "asset/Amber_Icon512.png",
     "https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg",
 ];
 
@@ -32,19 +32,11 @@ self.addEventListener('install', (event) => {
         async () => {
             // Open a new cache storage with the specified CACHE_NAME
             const cache = await caches.open(CACHE_NAME);
-            console.info('Caching Resources');
             // Add all specified ASSETS to the cache
             await cache.addAll(ASSETS);
         }
     );
 });
-
-// activate
-async function deleteCache(key) {
-    // delete cache
-    console.info(`Deleting old cache: ${key}`);
-    await caches.delete(key);
-};
 
 async function deleteOldCaches() {
     // retrieve all caches
@@ -52,7 +44,10 @@ async function deleteOldCaches() {
     // get all caches that is same to the name but different versions
     const cachesToDelete = keyList.filter(key => key.startsWith(CACHE_NAMING) && key !== CACHE_NAME);
     // remove those filters caches
-    await Promise.all(cachesToDelete.map(deleteCache));
+    await Promise.all(cachesToDelete.map(cache => {
+        console.info(`Deleting old cache: ${cache}`);
+        caches.delete(cache);
+    }));
 };
 
 self.addEventListener("activate", (event) => {
