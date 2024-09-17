@@ -1,5 +1,13 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const CACHE_NAME = `${CACHE_NAMING}-v8.0.6`;
+const CURRENT_VERSION = 'v8.0.7';
+const CACHE_NAME = `${CACHE_NAMING}-${CURRENT_VERSION}`;
+
+// when document is ready
+$(() => {
+    $('#currentVersion')
+        .text(CURRENT_VERSION)
+        .css('visibility', 'visible');
+});
 
 const ASSETS = [
     "/",

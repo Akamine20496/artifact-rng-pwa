@@ -11,8 +11,7 @@
 }
 
 html, body {
-    height: 100%;
-    overflow-y: auto;
+    height: auto;
 }
 
 body {
@@ -23,8 +22,6 @@ body {
     background-size: cover;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
     padding: 5%;
 }
 
@@ -250,13 +247,10 @@ button:focus {
     margin: 0 0.850rem 0.850rem 0;
     opacity: 0.5;
     font-weight: 900;
+    visibility: hidden;
 }
 
 /* Media Queries */
-
-@media only screen and (max-height: 600px) {
-    
-}
 
 /* Small screens */
 @media only screen and (max-width: 576px) {

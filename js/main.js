@@ -1,7 +1,4 @@
 $(() => {
-    const CURRENT_VERSION = 'v8.0.6';
-    $('#currentVersion').text(CURRENT_VERSION);
-
     // Credits
     console.info(`%c
             Artifact RNG by AKAMiNE
