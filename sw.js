@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const CURRENT_VERSION = 'v8.0.7';
+const CURRENT_VERSION = 'v8.0.8';
 const CACHE_NAME = `${CACHE_NAMING}-${CURRENT_VERSION}`;
 
 // when document is ready

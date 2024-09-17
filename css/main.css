@@ -11,7 +11,7 @@
 }
 
 html, body {
-    height: auto;
+    height: 100%;
 }
 
 body {
@@ -22,6 +22,7 @@ body {
     background-size: cover;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 5%;
 }
 
@@ -251,6 +252,12 @@ button:focus {
 }
 
 /* Media Queries */
+
+@media screen and (max-height: 450px) {
+    html, body {
+        height: auto;
+    }
+}
 
 /* Small screens */
 @media only screen and (max-width: 576px) {
