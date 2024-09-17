@@ -175,6 +175,9 @@ $(() => {
         await Dialog.showMessageDialog('Artifact RNG - Custom Stat', messages.customStatMsg);
     };
 
+    const APP_VERSION = 'v8.0.9';
+    $('#currentVersion').text(APP_VERSION);
+
     // execute the function
     displayMessages();
 

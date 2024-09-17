@@ -248,7 +248,6 @@ button:focus {
     margin: 0 0.850rem 0.850rem 0;
     opacity: 0.5;
     font-weight: 900;
-    visibility: hidden;
 }
 
 /* Media Queries */
