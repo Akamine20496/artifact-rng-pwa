@@ -183,6 +183,10 @@
     width: 50%;
 }
 
+.disabled {
+    pointer-events: none;
+}
+
 @keyframes fade-in {
     from {
         opacity: 0;

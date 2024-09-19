@@ -9,14 +9,14 @@ let selectedIndex = -1;
 
 // When the user clicks on <span> (x), close the modal
 $(btnClose).click(() => {
-    $('#modalContent *:not(#cboValue1):not(#cboValue2)').prop('disabled', true);
-    $(modalOverlay).fadeOut('fast');
+    $('#modalContent *').addClass('disabled');
     $('.selected:first').removeClass('selected');
+    $(modalOverlay).fadeOut(300);
 });
 
 $(btnOpenModal).click(() => {
-    $('#modalContent *:not(#cboValue1):not(#cboValue2)').prop('disabled', false);
-    $(modalOverlay).fadeIn('fast').css('display', 'flex');
+    $('#modalContent *').removeClass('disabled');
+    $(modalOverlay).fadeIn(300).css('display', 'flex');
 });
 
 $(subStatList).click((event) => {
