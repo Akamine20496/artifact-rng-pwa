@@ -22,7 +22,7 @@ $(() => {
         `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;'
     );
 
-    const APP_VERSION = 'v8.0.11';
+    const APP_VERSION = 'v8.0.12';
     
     const messages = {
         artifactSimulatorMsg: `

@@ -20,7 +20,6 @@ class CustomStat {
     #btnRemoveAll = document.getElementById('btnRemoveAll');
     #btnRemoveSubStat = document.getElementById('btnRemoveSubStat');
     #btnDisplayStat = document.getElementById('btnDisplayStat');
-    #oneTime = true;
     #definedAffixMode = false;
 
     // elements from the control-panel
@@ -33,32 +32,29 @@ class CustomStat {
     #pMaxUpgradeValue = document.getElementById('pMaxUpgradeValue');
 
     constructor() {
-        if (this.#oneTime) {
-            this.#oneTime = false;
-            // array of artifact pieces
-            const arrArtifactPiece = this.#artifact.getPiece();
+        // array of artifact pieces
+        const arrArtifactPiece = this.#artifact.getPiece();
 
-            // create an option label
-            const optionGroup = document.createElement('optgroup');
-            optionGroup.label = '-- Select a Piece --';
-            
-            // adds the artifact pieces to the <select> element
-            for (const artifactPiece of arrArtifactPiece) {
-                const option = document.createElement('option');
-                option.value = artifactPiece;
-                option.innerText = artifactPiece;
-                option.setAttribute('class', 'text');
-                optionGroup.appendChild(option);
-            }
-
-            this.#cboArtifactPiece.appendChild(optionGroup);
-
-            this.#setMainStatList(this.#artifact.getFlower());
-            this.#defaultValue(
-                this.#cboValue1, this.#cboValue2,
-                this.#cboValue3, this.#cboValue4
-            );
+        // create an option label
+        const optionGroup = document.createElement('optgroup');
+        optionGroup.label = 'Select Artifact Piece';
+        
+        // adds the artifact pieces to the <select> element
+        for (const artifactPiece of arrArtifactPiece) {
+            const option = document.createElement('option');
+            option.value = artifactPiece;
+            option.innerText = artifactPiece;
+            option.setAttribute('class', 'text');
+            optionGroup.appendChild(option);
         }
+
+        this.#cboArtifactPiece.appendChild(optionGroup);
+
+        this.#setMainStatList(this.#artifact.getFlower());
+        this.#defaultValue(
+            this.#cboValue1, this.#cboValue2,
+            this.#cboValue3, this.#cboValue4
+        );
 
         // cboArtifactPiece
         this.#cboArtifactPiece.addEventListener('change', () => {
@@ -404,7 +400,7 @@ class CustomStat {
 
             // create an option label
             const optionGroup = document.createElement('optgroup');
-            optionGroup.label = '-- Select a Value --';
+            optionGroup.label = 'Select a Value';
 
             // zero value
             const value = document.createElement('option');
@@ -516,7 +512,7 @@ class CustomStat {
 
         // create an option label
         const optionGroup = document.createElement('optgroup');
-        optionGroup.label = '-- Select a Value --';
+        optionGroup.label = 'Select a Value';
         
         // adds the artifact pieces to the <select> element
         for (const value of arrValues) {
@@ -553,7 +549,7 @@ class CustomStat {
 
         // create an option label
         const optionGroup = document.createElement('optgroup');
-        optionGroup.label = '-- Select Main Stat --';
+        optionGroup.label = 'Select Main Stat';
 
         // adds the artifact pieces to the <select> element
         for (const piece of artifactPiece) {

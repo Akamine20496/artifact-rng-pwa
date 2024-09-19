@@ -23,7 +23,7 @@ class ArtifactSimulator {
 
         // create an option label
         const optionGroup = document.createElement('optgroup');
-        optionGroup.label = '-- Select a Piece --';
+        optionGroup.label = 'Select Artifact Piece';
 
         for (const artifactPiece of arrArtifactPiece) {
             const option = document.createElement('option');
