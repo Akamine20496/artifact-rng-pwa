@@ -1,5 +1,5 @@
-// Class Artifact_Piece
-class ArtifactPiece {
+// Class ArtifactDisplayerPanel
+class ArtifactDisplayerPanel {
 	// variables
 	#artifact = new Artifact();
 	#lblArtifactPiece = document.getElementById('lblArtifactPiece');
@@ -26,7 +26,6 @@ class ArtifactPiece {
 	#prevValue2 = 0;
 	#prevValue3 = 0;
 	#prevValue4 = 0;
-	#isGenerated = false;
 	#isMax = false;
 	#slotNumber = 0;
 	#upgradeCounter = 0;
@@ -41,49 +40,57 @@ class ArtifactPiece {
 			return;
 		}
 
+		// Start time
+		const startTime = performance.now();
+		
 		this.#mainAttribute = this.#artifact.generateMainAttribute(this.#artifactPiece);
 		this.#maxUpgrade = this.#artifact.generateMaxUpgrade();
 
-		do {
-			this.#att1 = this.#artifact.generateSubAttribute(this.#mainAttribute);
-			this.#att2 = this.#artifact.generateSubAttribute(this.#mainAttribute);
-			this.#att3 = this.#artifact.generateSubAttribute(this.#mainAttribute);
-			this.#att4 = this.#maxUpgrade === 4 ? null : this.#artifact.generateSubAttribute(this.#mainAttribute);
+		this.#att1 = this.#artifact.generateSubAttribute(this.#mainAttribute);
+		this.#att2 = this.#artifact.generateSubAttribute(this.#mainAttribute, this.#att1);
+		this.#att3 = this.#artifact.generateSubAttribute(this.#mainAttribute, this.#att1, this.#att2);
+		this.#att4 = this.#maxUpgrade === 4 ? null : this.#artifact.generateSubAttribute(this.#mainAttribute, this.#att1, this.#att2, this.#att3);
 
-			if (this.#artifact.isUnique(this.#att1, this.#att2, this.#att3, this.#att4)) {
-				this.#iValue1 = this.#value1 = this.#artifact.generateValue(this.#att1);
-				this.#iValue2 = this.#value2 = this.#artifact.generateValue(this.#att2);
-				this.#iValue3 = this.#value3 = this.#artifact.generateValue(this.#att3);
-				this.#iValue4 = this.#value4 = this.#maxUpgrade === 4 ? 0 : this.#artifact.generateValue(this.#att4);
-				this.#isGenerated = true;
-			}
-		} while (!this.#isGenerated);
+		this.#iValue1 = this.#value1 = this.#artifact.generateValue(this.#att1);
+		this.#iValue2 = this.#value2 = this.#artifact.generateValue(this.#att2);
+		this.#iValue3 = this.#value3 = this.#artifact.generateValue(this.#att3);
+		this.#iValue4 = this.#value4 = this.#maxUpgrade === 4 ? 0 : this.#artifact.generateValue(this.#att4);
 
-		this.#isGenerated = false;
 		this.#displayStats();
+
+		// End time
+		const endTime = performance.now();
+
+		// Calculate elapsed time in milliseconds
+		const elapsedTime = (endTime - startTime) / 1000;
+		console.log(`\n\nElapsed time: ${elapsedTime.toFixed(4)} seconds\n\n`);
 	}
 
 	generateRandomCustomSubStats() {
+		// Start time
+		const startTime = performance.now();
+
 		this.#maxUpgrade = this.#artifact.generateMaxUpgrade();
 
-		do {
-			this.#att3 = this.#artifact.generateSubAttribute(this.#mainAttribute);
-			this.#att4 = this.#maxUpgrade === 4 ? null : this.#artifact.generateSubAttribute(this.#mainAttribute);
+		this.#att3 = this.#artifact.generateSubAttribute(this.#mainAttribute, this.#att1, this.#att2);
+		this.#att4 = this.#maxUpgrade === 4 ? null : this.#artifact.generateSubAttribute(this.#mainAttribute, this.#att1, this.#att2, this.#att3);
+		
+		if (this.#iValue1 === 0 && this.#iValue2 === 0) {
+			this.#iValue1 = this.#value1 = this.#artifact.generateValue(this.#att1);
+			this.#iValue2 = this.#value2 = this.#artifact.generateValue(this.#att2);
+		}
 
-			if (this.#artifact.isUnique(this.#att1, this.#att2, this.#att3, this.#att4)) {
-				if (this.#iValue1 === 0 && this.#iValue2 === 0) {
-					this.#iValue1 = this.#value1 = this.#artifact.generateValue(this.#att1);
-					this.#iValue2 = this.#value2 = this.#artifact.generateValue(this.#att2);
-				}
+		this.#iValue3 = this.#value3 = this.#artifact.generateValue(this.#att3);
+		this.#iValue4 = this.#value4 = this.#maxUpgrade === 4 ? 0 : this.#artifact.generateValue(this.#att4);
 
-				this.#iValue3 = this.#value3 = this.#artifact.generateValue(this.#att3);
-				this.#iValue4 = this.#value4 = this.#maxUpgrade === 4 ? 0 : this.#artifact.generateValue(this.#att4);
-				this.#isGenerated = true;
-			}
-		} while (!this.#isGenerated);
-
-		this.#isGenerated = false;
 		this.#displayStats();
+
+		// End time
+		const endTime = performance.now();
+
+		// Calculate elapsed time in milliseconds
+		const elapsedTime = (endTime - startTime) / 1000;
+		console.log(`\n\nElapsed time: ${elapsedTime.toFixed(4)} seconds\n\n`);
 	}
 
 	#displayStats() {
@@ -125,48 +132,31 @@ class ArtifactPiece {
 		if (this.#att4 === null) {
 			this.#generateFourthSubStat();
 		} else {
-			if (!this.#isMax) {								    			// if the total upgrades of 5 is reached
-				if (this.#upgradeCounter === 0) {						    // if the counter is 0, it will loop
-					while (this.#upgradeCounter === 0) {				    // until the upgrade counter is not 0
-						this.#slotNumber = this.#generateRandomSlot();
+			if (!this.#isMax) {								    						// if the total upgrades of 5 is reached
+				if (this.#upgradeCounter === 0) {						    			// if the counter is 0, it will loop
+					while (this.#upgradeCounter === 0) {				    			// until the upgrade counter is not 0
+						this.#slotNumber = this.#artifact.generateRandomSlot();
 						this.#upgradeCounter = this.#artifact.generateNoOfUpgrade();
 						this.#totalUpgrade += this.#upgradeCounter;
 					}
 
-					if (this.#totalUpgrade === this.#maxUpgrade) {			// if the total upgrade reaches 5, set the isMax to true
-						this.#isMax = true;							        // and upgrade the value
+					if (this.#totalUpgrade === this.#maxUpgrade) {						// if the total upgrade reaches 5, set the isMax to true
+						this.#isMax = true;							        			// and upgrade the value
 						this.#selectSlot(this.#slotNumber);
-					} else if (this.#totalUpgrade > this.#maxUpgrade) {		// if the total upgrade exceeds 5, deduct it from counter
-						this.#totalUpgrade -= this.#upgradeCounter;			// and set the counter to 0, then retry the process
+					} else if (this.#totalUpgrade > this.#maxUpgrade) {					// if the total upgrade exceeds 5, deduct it from counter
+						this.#totalUpgrade -= this.#upgradeCounter;						// and set the counter to 0, then retry the process
 						this.#upgradeCounter = 0;
 						this.upgradeSubStatValue();
 					} else {
-						this.#selectSlot(this.#slotNumber);					// if the total upgrade is not 5
+						this.#selectSlot(this.#slotNumber);								// if the total upgrade is not 5
 					}
-				} else {										            // if the counter is not 0
+				} else {										            			// if the counter is not 0
 					this.#selectSlot(this.#slotNumber);
 				}
-			} else {											            // if the isMax is true
+			} else {											            			// if the isMax is true
 				this.#selectSlot(this.#slotNumber);
 			}
 		}
-	}
-
-	#generateRandomSlot() {
-		const slotChance = this.#artifact.generateNumber();
-		const slots = [1, 2, 3, 4];
-		const probabilities = [25.00, 25.00, 25.00, 25.00];
-		let cumulativeProbability = 0;
-
-		for (let i = 0; i < slots.length; i++) {
-			cumulativeProbability += probabilities[i];
-			if (slotChance <= cumulativeProbability) {
-				return slots[i];
-			}
-		}
-
-		// If we reach here, something went wrong, so just return the first element
-		return slots[0];
 	}
 
 	#selectSlot(slotNumber) {
@@ -206,24 +196,27 @@ class ArtifactPiece {
 	}
 
 	#generateFourthSubStat() {
-		do {
-			this.#att4 = this.#artifact.generateSubAttribute(this.#mainAttribute);
+		// Start time
+		const startTime = performance.now();
 
-			if (this.#artifact.isUnique(this.#att1, this.#att2, this.#att3, this.#att4)) {
-				this.#value4 = this.#artifact.generateValue(this.#att4);
-				this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
+		this.#att4 = this.#artifact.generateSubAttribute(this.#mainAttribute);
 
-				if (!this.#skipMode) {
-					const message = this.#artifact.formatText(this.#att4) 
-						+ '     ----     ' + this.#artifact.formatValue(this.#att4, this.#value4);
-					Dialog.showMessageDialog('New Sub-Stat', message);
-				}
+		this.#value4 = this.#artifact.generateValue(this.#att4);
+		
+		this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
 
-				this.#isGenerated = true;
-			}
-		} while (!this.#isGenerated);
+		if (!this.#skipMode) {
+			const message = this.#artifact.formatText(this.#att4) 
+				+ '     ----     ' + this.#artifact.formatValue(this.#att4, this.#value4);
+			Dialog.showMessageDialog('New Sub-Stat', message);
+		}
 
-		this.#isGenerated = false;
+		// End time
+		const endTime = performance.now();
+
+		// Calculate elapsed time in milliseconds
+		const elapsedTime = (endTime - startTime) / 1000;
+		console.log(`\n\nElapsed time: ${elapsedTime.toFixed(4)} seconds\n\n`);
 
 		console.info('ArtifactPiece::generateFourthSubStat()\n\n' + this.toString());
 	}
@@ -335,13 +328,13 @@ class ArtifactPiece {
 	toString() {
         return `
             ArtifactPiece {
-                artifactPiece	= ${this.#artifactPiece}
-                mainAttribute	= ${this.#mainAttribute}
-                maxUpgrade		= ${this.#maxUpgrade}
-                att1 = ${this.#att1} [iValue1 = ${this.#iValue1}, value1 = ${this.#value1}]
-                att2 = ${this.#att2} [iValue2 = ${this.#iValue2}, value2 = ${this.#value2}]
-                att3 = ${this.#att3} [iValue3 = ${this.#iValue3}, value3 = ${this.#value3}]
-                att4 = ${this.#att4} [iValue4 = ${this.#iValue4}, value4 = ${this.#value4}]
+                artifactPiece	= '${this.#artifactPiece}'
+                mainAttribute	= '${this.#mainAttribute}'
+                maxUpgrade		= '${this.#maxUpgrade}'
+                att1 = '${this.#att1}' [iValue1 = ${this.#iValue1}, value1 = ${this.#value1}]
+                att2 = '${this.#att2}' [iValue2 = ${this.#iValue2}, value2 = ${this.#value2}]
+                att3 = '${this.#att3}' [iValue3 = ${this.#iValue3}, value3 = ${this.#value3}]
+                att4 = '${this.#att4}' [iValue4 = ${this.#iValue4}, value4 = ${this.#value4}]
             }
         `;
     }

@@ -22,7 +22,7 @@ $(() => {
         `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;'
     );
 
-    const APP_VERSION = 'v8.0.13';
+    const APP_VERSION = 'v9.0.0';
     
     const messages = {
         artifactSimulatorMsg: `
@@ -76,7 +76,7 @@ $(() => {
                 (Need 'Random Stat' to be selected first)
             </p> <br>
             <p>
-                These flags only works if it's "Unlock". Otherwise, it will not work when it's "Lock".
+                These flags only works if it's "Lock". Otherwise, it will not work when it's "Unlock".
             </p> <br>
             <p>
                 Occasionally, it may display incorrect decimals due to rounding errors.

@@ -1,7 +1,7 @@
-// Class Artifact_Simulator
+// Class ArtifactSimulator
 class ArtifactSimulator {
-    #artifactPiece = new ArtifactPiece();
-    #customStat = new CustomStat();
+    #objArtifactDisplayer = new ArtifactDisplayerPanel();
+    #customStat = new CustomStatDialog();
     #cboArtifactPiece = document.getElementById('cboArtifactPiece1');
     #btnGenerate = document.getElementById('btnGenerate');
     #btnSkip = document.getElementById('btnSkip');
@@ -70,10 +70,10 @@ class ArtifactSimulator {
         this.#btnGenerate.addEventListener('click', () => {
             if (this.#isLock && this.#chkRandomStat.checked) {
                 const selectedPiece = new Artifact().generateRandomPiece();
-                this.#artifactPiece.setArtifactPiece(selectedPiece);
-                this.#artifactPiece.generateStats();
+                this.#objArtifactDisplayer.setArtifactPiece(selectedPiece);
+                this.#objArtifactDisplayer.generateStats();
 
-                this.#pMaxUpgradeValue.innerText = this.#artifactPiece.getMaxUpgrade();
+                this.#pMaxUpgradeValue.innerText = this.#objArtifactDisplayer.getMaxUpgrade();
 
                 this.#cboArtifactPiece.disabled = true;
                 this.#btnGenerate.disabled = true;
@@ -96,10 +96,10 @@ class ArtifactSimulator {
                 Dialog.showMessageDialog('Artifact RNG', 'Click the \'Lock\' first.');
             } else {
                 const selectedPiece = this.#cboArtifactPiece.value;
-                this.#artifactPiece.setArtifactPiece(selectedPiece);
-                this.#artifactPiece.generateStats();
+                this.#objArtifactDisplayer.setArtifactPiece(selectedPiece);
+                this.#objArtifactDisplayer.generateStats();
 
-                this.#pMaxUpgradeValue.innerText = this.#artifactPiece.getMaxUpgrade();
+                this.#pMaxUpgradeValue.innerText = this.#objArtifactDisplayer.getMaxUpgrade();
 
                 this.#btnGenerate.disabled = true;
                 this.#btnLock.disabled = true;
@@ -120,22 +120,22 @@ class ArtifactSimulator {
             this.#btnReroll.disabled = false;
             this.#btnReroll.focus();
 
-            this.#artifactPiece.setSkipMode(true);
-            this.#artifactPiece.displaySkippedStats();
+            this.#objArtifactDisplayer.setSkipMode(true);
+            this.#objArtifactDisplayer.displaySkippedStats();
         });
 
         // btnRoll
         this.#btnRoll.addEventListener('click', () => {
-            this.#artifactPiece.setSkipMode(false);
+            this.#objArtifactDisplayer.setSkipMode(false);
             this.#btnSkip.disabled = true;
 
             const maxUpgradeValue = Number(this.#pMaxUpgradeValue.innerText);
 
             if (maxUpgradeValue === 4 && this.#isNewAttribute) {
-                this.#artifactPiece.upgradeSubStatValue();
+                this.#objArtifactDisplayer.upgradeSubStatValue();
                 this.#isNewAttribute = false;
             } else if (this.#rollCounter < maxUpgradeValue) {
-                this.#artifactPiece.upgradeSubStatValue();
+                this.#objArtifactDisplayer.upgradeSubStatValue();
                 this.#rollCounter++;
 
                 if (this.#rollCounter === maxUpgradeValue) {
@@ -149,7 +149,7 @@ class ArtifactSimulator {
 
         // btnReroll
         this.#btnReroll.addEventListener('click', () => {
-            this.#artifactPiece.rerollSubStats();
+            this.#objArtifactDisplayer.rerollSubStats();
             this.#btnSkip.disabled = false;
             this.#btnRoll.disabled = false;
             this.#btnReroll.disabled = true;
@@ -186,7 +186,7 @@ class ArtifactSimulator {
             this.#btnCustomStat.disabled = false;
             this.#isNewAttribute = true;
 
-            this.#artifactPiece.resetStats();
+            this.#objArtifactDisplayer.resetStats();
             this.#btnGenerate.focus();
 
             Dialog.showMessageDialog('Artifact RNG', 'Stats are removed!');
@@ -194,7 +194,7 @@ class ArtifactSimulator {
 
         // btnCustomStat
         this.#btnCustomStat.addEventListener('click', () => {
-            this.#customStat.setAsMemoryAddress(this.#artifactPiece);
+            this.#customStat.setAsMemoryAddress(this.#objArtifactDisplayer);
         });
 
         // chkRandomStat

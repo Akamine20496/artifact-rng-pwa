@@ -1,6 +1,6 @@
 # Artifact RNG PWA
 
-You can preview roll your artifact or just generate random stats.
+You can make this application kind of guess your artifact rolls or just generate random stats.
 
 ## Features
 
@@ -16,7 +16,7 @@ You can preview roll your artifact or just generate random stats.
 1. **Select Artifact Piece**: Choose the type of artifact piece you want to roll for and click "Generate".
 2. **Custom Stat**: Adjust any parameters such main stats, and sub-stats.
 3. **Generate Stats**: Click the "Generate" button to roll for your artifact.
-4. **Reroll Stats**: Reroll you sub-stats for different results.
+4. **Reroll Stats**: Reroll your sub-stats for different results.
 5. **Skip Upgrades**: Allows you to directly maxed out the upgrade of your artifact.
 6. **Reset Stats**: Reset your stats so that you can generate new ones.
 7. **Preview Results**: View the generated stats and see if the legitimate roll matches on your simulated roll or close to it.

@@ -1,152 +1,5 @@
 // Class Artifact
 class Artifact extends Attribute {
-    // Array of Stats (Attribute and Probability)
-    #listFlower = [new Stat(Attribute.HP_FLAT, 100.00)];
-	#listFeather = [new Stat(Attribute.ATK_FLAT, 100.00)];
-	#listSands = [
-			new Stat(Attribute.HP_PER, 26.68),
-			new Stat(Attribute.ATK_PER, 26.66),
-			new Stat(Attribute.DEF_PER, 26.66),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.00)
-    ];
-	#listGoblet = [
-			new Stat(Attribute.HP_PER, 19.25),
-			new Stat(Attribute.ATK_PER, 19.25),
-			new Stat(Attribute.DEF_PER, 19.00),
-			new Stat(Attribute.PYRO_DMG_BONUS, 5.00),
-			new Stat(Attribute.ELECTRO_DMG_BONUS, 5.00),
-			new Stat(Attribute.CRYO_DMG_BONUS, 5.00),
-			new Stat(Attribute.HYDRO_DMG_BONUS, 5.00),
-			new Stat(Attribute.DENDRO_DMG_BONUS, 5.00),
-			new Stat(Attribute.ANEMO_DMG_BONUS, 5.00),
-			new Stat(Attribute.GEO_DMG_BONUS, 5.00),
-			new Stat(Attribute.PHYSICAL_DMG_BONUS, 5.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 2.50)
-    ];
-	#listCirclet = [
-			new Stat(Attribute.HP_PER, 22.00),
-			new Stat(Attribute.ATK_PER, 22.00),
-			new Stat(Attribute.DEF_PER, 22.00),
-			new Stat(Attribute.CRIT_RATE, 10.00),
-			new Stat(Attribute.CRIT_DMG, 10.00),
-			new Stat(Attribute.HEALING_BONUS, 10.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 4.00)
-    ];
-	#listHpFlat = [
-			new Stat(Attribute.ATK_FLAT, 15.79),
-			new Stat(Attribute.DEF_FLAT, 15.79),
-			new Stat(Attribute.HP_PER, 10.53),
-			new Stat(Attribute.ATK_PER, 10.53),
-			new Stat(Attribute.DEF_PER, 10.53),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.53),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.53),
-			new Stat(Attribute.CRIT_RATE, 7.89),
-			new Stat(Attribute.CRIT_DMG, 7.89)
-    ];
-	#listAtkFlat = [
-			new Stat(Attribute.HP_FLAT, 15.79),
-			new Stat(Attribute.DEF_FLAT, 15.79),
-			new Stat(Attribute.HP_PER, 10.53),
-			new Stat(Attribute.ATK_PER, 10.53),
-			new Stat(Attribute.DEF_PER, 10.53),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.53),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.53),
-			new Stat(Attribute.CRIT_RATE, 7.89),
-			new Stat(Attribute.CRIT_DMG, 7.89)
-    ];
-	#listHpPer = [
-			new Stat(Attribute.HP_FLAT, 15.00),
-			new Stat(Attribute.ATK_FLAT, 15.00),
-			new Stat(Attribute.DEF_FLAT, 15.00),
-			new Stat(Attribute.ATK_PER, 10.00),
-			new Stat(Attribute.DEF_PER, 10.00),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.00),
-			new Stat(Attribute.CRIT_RATE, 7.50),
-			new Stat(Attribute.CRIT_DMG, 7.50)
-    ];
-	#listAtkPer = [
-			new Stat(Attribute.HP_FLAT, 15.00),
-			new Stat(Attribute.ATK_FLAT, 15.00),
-			new Stat(Attribute.DEF_FLAT, 15.00),
-			new Stat(Attribute.HP_PER, 10.00),
-			new Stat(Attribute.DEF_PER, 10.00),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.00),
-			new Stat(Attribute.CRIT_RATE, 7.50),
-			new Stat(Attribute.CRIT_DMG, 7.50)
-    ];
-	#listDefPer = [
-			new Stat(Attribute.HP_FLAT, 15.00),
-			new Stat(Attribute.ATK_FLAT, 15.00),
-			new Stat(Attribute.DEF_FLAT, 15.00),
-			new Stat(Attribute.HP_PER, 10.00),
-			new Stat(Attribute.ATK_PER, 10.00),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.00),
-			new Stat(Attribute.CRIT_RATE, 7.50),
-			new Stat(Attribute.CRIT_DMG, 7.50)
-    ];
-	#listEnergyRecharge = [
-			new Stat(Attribute.HP_FLAT, 15.00),
-			new Stat(Attribute.ATK_FLAT, 15.00),
-			new Stat(Attribute.DEF_FLAT, 15.00),
-			new Stat(Attribute.HP_PER, 10.00),
-			new Stat(Attribute.ATK_PER, 10.00),
-			new Stat(Attribute.DEF_PER, 10.00),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 10.00),
-			new Stat(Attribute.CRIT_RATE, 7.50),
-			new Stat(Attribute.CRIT_DMG, 7.50)
-    ];
-	#listElementalMastery = [
-			new Stat(Attribute.HP_FLAT, 15.00),
-			new Stat(Attribute.ATK_FLAT, 15.00),
-			new Stat(Attribute.DEF_FLAT, 15.00),
-			new Stat(Attribute.HP_PER, 10.00),
-			new Stat(Attribute.ATK_PER, 10.00),
-			new Stat(Attribute.DEF_PER, 10.00),
-			new Stat(Attribute.ENERGY_RECHARGE, 10.00),
-			new Stat(Attribute.CRIT_RATE, 7.50),
-			new Stat(Attribute.CRIT_DMG, 7.50)
-    ];
-	#listCritRate = [
-			new Stat(Attribute.HP_FLAT, 14.63),
-			new Stat(Attribute.ATK_FLAT, 14.63),
-			new Stat(Attribute.DEF_FLAT, 14.63),
-			new Stat(Attribute.HP_PER, 9.76),
-			new Stat(Attribute.ATK_PER, 9.76),
-			new Stat(Attribute.DEF_PER, 9.76),
-			new Stat(Attribute.ENERGY_RECHARGE, 9.76),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 9.76),
-			new Stat(Attribute.CRIT_DMG, 7.32)
-    ];
-	#listCritDmg = [
-			new Stat(Attribute.HP_FLAT, 14.63),
-			new Stat(Attribute.ATK_FLAT, 14.63),
-			new Stat(Attribute.DEF_FLAT, 14.63),
-			new Stat(Attribute.HP_PER, 9.76),
-			new Stat(Attribute.ATK_PER, 9.76),
-			new Stat(Attribute.DEF_PER, 9.76),
-			new Stat(Attribute.ENERGY_RECHARGE, 9.76),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 9.76),
-			new Stat(Attribute.CRIT_RATE, 7.32)
-    ];
-	#listSpecialAtt = [
-			new Stat(Attribute.HP_FLAT, 13.64),
-			new Stat(Attribute.ATK_FLAT, 13.64),
-			new Stat(Attribute.DEF_FLAT, 13.64),
-			new Stat(Attribute.HP_PER, 9.09),
-			new Stat(Attribute.ATK_PER, 9.09),
-			new Stat(Attribute.DEF_PER, 9.09),
-			new Stat(Attribute.ENERGY_RECHARGE, 9.09),
-			new Stat(Attribute.ELEMENTAL_MASTERY, 9.09),
-			new Stat(Attribute.CRIT_RATE, 6.82),
-			new Stat(Attribute.CRIT_DMG, 6.82)
-    ];
-
-    // artifact piece and their sub stats
-
     static FLOWER = 'Flower of Life';
 	static FEATHER = 'Plume of Death';
 	static SANDS = 'Sands of Eon';
@@ -158,8 +11,8 @@ class Artifact extends Attribute {
         'Sands of Eon', 'Goblet of Eonothem',
 		'Circlet of Logos'
     ];
-	#FLOWER_OF_LIFE = ['HP'];
-	#PLUME_OF_DEATH = ['ATK'];
+	#FLOWER_OF_LIFE = [ 'HP' ];
+	#PLUME_OF_DEATH = [ 'ATK' ];
 	#SANDS_OF_EON = [
         'HP%', 'ATK%', 'DEF%', 
         'Energy Recharge%', 'Elemental Mastery'
@@ -175,6 +28,52 @@ class Artifact extends Attribute {
         'Elemental Mastery', 'CRIT Rate%', 'CRIT DMG%'
     ];
 
+    #FLOWER_STAT = new AttributeStat(Attribute.HP_FLAT);
+	#FEATHER_STAT = new AttributeStat(Attribute.ATK_FLAT);
+
+	#listSands = [
+        new ProbabilityStat(Attribute.HP_PER, 26.68),
+        new ProbabilityStat(Attribute.ATK_PER, 26.66),
+		new ProbabilityStat(Attribute.DEF_PER, 26.66),
+		new ProbabilityStat(Attribute.ENERGY_RECHARGE, 10.00),
+		new ProbabilityStat(Attribute.ELEMENTAL_MASTERY, 10.00)
+    ];
+	#listGoblet = [
+		new ProbabilityStat(Attribute.HP_PER, 19.25),
+		new ProbabilityStat(Attribute.ATK_PER, 19.25),
+		new ProbabilityStat(Attribute.DEF_PER, 19.00),
+		new ProbabilityStat(Attribute.PYRO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.ELECTRO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.CRYO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.HYDRO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.DENDRO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.ANEMO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.GEO_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.PHYSICAL_DMG_BONUS, 5.00),
+		new ProbabilityStat(Attribute.ELEMENTAL_MASTERY, 2.50)
+    ];
+	#listCirclet = [
+		new ProbabilityStat(Attribute.HP_PER, 22.00),
+		new ProbabilityStat(Attribute.ATK_PER, 22.00),
+		new ProbabilityStat(Attribute.DEF_PER, 22.00),
+		new ProbabilityStat(Attribute.CRIT_RATE, 10.00),
+		new ProbabilityStat(Attribute.CRIT_DMG, 10.00),
+		new ProbabilityStat(Attribute.HEALING_BONUS, 10.00),
+		new ProbabilityStat(Attribute.ELEMENTAL_MASTERY, 4.00)
+    ];
+
+    #listStatWeight = [
+        new WeightedStat(Attribute.HP_FLAT, 6),
+        new WeightedStat(Attribute.ATK_FLAT, 6),
+        new WeightedStat(Attribute.DEF_FLAT, 6),
+        new WeightedStat(Attribute.HP_PER, 4),
+        new WeightedStat(Attribute.ATK_PER, 4),
+        new WeightedStat(Attribute.DEF_PER, 4),
+        new WeightedStat(Attribute.ENERGY_RECHARGE, 4),
+        new WeightedStat(Attribute.ELEMENTAL_MASTERY, 4),
+        new WeightedStat(Attribute.CRIT_RATE, 3),
+        new WeightedStat(Attribute.CRIT_DMG, 3)
+    ];
     
     getPiece() {
         return this.#PIECE;
@@ -200,13 +99,8 @@ class Artifact extends Attribute {
         return this.#CIRCLET_OF_LOGOS;
     }
     
-    // class methods
     generateRandomPiece() {
-        const listPiece = [
-            Artifact.FLOWER, Artifact.FEATHER, Artifact.SANDS,
-            Artifact.GOBLET, Artifact.CIRCLET
-        ];
-
+        const listPiece = [ Artifact.FLOWER, Artifact.FEATHER, Artifact.SANDS, Artifact.GOBLET, Artifact.CIRCLET ];
         const randomIndex = Math.floor(Math.random() * listPiece.length);
         return listPiece[randomIndex];
     }
@@ -219,9 +113,9 @@ class Artifact extends Attribute {
 
         switch (artifactPiece) {
             case Artifact.FLOWER:
-                return this.#listFlower[0].getAttribute();
+                return this.#FLOWER_STAT.getAttribute();
             case Artifact.FEATHER:
-                return this.#listFeather[0].getAttribute();
+                return this.#FEATHER_STAT.getAttribute();
             case Artifact.SANDS:
                 return this.#generatedAttribute(this.#listSands);
             case Artifact.GOBLET:
@@ -234,44 +128,30 @@ class Artifact extends Attribute {
 		throw new Error(`Invalid artifact piece: ${artifactPiece}`);
     }
 
-    generateSubAttribute(mainAttribute) {
-        // checks if the type is not string
-        if (typeof mainAttribute !== 'string') {
-            throw new TypeError('Invalid Data Type: must be a string.');
+    generateSubAttribute(...attributes) {
+        const notSpecialAttributes = [];
+
+        for (const attribute of attributes) {
+            if (attribute === null) {
+                throw new Error('Attribute must not be null.');
+            }
+
+            if (this.isNotSpecialAttribute(attribute)) {
+                notSpecialAttributes.push(attribute);
+            }
         }
 
-        if (this.isNotSpecial(mainAttribute)) {
-            switch (mainAttribute) {
-	    		case Attribute.HP_FLAT:
-	    			return this.#generatedAttribute(this.#listHpFlat);
-	    		case Attribute.ATK_FLAT:
-	    			return this.#generatedAttribute(this.#listAtkFlat);
-	            case Attribute.HP_PER:
-	                return this.#generatedAttribute(this.#listHpPer);
-	            case Attribute.ATK_PER:
-	                return this.#generatedAttribute(this.#listAtkPer);
-	            case Attribute.DEF_PER:
-	                return this.#generatedAttribute(this.#listDefPer);
-	            case Attribute.ENERGY_RECHARGE:
-	            	return this.#generatedAttribute(this.#listEnergyRecharge);
-	            case Attribute.ELEMENTAL_MASTERY:
-	                return this.#generatedAttribute(this.#listElementalMastery);
-	            case Attribute.CRIT_RATE:
-	            	return this.#generatedAttribute(this.#listCritRate);
-	            case Attribute.CRIT_DMG:
-	            	return this.#generatedAttribute(this.#listCritDmg);
-	        }
-        } else {
-            return this.#generatedAttribute(this.#listSpecialAtt);
-        }
+        const statsList = this.#getStatProbabilityList(notSpecialAttributes);
 
-        // Throw an exception if none of the cases or the isNotSpecial condition is met
-	    throw new Error(`Invalid attribute: ${mainAttribute}`);
+        // for debugging purposes
+        this.#checkIfHundredPercent(statsList);
+
+        return this.#generatedAttribute(statsList);
     }
 
     generateMaxUpgrade() {
 		const noOfSubStatChance = this.generateNumber();
-		const maxUpgrades = [4, 5];
+		const maxUpgrades = [ 4, 5 ];
 		
         if (noOfSubStatChance <= 66.00) {
             return maxUpgrades[0];
@@ -281,13 +161,14 @@ class Artifact extends Attribute {
 	}
 
     generateNoOfUpgrade() {
-        const upgradeChance = (this.generateNumber() - 0.01).toFixed(2);
-        const upgradeTimes = [0, 1, 2, 3, 4, 5];
-        const probabilities = [23.73, 39.55, 26.37, 8.79, 1.46, 0.09];
+        const upgradeChance = Number((this.generateNumber() - 0.01).toFixed(2));
+        const upgradeTimes = [ 0, 1, 2, 3, 4, 5 ];
+        const probabilities = [ 23.73, 39.55, 26.37, 8.79, 1.46, 0.09 ];
         let cumulativeProbability = 0;
 
         for (let i = 0; i < upgradeTimes.length; i++) {
             cumulativeProbability += probabilities[i];
+
             if (upgradeChance <= cumulativeProbability) {
                 return upgradeTimes[i];
             }
@@ -296,6 +177,23 @@ class Artifact extends Attribute {
         // If we reach here, something went wrong, just return the first element
 		return upgradeTimes[0];
     }
+
+    generateRandomSlot() {
+		const slotChance = this.generateNumber();
+		const slots = [1, 2, 3, 4];
+		const probabilities = [25.00, 25.00, 25.00, 25.00];
+		let cumulativeProbability = 0;
+
+		for (let i = 0; i < slots.length; i++) {
+			cumulativeProbability += probabilities[i];
+			if (slotChance <= cumulativeProbability) {
+				return slots[i];
+			}
+		}
+
+		// If we reach here, something went wrong, so just return the first element
+		return slots[0];
+	}
 
     generateValue(attribute) {
         // checks if the type is not string
@@ -316,9 +214,9 @@ class Artifact extends Attribute {
 		 * 25% chance 70% value of the max stat
 		 */
 
-        for (const stats of Attribute.STATS) {
-            if (stats.getAttribute() === attribute) {
-                return this.#generatedValue(stats.getValues());
+        for (const currentStat of Attribute.VALUE_STATS) {
+            if (currentStat.getAttribute() === attribute) {
+                return this.#generatedValue(currentStat.getValues());
             }
         }
 
@@ -402,24 +300,81 @@ class Artifact extends Attribute {
         return Math.round(value).toString();
     }
 
-    isUnique(...attributes) {
-        const map = new Map();
+    #checkIfHundredPercent(listStats) {
+        let totalProbability = 0;
 
-        attributes.forEach(attribute => map.set(attribute, 1));
+        if (!Array.isArray(listStats)) {
+            throw new TypeError('Invalid Data Type: must be an array.');
+        }
 
-        // If map size is equal to 4, all attributes are unique
-        return map.size === attributes.length;
+        for (const currentStat of listStats) {
+            totalProbability += currentStat.getProbability();
+        }
+
+        console.log(`\nFrom ${listStats}\n\nTotal Probability is ${totalProbability}\n\n`);
+    }
+
+    #getStatProbabilityList(attributes) {
+        if (!Array.isArray(attributes)) {
+            throw new TypeError('Invalid Data Type: must be an array.');
+        }
+
+        const notExistingStats = [];
+        const selectedStats = [];
+
+        for (const currentStat of this.#listStatWeight) {
+            if (!attributes.includes(currentStat.getAttribute())) {
+                notExistingStats.push(currentStat);
+            }
+        }
+
+        for (const currentStat of notExistingStats) {
+            selectedStats.push(this.#calculateStatProbability(currentStat, attributes));
+        }
+
+        return selectedStats;
+    }
+
+    #calculateStatProbability(targetWeightedStat, existingStats) {
+        if (!(targetWeightedStat instanceof WeightedStat)) {
+            throw new TypeError('Invalid Data Type: must be an instance of WeightedStat.');
+        }
+
+        if (!Array.isArray(existingStats)) {
+            throw new TypeError('Invalid Data Type: must be an array.');
+        }
+
+        if (targetWeightedStat === null || existingStats === null) {
+            throw new Error('Requires non-null object');
+        }
+
+        let totalWeight = 0;
+
+        if (!Attribute.ATTRIBUTES.includes(targetWeightedStat.getAttribute())) {
+            throw new Error(`Invalid attribute: ${targetWeightedStat.getAttribute()}`);
+        }
+
+        // Calculate the total weight of available sub-stats (excluding the ones already existing)
+        for (const currentStat of this.#listStatWeight) {
+            if (!existingStats.includes(currentStat.getAttribute())) {
+                totalWeight += currentStat.getWeight();
+            }
+        }
+
+        const probability = targetWeightedStat.getWeight() / totalWeight * 100;
+
+        return new ProbabilityStat(targetWeightedStat.getAttribute(), probability);
     }
 
     // GENERATING RANDOM ATTRIBUTE
 
     #generatedAttribute(listAttribute) {
         // boolean variable
-        let isNotStatClass = false;
-        // checks if the element inside the array is Stat Class
+        let isNotProbabilityStatClass = false;
+        // checks if the element inside the array is ProbabilityStat Class
         for (const stats of listAttribute) {
-            if (!stats instanceof Stat) {
-                isNotStatClass = true;
+            if (!stats instanceof ProbabilityStat) {
+                isNotProbabilityStatClass = true;
                 break;
             }
         }
@@ -428,9 +383,9 @@ class Artifact extends Attribute {
         if (!Array.isArray(listAttribute)) {
             throw new TypeError('Invalid Data Type: must be an array.');
         } 
-        // checks if the array is not Stat Class
-        else if (isNotStatClass) {
-            throw new Error('Invalid Data Type: the element must be a Stat Class.');
+        // checks if the array is not ProbabilityStat Class
+        else if (isNotProbabilityStatClass) {
+            throw new Error('Invalid Data Type: the element must be a ProbabilityStat Class.');
         }
 
         const attributeChance = this.generateNumber();
@@ -438,6 +393,7 @@ class Artifact extends Attribute {
 
         for (let i = 0; i < listAttribute.length; i++) {
             cumulativeProbability += listAttribute[i].getProbability();
+
             if (attributeChance <= cumulativeProbability) {
                 return listAttribute[i].getAttribute();
             }
@@ -475,6 +431,7 @@ class Artifact extends Attribute {
 
         for (let i = 0; i < attributeValue.length; i++) {
             cumulativeProbability += probabilities[i];
+
             if (valueChance <= cumulativeProbability) {
                 return attributeValue[i];
             }
@@ -490,6 +447,6 @@ class Artifact extends Attribute {
     generateNumber() {
         const min = 0;
         const max = 100;
-        return (Math.random() * (max - min) + min).toFixed(2);
+        return Number((Math.random() * (max - min) + min).toFixed(2));
     }
 }
