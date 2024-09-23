@@ -199,8 +199,8 @@ class ArtifactDisplayerPanel {
 		// Start time
 		const startTime = performance.now();
 
-		this.#att4 = this.#artifact.generateSubAttribute(this.#mainAttribute);
-
+		this.#att4 = this.#artifact.generateSubAttribute(this.#mainAttribute, this.#att1, this.#att2, this.#att3);
+		
 		this.#value4 = this.#artifact.generateValue(this.#att4);
 		
 		this.#lblSlot4.innerText = this.#displayText(this.#att4, this.#value4);
