@@ -20,7 +20,7 @@ class ValueStat extends AttributeStat {
     }
 
     equals(o) {
-        if (this === o) return true;                            // Check if both references point to the same object
+        if (this == o) return true;                             // Check if both references point to the same object
         if (!(o instanceof ValueStat)) return false;            // Check if the object is of the same type
         return this.#values.length === o.getValues().length &&
                 this.#values.every((value, index) => {
