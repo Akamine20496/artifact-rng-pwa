@@ -491,6 +491,8 @@ class CustomStatDialog {
         this.#btnReset.disabled = false;
         this.#btnCustomStat.disabled = true;
         this.#btnRoll.focus();
+
+        this.#objArtifactPiece = null;
     }
 
     // method to get the index of the selected sub stat list

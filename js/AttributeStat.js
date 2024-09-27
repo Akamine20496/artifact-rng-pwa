@@ -4,6 +4,10 @@ class AttributeStat {
 
     // constructor method
     constructor(attribute) {
+        if (new.target === AttributeStat) {
+            throw new Error("Cannot instantiate AttributeStat Class directly.");
+        }
+
         if (typeof attribute === 'string') {
             this.#attribute = attribute;
         }

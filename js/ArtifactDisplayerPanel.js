@@ -192,7 +192,7 @@ class ArtifactDisplayerPanel {
 			Dialog.showMessageDialog('Sub-Stat Upgrade', this.#artifact.formatText(att, prevValue, currValue));
 		}
 
-		console.info('ArtifactPiece::displaySubStatUpgrade()\n\n' + this.toString());
+		console.info('ArtifactDisplayerPanel::displaySubStatUpgrade()\n\n' + this.toString());
 	}
 
 	#generateFourthSubStat() {
@@ -218,7 +218,7 @@ class ArtifactDisplayerPanel {
 		const elapsedTime = (endTime - startTime) / 1000;
 		console.log(`\n\nElapsed time: ${elapsedTime.toFixed(4)} seconds\n\n`);
 
-		console.info('ArtifactPiece::generateFourthSubStat()\n\n' + this.toString());
+		console.info('ArtifactDisplayerPanel::generateFourthSubStat()\n\n' + this.toString());
 	}
 
 	resetStats() {
@@ -327,7 +327,7 @@ class ArtifactDisplayerPanel {
 
 	toString() {
         return `
-            ArtifactPiece {
+            ArtifactDisplayerPanel {
                 artifactPiece	= '${this.#artifactPiece}'
                 mainAttribute	= '${this.#mainAttribute}'
                 maxUpgrade		= '${this.#maxUpgrade}'

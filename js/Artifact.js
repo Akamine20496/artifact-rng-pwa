@@ -6,39 +6,57 @@ class Artifact extends Attribute {
 	static GOBLET = 'Goblet of Eonothem';
 	static CIRCLET = 'Circlet of Logos';
 
-	#PIECE = [
-        'Flower of Life', 'Plume of Death', 
-        'Sands of Eon', 'Goblet of Eonothem',
-		'Circlet of Logos'
+	static #PIECE = [
+        this.FLOWER,
+        this.FEATHER,
+        this.SANDS,
+        this.GOBLET,
+        this.CIRCLET
     ];
-	#FLOWER_OF_LIFE = [ 'HP' ];
-	#PLUME_OF_DEATH = [ 'ATK' ];
-	#SANDS_OF_EON = [
-        'HP%', 'ATK%', 'DEF%', 
-        'Energy Recharge%', 'Elemental Mastery'
+	static #FLOWER_OF_LIFE = [ Attribute.HP_FLAT ];
+	static #PLUME_OF_DEATH = [ Attribute.ATK_FLAT ];
+	static #SANDS_OF_EON = [
+        Attribute.HP_PER,
+        Attribute.ATK_PER,
+        Attribute.DEF_PER,
+        Attribute.ENERGY_RECHARGE,
+        Attribute.ELEMENTAL_MASTERY
     ];
-	#GOBLET_OF_EONOTHEM = [
-        'HP%', 'ATK%', 'DEF%', 'Pyro DMG Bonus%', 
-        'Electro DMG Bonus%', 'Cryo DMG Bonus%', 'Hydro DMG Bonus%', 
-        'Dendro DMG Bonus%', 'Anemo DMG Bonus%', 'Geo DMG Bonus%',
-		'Physical DMG Bonus%', 'Elemental Mastery'
+	static #GOBLET_OF_EONOTHEM = [
+        Attribute.HP_PER,
+        Attribute.ATK_PER,
+        Attribute.DEF_PER,
+        Attribute.PYRO_DMG_BONUS,
+        Attribute.ELECTRO_DMG_BONUS,
+        Attribute.CRYO_DMG_BONUS,
+        Attribute.HYDRO_DMG_BONUS,
+        Attribute.DENDRO_DMG_BONUS,
+        Attribute.ANEMO_DMG_BONUS,
+        Attribute.GEO_DMG_BONUS,
+        Attribute.PHYSICAL_DMG_BONUS,
+        Attribute.ELEMENTAL_MASTERY
     ];
-	#CIRCLET_OF_LOGOS = [
-        'HP%', 'ATK%', 'DEF%', 'Healing Bonus%', 
-        'Elemental Mastery', 'CRIT Rate%', 'CRIT DMG%'
+	static #CIRCLET_OF_LOGOS = [
+        Attribute.HP_PER,
+        Attribute.ATK_PER,
+        Attribute.DEF_PER,
+        Attribute.HEALING_BONUS,
+        Attribute.ELEMENTAL_MASTERY,
+        Attribute.CRIT_RATE,
+        Attribute.CRIT_DMG
     ];
 
-    #FLOWER_STAT = new AttributeStat(Attribute.HP_FLAT);
-	#FEATHER_STAT = new AttributeStat(Attribute.ATK_FLAT);
+    #FLOWER_STAT = Attribute.HP_FLAT;
+	#FEATHER_STAT = Attribute.ATK_FLAT;
 
-	#listSands = [
+	#LIST_SANDS_STATS = [
         new ProbabilityStat(Attribute.HP_PER, 26.68),
         new ProbabilityStat(Attribute.ATK_PER, 26.66),
 		new ProbabilityStat(Attribute.DEF_PER, 26.66),
 		new ProbabilityStat(Attribute.ENERGY_RECHARGE, 10.00),
 		new ProbabilityStat(Attribute.ELEMENTAL_MASTERY, 10.00)
     ];
-	#listGoblet = [
+	#LIST_GOBLET_STATS = [
 		new ProbabilityStat(Attribute.HP_PER, 19.25),
 		new ProbabilityStat(Attribute.ATK_PER, 19.25),
 		new ProbabilityStat(Attribute.DEF_PER, 19.00),
@@ -52,7 +70,7 @@ class Artifact extends Attribute {
 		new ProbabilityStat(Attribute.PHYSICAL_DMG_BONUS, 5.00),
 		new ProbabilityStat(Attribute.ELEMENTAL_MASTERY, 2.50)
     ];
-	#listCirclet = [
+	#LIST_CIRCLET_STATS = [
 		new ProbabilityStat(Attribute.HP_PER, 22.00),
 		new ProbabilityStat(Attribute.ATK_PER, 22.00),
 		new ProbabilityStat(Attribute.DEF_PER, 22.00),
@@ -62,7 +80,7 @@ class Artifact extends Attribute {
 		new ProbabilityStat(Attribute.ELEMENTAL_MASTERY, 4.00)
     ];
 
-    #listStatWeight = [
+    #LIST_STATS_WEIGHTS = [
         new WeightedStat(Attribute.HP_FLAT, 6),
         new WeightedStat(Attribute.ATK_FLAT, 6),
         new WeightedStat(Attribute.DEF_FLAT, 6),
@@ -76,33 +94,32 @@ class Artifact extends Attribute {
     ];
     
     getPiece() {
-        return this.#PIECE;
+        return Artifact.#PIECE;
     }
     
     getFlower() {
-        return this.#FLOWER_OF_LIFE;
+        return Artifact.#FLOWER_OF_LIFE;
     }
 
     getFeather() {
-        return this.#PLUME_OF_DEATH;
+        return Artifact.#PLUME_OF_DEATH;
     }
     
     getSands() {
-        return this.#SANDS_OF_EON;
+        return Artifact.#SANDS_OF_EON;
     }
     
     getGoblet() {
-        return this.#GOBLET_OF_EONOTHEM;
+        return Artifact.#GOBLET_OF_EONOTHEM;
     }
     
     getCirclet() {
-        return this.#CIRCLET_OF_LOGOS;
+        return Artifact.#CIRCLET_OF_LOGOS;
     }
     
     generateRandomPiece() {
-        const listPiece = [ Artifact.FLOWER, Artifact.FEATHER, Artifact.SANDS, Artifact.GOBLET, Artifact.CIRCLET ];
-        const randomIndex = Math.floor(Math.random() * listPiece.length);
-        return listPiece[randomIndex];
+        const randomIndex = Math.floor(Math.random() * Artifact.#PIECE.length);
+        return Artifact.#PIECE[randomIndex];
     }
 
     generateMainAttribute(artifactPiece) {
@@ -113,15 +130,15 @@ class Artifact extends Attribute {
 
         switch (artifactPiece) {
             case Artifact.FLOWER:
-                return this.#FLOWER_STAT.getAttribute();
+                return this.#FLOWER_STAT;
             case Artifact.FEATHER:
-                return this.#FEATHER_STAT.getAttribute();
+                return this.#FEATHER_STAT;
             case Artifact.SANDS:
-                return this.#generatedAttribute(this.#listSands);
+                return this.#generatedAttribute(this.#LIST_SANDS_STATS);
             case Artifact.GOBLET:
-                return this.#generatedAttribute(this.#listGoblet);
+                return this.#generatedAttribute(this.#LIST_GOBLET_STATS);
             case Artifact.CIRCLET:
-                return this.#generatedAttribute(this.#listCirclet);
+                return this.#generatedAttribute(this.#LIST_CIRCLET_STATS);
         }
 
         // Throw an exception if none of the cases is met
@@ -318,18 +335,14 @@ class Artifact extends Attribute {
         if (!Array.isArray(attributes)) {
             throw new TypeError('Invalid Data Type: must be an array.');
         }
-
-        const notExistingStats = [];
+        
         const selectedStats = [];
 
-        for (const currentStat of this.#listStatWeight) {
+        for (const currentStat of this.#LIST_STATS_WEIGHTS) {
             if (!attributes.includes(currentStat.getAttribute())) {
-                notExistingStats.push(currentStat);
+                const statProbability = this.#calculateStatProbability(currentStat, attributes);
+                selectedStats.push(statProbability);
             }
-        }
-
-        for (const currentStat of notExistingStats) {
-            selectedStats.push(this.#calculateStatProbability(currentStat, attributes));
         }
 
         return selectedStats;
@@ -355,7 +368,7 @@ class Artifact extends Attribute {
         }
 
         // Calculate the total weight of available sub-stats (excluding the ones already existing)
-        for (const currentStat of this.#listStatWeight) {
+        for (const currentStat of this.#LIST_STATS_WEIGHTS) {
             if (!existingStats.includes(currentStat.getAttribute())) {
                 totalWeight += currentStat.getWeight();
             }
@@ -373,7 +386,7 @@ class Artifact extends Attribute {
         let isNotProbabilityStatClass = false;
         // checks if the element inside the array is ProbabilityStat Class
         for (const stats of listAttribute) {
-            if (!stats instanceof ProbabilityStat) {
+            if (!(stats instanceof ProbabilityStat)) {
                 isNotProbabilityStatClass = true;
                 break;
             }
@@ -410,7 +423,7 @@ class Artifact extends Attribute {
         let isNotNumber = false;
         // checks if the element inside the array is a number
         for (const values of attributeValue) {
-            if (!typeof values === 'number') {
+            if (typeof values !== 'number') {
                 isNotNumber = true;
                 break;
             }

@@ -45,19 +45,35 @@ class Attribute {
         new ValueStat(this.CRIT_RATE, this.#CRIT_RATE_VALUE),
         new ValueStat(this.CRIT_DMG, this.#CRIT_DMG_VALUE)
     ];
-
     static ATTRIBUTES = [
-        this.HP_FLAT, this.ATK_FLAT, this.DEF_FLAT,
-        this.HP_PER, this.ATK_PER, this.DEF_PER,
-        this.ENERGY_RECHARGE, this.ELEMENTAL_MASTERY,
-        this.CRIT_RATE, this.CRIT_DMG
+        this.HP_FLAT, 
+        this.ATK_FLAT, 
+        this.DEF_FLAT,
+        this.HP_PER, 
+        this.ATK_PER, 
+        this.DEF_PER,
+        this.ENERGY_RECHARGE, 
+        this.ELEMENTAL_MASTERY,
+        this.CRIT_RATE, 
+        this.CRIT_DMG
+    ];
+    static SPECIAL_ATTRIBUTE = [
+        this.PYRO_DMG_BONUS, 
+        this.ELECTRO_DMG_BONUS, 
+        this.CRYO_DMG_BONUS,
+        this.HYDRO_DMG_BONUS, 
+        this.DENDRO_DMG_BONUS, 
+        this.ANEMO_DMG_BONUS,
+        this.GEO_DMG_BONUS, 
+        this.PHYSICAL_DMG_BONUS, 
+        this.HEALING_BONUS
     ];
 
-    static SPECIAL_ATTRIBUTE = [
-        this.PYRO_DMG_BONUS, this.ELECTRO_DMG_BONUS, this.CRYO_DMG_BONUS,
-        this.HYDRO_DMG_BONUS, this.DENDRO_DMG_BONUS, this.ANEMO_DMG_BONUS,
-        this.GEO_DMG_BONUS, this.PHYSICAL_DMG_BONUS, this.HEALING_BONUS
-    ];
+    constructor() {
+        if (new.target === Attribute) {
+            throw new Error("Cannot instantiate Attribute Class directly.");
+        }
+    }
 
     // class methods
     isNotSpecialAttribute(attribute) {
