@@ -47,7 +47,7 @@ class Dialog {
         // append the elements
         divButtons.append(btnOk, btnCancel);
         inputDialog.append(title, message, input, divButtons);
-        $('body').prepend(inputDialog);
+        $(document.body).prepend(inputDialog);
 
         /*
          * dialogData       =   contains the data of the input dialog
@@ -77,7 +77,7 @@ class Dialog {
                 input.focus();
 
                 function handleOnKeyDownInputDialog(event) {
-                    if (event.key === 'Enter' && document.activeElement === input) {
+                    if (event.key === 'Enter' && event.target === input) {
                         event.preventDefault();
                         btnOk.dispatchEvent(new Event('click'));
                     }
@@ -90,8 +90,8 @@ class Dialog {
                     // close the dialog
                     inputDialog.close();
 
-                    // remove the element                                       
-                    $(inputDialog).remove();
+                    // remove the element    
+                    inputDialog.remove();
 
                     // update the data of dialog
                     dialogData.output = !input.value ? null : input.value;
@@ -110,7 +110,7 @@ class Dialog {
                     inputDialog.close();
 
                     // remove the element
-                    $(inputDialog).remove();
+                    inputDialog.remove();
 
                     // update the data of dialog
                     dialogData.operation = 0;
@@ -136,17 +136,20 @@ class Dialog {
         const messageDialog = document.createElement('dialog');
         const title = document.createElement('h4');
         const message = document.createElement('div');
+        const divButtons = document.createElement('div');
         const btnOk = document.createElement('button');
         // add aatributes
         messageDialog.setAttribute('id', 'messageDialog');
         title.setAttribute('id', 'title');
         message.setAttribute('id', 'message');
+        divButtons.setAttribute('class', 'divButtons');
         btnOk.setAttribute('id', 'btnOk');
         btnOk.innerText = 'OK';
 
         // append the elements
-        messageDialog.append(title, message, btnOk);
-        $('body').prepend(messageDialog);
+        divButtons.append(btnOk);
+        messageDialog.append(title, message, divButtons);
+        $(document.body).prepend(messageDialog);
 
         return new Promise((resolve) => {
             if (!messageDialog.open) {
@@ -176,7 +179,7 @@ class Dialog {
                     messageDialog.close();
 
                     // remove the element
-                    $(messageDialog).remove();
+                    messageDialog.remove();
 
                     // remove keydown listener
                     document.removeEventListener('keydown', handleOnKeyDownMessageDialog);
@@ -215,7 +218,7 @@ class Dialog {
         // append the elements
         divButtons.append(btnYes, btnNo);
         confirmDialog.append(title, message, divButtons);
-        $('body').prepend(confirmDialog);
+        $(document.body).prepend(confirmDialog);
 
         // Operation of the dialog. (1) YES, (0) NO
         let dialogOperation = 0;
@@ -247,7 +250,7 @@ class Dialog {
                     confirmDialog.close();
 
                     // remove the element
-                    $(confirmDialog).remove();
+                    confirmDialog.remove();
 
                     dialogOperation = 1;
 
@@ -263,7 +266,7 @@ class Dialog {
                     confirmDialog.close();
 
                     // remove the element
-                    $(confirmDialog).remove();
+                    confirmDialog.remove();
 
                     dialogOperation = 0;
 

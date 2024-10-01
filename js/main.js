@@ -21,7 +21,7 @@ $(() => {
         https://keqingmains.com/misc/artifacts/#Substats
     `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;');
 
-    const APP_VERSION = 'v9.0.3';
+    const APP_VERSION = 'v9.0.4';
     
     const messages = {
         artifactSimulatorMsg: `

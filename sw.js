@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const APP_VERSION = 'v9.0.3';
+const APP_VERSION = 'v9.0.4';
 const CACHE_NAME = `${CACHE_NAMING}-${APP_VERSION}`;
 
 const ASSETS = [
