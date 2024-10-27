@@ -398,7 +398,7 @@ class Artifact extends Attribute {
         } 
         // checks if the array is not ProbabilityStat Class
         else if (isNotProbabilityStatClass) {
-            throw new Error('Invalid Data Type: the element must be a ProbabilityStat Class.');
+            throw new TypeError('Invalid Data Type: the element must be a ProbabilityStat Class.');
         }
 
         const attributeChance = this.generateNumber();

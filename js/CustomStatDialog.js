@@ -104,8 +104,8 @@ class CustomStatDialog {
         });
 
         // shortcut to open the btnAddSubStat (desktop)
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && this.#subStatList.children.length !== 0 &&
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter' && this.#subStatList.children.length !== 0 &&
                 $(this.#subStatList).children().hasClass('selected')) {
                     this.#btnAddSubStat.dispatchEvent(new Event('click'));
             }
@@ -248,7 +248,7 @@ class CustomStatDialog {
                                         `Enter a number only ${this.#definedAffixMode ? '1 and 2' : 'from 1 to 4'}!`);
                             }
                         }
-                    } else if (response.operation === Dialog.CANCEL_OPTION) {
+                    } else if (response.option === Dialog.CANCEL_OPTION) {
                         break; // stop loop
                     } else {
                         await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');

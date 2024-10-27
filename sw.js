@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const APP_VERSION = 'v9.0.4';
+const APP_VERSION = 'v10.0.0';
 const CACHE_NAME = `${CACHE_NAMING}-${APP_VERSION}`;
 
 const ASSETS = [
@@ -7,7 +7,6 @@ const ASSETS = [
     "index.html",
     "app.js",
     "manifest/manifest.webmanifest",
-    "css/dialog.css",
     "css/modalCustomStat.css",
     "css/main.css",
     "jquery/jquery-3.7.1.min.js",
@@ -22,10 +21,10 @@ const ASSETS = [
     "js/Attribute.js",
     "js/CustomStatDialog.js",
     "js/customStatModel.js",
-    "js/Dialog.js",
     "asset/Amber Icon.jpg",
     "asset/Amber_Icon192.png",
     "asset/Amber_Icon512.png",
+    "https://res.cloudinary.com/dy0sbkf3u/raw/upload/Dialog.min.js",
     "https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg",
 ];
 
