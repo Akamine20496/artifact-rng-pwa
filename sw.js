@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const APP_VERSION = 'v11.0.0';
+const APP_VERSION = 'v11.1.0';
 const CACHE_NAME = `${CACHE_NAMING}-${APP_VERSION}`;
 
 const ASSETS = [
@@ -24,8 +24,8 @@ const ASSETS = [
     "asset/Amber Icon.jpg",
     "asset/Amber_Icon192.png",
     "asset/Amber_Icon512.png",
-    "asset/genshin_background_liyue.jpg",
-    "https://res.cloudinary.com/dy0sbkf3u/raw/upload/Dialog.min.js"
+    "asset/genshin_background_liyue.webp",
+    "https://res.cloudinary.com/dy0sbkf3u/raw/upload/Dialog.min.js",
 ];
 
 const addAssetsToCache = async () => {

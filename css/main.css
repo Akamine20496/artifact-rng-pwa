@@ -16,7 +16,7 @@ html, body {
 
 body {
     background-color: rgb(128, 127, 112);
-    background-image: url('../asset/genshin_background_liyue.jpg');
+    background-image: url('../asset/genshin_background_liyue.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
