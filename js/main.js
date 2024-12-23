@@ -1,4 +1,4 @@
-$(() => {
+$(document).ready(() => {
     // Credits
     console.info(`%c
         Artifact RNG by AKAMiNE
@@ -19,9 +19,12 @@ $(() => {
         https://genshin-impact.fandom.com/wiki/Artifact/Distribution
 
         https://keqingmains.com/misc/artifacts/#Substats
+
+        Source Link of the genshin wallpaper
+        https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg
     `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;');
 
-    const APP_VERSION = 'v10.0.0';
+    const APP_VERSION = 'v11.0.0';
     
     const messages = {
         artifactSimulatorMsg: `
@@ -168,7 +171,7 @@ $(() => {
     };
 
     // async function
-    async function displayMessages() {
+    const displayMessages = async () => {
         // Show the first message
         await Dialog.showMessageDialog('Artifact RNG', messages.artifactSimulatorMsg);
 
