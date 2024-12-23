@@ -19,7 +19,7 @@ if ('serviceWorker' in navigator) {
                                 // A new version has been installed and the old version is still active
                                 showNotification({
                                     title: 'A new version of the app is available!',
-                                    body: 'New version is currently installing.'
+                                    body: 'Please wait for the update to be ready.'
                                 });
                             }
                         });
