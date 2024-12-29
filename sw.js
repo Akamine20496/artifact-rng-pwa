@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const APP_VERSION = 'v11.1.1';
+const APP_VERSION = 'v12.0.0';
 const CACHE_NAME = `${CACHE_NAMING}-${APP_VERSION}`;
 
 const ASSETS = [
@@ -12,15 +12,16 @@ const ASSETS = [
     "jquery/jquery-3.7.1.min.js",
     "js/main.js",
     "js/AttributeStat.js",
-    "js/ProbabilityStat.js",
-    "js/ValueStat.js",
-    "js/WeightedStat.js",
-    "js/ArtifactDisplayerPanel.js",
-    "js/ArtifactSimulator.js",
-    "js/Artifact.js",
+    "js/AttributeProbabilityStat.js",
+    "js/AttributeValueStat.js",
+    "js/AttributeWeightedStat.js",
     "js/Attribute.js",
+    "js/Artifact.js",
+    "js/ArtifactSubStat.js",
+    "js/ArtifactStat.js",
+    "js/ArtifactDisplayerPanel.js",
     "js/CustomStatDialog.js",
-    "js/customStatModal.js",
+    "js/ArtifactSimulator.js",
     "asset/Amber Icon.jpg",
     "asset/Amber_Icon192.png",
     "asset/Amber_Icon512.png",

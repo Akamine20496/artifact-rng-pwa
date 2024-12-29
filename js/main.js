@@ -24,7 +24,7 @@ $(document).ready(() => {
         https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg
     `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;');
 
-    const APP_VERSION = 'v11.1.1';
+    const APP_VERSION = 'v12.0.0';
     
     const messages = {
         artifactSimulatorMsg: `
@@ -48,7 +48,7 @@ $(document).ready(() => {
             </p>
             <p>
                 <b>Generate</b>: Displays the artifact piece selected by the user 
-                and generates random main stat (for sands, goblet, circlet piece) and sub-stats.
+                and generates random main attribute (for sands, goblet, circlet piece) and sub-stats.
             </p>
             <p>
                 <b>Roll</b>: Upgrades a random value of a sub-stat.
@@ -57,10 +57,10 @@ $(document).ready(() => {
                 <b>Reroll</b>: Removes the upgrades of the sub-stats.
             </p>
             <p>
-                <b>Reset</b>: Clears the artifact piece, main stat, and sub-stats.
+                <b>Reset</b>: Clears the artifact piece, main attribute, and sub-stats.
             </p>
             <p>
-                <b>Custom Stat</b>: Allows you to enter your own stats.
+                <b>Custom Stat</b>: Allows you to enter your own stat.
             </p> <br>
             <p>
                 If the sub-stats are 3 only, it will have <b>1 New Sub-Stat and 4 Upgrades</b>. 
@@ -70,11 +70,10 @@ $(document).ready(() => {
                 <b>Flags</b>
             </p>
             <p class='indent'>
-                <b>Random Stat</b>: Generate random artifact piece, random main stat 
-                (for sands, goblet, circlet piece), and sub-stats.
+                <b>Random Stat</b>: Generate random artifact piece stat.
             </p>
             <p class='indent'>
-                <b>Full Upgrade</b>: Upgrades the sub-stats's value to the max upgrade. 
+                <b>Full Upgrade</b>: Upgrades the value to the max upgrade. 
                 (Need 'Random Stat' to be selected first)
             </p> <br>
             <p>
@@ -98,8 +97,8 @@ $(document).ready(() => {
                 }
             </style>
             <p>
-                <b>Select an artifact piece and main stat</b>. 
-                After selecting the main stat, the sub-stats will be displayed in the list.
+                <b>Select an artifact piece and main attribute</b>. 
+                After selecting the main attribute, the sub-stats will be displayed in the list.
             </p> <br>
             <p>
                 <b>Adding a Sub-Stat</b>
@@ -148,7 +147,7 @@ $(document).ready(() => {
                 <b>Defined Affix Mode</b>
                 <p>
                     This mode works like new gadget "Artifact Transmuter". You will have to 
-                    choose <b>artifact piece (for sands, goblet, circlet piece) </b>, <b>main stat</b>, 
+                    choose <b>artifact piece (for sands, goblet, circlet piece) </b>, <b>main attribute</b>, 
                     and <b>2 sub-stats</b>. The rest will automatically generate.
                 </p>
                 <p>The catch is that you can't choose initial value, it will be automically generated as well.</p>
@@ -161,7 +160,7 @@ $(document).ready(() => {
                 </p>
                 <p class='indent'>
                     <b>For Mobile Users (also works for Desktop Users)</b>: Double tap/click
-                    the sub-stat to appear the adding for sub-stat.
+                    the sub-stat to appear the dialog for adding sub-stat.
                 </p>
             </p> <br>
             <p class='center'>

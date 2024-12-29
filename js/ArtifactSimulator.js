@@ -1,7 +1,8 @@
 // Class ArtifactSimulator
 class ArtifactSimulator {
-    #objArtifactDisplayer = new ArtifactDisplayerPanel();
-    #customStat = new CustomStatDialog();
+    #artifactStat = new ArtifactStat();
+    #artifactDisplayerPanel = new ArtifactDisplayerPanel(this.#artifactStat);
+    #customStatDialog = new CustomStatDialog();
     #cboArtifactPiece = document.getElementById('cboArtifactPiece1');
     #btnGenerate = document.getElementById('btnGenerate');
     #btnSkip = document.getElementById('btnSkip');
@@ -67,89 +68,77 @@ class ArtifactSimulator {
         });
 
         // btnGenerate
-        this.#btnGenerate.addEventListener('click', () => {
-            if (this.#isLock && this.#chkRandomStat.checked) {
-                const selectedPiece = new Artifact().generateRandomPiece();
-                this.#objArtifactDisplayer.setArtifactPiece(selectedPiece);
-                this.#objArtifactDisplayer.generateStats();
-
-                this.#pMaxUpgradeValue.innerText = this.#objArtifactDisplayer.getMaxUpgrade();
-
-                this.#cboArtifactPiece.disabled = true;
-                this.#btnGenerate.disabled = true;
-                this.#btnLock.disabled = true;
-                this.#btnSkip.disabled = false;
-                this.#btnRoll.disabled = false;
-                this.#btnReset.disabled = false;
-                this.#btnCustomStat.disabled = true;
-
-                this.#chkRandomStat.disabled = true;
-                this.#chkFullUpgrade.disabled = true;
-
-                if (this.#chkRandomStat.checked && this.#chkFullUpgrade.checked) {
-                    this.#btnSkip.dispatchEvent(new Event('click'));
+        this.#btnGenerate.addEventListener('click', async () => {
+            if (this.#isLock) {
+                if (this.#chkRandomStat.checked) {
+                    this.#handleRandomStatGeneration();
                 } else {
-                    this.#btnRoll.focus();
-                    Dialog.showMessageDialog('Artifact RNG', 'Stats has been generated!');
+                    await Dialog.showMessageDialog('Artifact RNG', 'Click the \'Lock\' first.');
                 }
-            } else if (this.#isLock) {
-                Dialog.showMessageDialog('Artifact RNG', 'Click the \'Lock\' first.');
             } else {
-                const selectedPiece = this.#cboArtifactPiece.value;
-                this.#objArtifactDisplayer.setArtifactPiece(selectedPiece);
-                this.#objArtifactDisplayer.generateStats();
-
-                this.#pMaxUpgradeValue.innerText = this.#objArtifactDisplayer.getMaxUpgrade();
-
-                this.#btnGenerate.disabled = true;
-                this.#btnLock.disabled = true;
-                this.#btnSkip.disabled = false;
-                this.#btnRoll.disabled = false;
-                this.#btnReset.disabled = false;
-                this.#btnCustomStat.disabled = true;
-                this.#btnRoll.focus();
-
-                Dialog.showMessageDialog('Artifact RNG', 'Stats has been generated!');
+                this.#handleStatGeneration();
             }
         });
 
         // btnSkip
-        this.#btnSkip.addEventListener('click', () => {
+        this.#btnSkip.addEventListener('click', async () => {
+            const subStats = this.#artifactStat.skipUpgradeSubStats();
+            this.#artifactDisplayerPanel.displayStat();
+
+            let template = '';
+
+            for (const subStat of subStats) {
+                template += subStat + '\n';
+            }
+
+            await Dialog.showMessageDialog('Final Sub-Stats', template);
+
             this.#btnSkip.disabled = true;
             this.#btnRoll.disabled = true;
             this.#btnReroll.disabled = false;
             this.#btnReroll.focus();
-
-            this.#objArtifactDisplayer.setSkipMode(true);
-            this.#objArtifactDisplayer.displaySkippedStats();
         });
 
         // btnRoll
-        this.#btnRoll.addEventListener('click', () => {
-            this.#objArtifactDisplayer.setSkipMode(false);
+        this.#btnRoll.addEventListener('click', async () => {
+            let dialogTitle = '';
+            let dialogMessage = '';
+
             this.#btnSkip.disabled = true;
 
             const maxUpgradeValue = Number(this.#pMaxUpgradeValue.innerText);
 
             if (maxUpgradeValue === 4 && this.#isNewAttribute) {
-                this.#objArtifactDisplayer.upgradeSubStatValue();
+                this.#artifactStat.upgradeSubStatValue();
                 this.#isNewAttribute = false;
+
+                dialogTitle = 'New Sub-Stat';
+                dialogMessage = this.#artifactStat.getCurrentNewSubStat();
             } else if (this.#rollCounter < maxUpgradeValue) {
-                this.#objArtifactDisplayer.upgradeSubStatValue();
+                this.#artifactStat.upgradeSubStatValue();
                 this.#rollCounter++;
 
                 if (this.#rollCounter === maxUpgradeValue) {
                     this.#btnRoll.disabled = true;
                     this.#btnReroll.focus();
                 }
+
+                dialogTitle = 'Sub-Stat Upgrade';
+                dialogMessage = this.#artifactStat.getCurrentUpgradedSubStat();
             }
+
+            this.#artifactDisplayerPanel.displayStat();
+
+            await Dialog.showMessageDialog(dialogTitle, dialogMessage);
 
             this.#btnReroll.disabled = false;
         });
 
         // btnReroll
         this.#btnReroll.addEventListener('click', () => {
-            this.#objArtifactDisplayer.rerollSubStats();
+            this.#artifactStat.rerollStat();
+            this.#artifactDisplayerPanel.displayStat();
+
             this.#btnSkip.disabled = false;
             this.#btnRoll.disabled = false;
             this.#btnReroll.disabled = true;
@@ -162,7 +151,7 @@ class ArtifactSimulator {
         });
 
         // btnReset
-        this.#btnReset.addEventListener('click', () => {
+        this.#btnReset.addEventListener('click', async () => {
             if (!this.#isLock) {
                 this.#btnCustomStat.disabled = false;
             }
@@ -175,8 +164,12 @@ class ArtifactSimulator {
             }
 
             this.#pMaxUpgradeValue.innerText = 0;
-            this.#rollCounter = 0;
+            this.#artifactStat.resetStat();
+            this.#artifactStat.setArtifactPiece(null);
+            this.#artifactDisplayerPanel.displayStat();
 
+            await Dialog.showMessageDialog('Artifact RNG', 'Stat is removed!');
+            
             this.#btnLock.disabled = false;
             this.#btnGenerate.disabled = false;
             this.#btnSkip.disabled = true;
@@ -184,17 +177,54 @@ class ArtifactSimulator {
             this.#btnReroll.disabled = true;
             this.#btnReset.disabled = true;
             this.#btnCustomStat.disabled = false;
+            this.#rollCounter = 0;
             this.#isNewAttribute = true;
 
-            this.#objArtifactDisplayer.resetStats();
             this.#btnGenerate.focus();
-
-            Dialog.showMessageDialog('Artifact RNG', 'Stats are removed!');
         });
 
         // btnCustomStat
         this.#btnCustomStat.addEventListener('click', () => {
-            this.#customStat.setAsMemoryAddress(this.#objArtifactDisplayer);
+            this.#customStatDialog.setAsMemoryAddress(this.#artifactStat);
+            this.#customStatDialog.setVisible(true);
+
+            // Im lazy to convert this CustomStatWindow into dynamic.
+            // So i will just use this function to default the state to false
+            // everytime this click event is invoked
+            CustomStatDialog.setIsCustomStatDisplayedToFalse();
+
+            // wait for the custom stat operation to finish
+            const promise = new Promise(resolve => {
+                const checkReady = setInterval(() => {
+                    if (CustomStatDialog.getIsCustomStatDisplayed() && !$('#modalOverlay').is(':visible')) {
+                        clearInterval(checkReady);
+                        resolve('success');
+                    } else if (!CustomStatDialog.getIsCustomStatDisplayed() && !$('#modalOverlay').is(':visible')) {
+                        clearInterval(checkReady);
+                        resolve('cancelled');
+                    }
+                }, 100); // check every 100 milliseconds
+            });
+
+            // display the custom stat to the panel
+            promise.then(async (message) => {
+                if (message === 'success') {
+                    this.#pMaxUpgradeValue.innerText = this.#artifactStat.getMaxUpgrade();
+                    this.#artifactDisplayerPanel.displayStat();
+
+                    await Dialog.showMessageDialog('Artifact RNG', 'Custom Stat is now displayed!');
+
+                    this.#btnLock.disabled = true;
+                    this.#btnGenerate.disabled = true;
+                    this.#btnSkip.disabled = false;
+                    this.#btnRoll.disabled = false;
+                    this.#btnReset.disabled = false;
+                    this.#btnCustomStat.disabled = true;
+                    this.#btnRoll.focus();
+                }
+
+                console.log(message);
+            });
         });
 
         // chkRandomStat
@@ -206,5 +236,52 @@ class ArtifactSimulator {
                 this.#chkFullUpgrade.checked = false;
             }
         });
+    }
+
+    #handleRandomStatGeneration() {
+        this.#artifactStat.setArtifactPiece(new Artifact().generateRandomPiece());
+
+        this.#generateStatAndUpdatePanel();
+
+        if (this.#chkFullUpgrade.checked) {
+            this.#invokeSkipAction();
+        } else {
+            this.#showStatGeneratedMessage();
+        }
+    }
+
+    #handleStatGeneration() {
+        this.#artifactStat.setArtifactPiece(this.#cboArtifactPiece.value);
+        this.#generateStatAndUpdatePanel();
+        this.#showStatGeneratedMessage();
+    }
+
+    #generateStatAndUpdatePanel() {
+        this.#artifactStat.generateStat();
+        this.#pMaxUpgradeValue.innerText = this.#artifactStat.getMaxUpgrade();
+        this.#artifactDisplayerPanel.displayStat();
+        this.#updateButtonStates();
+    }
+
+    #updateButtonStates() {
+        this.#cboArtifactPiece.disabled = true;
+        this.#btnGenerate.disabled = true;
+        this.#btnLock.disabled = true;
+        this.#btnSkip.disabled = false;
+        this.#btnRoll.disabled = false;
+        this.#btnReset.disabled = false;
+        this.#btnCustomStat.disabled = true;
+
+        this.#chkRandomStat.disabled = true;
+        this.#chkFullUpgrade.disabled = true;
+    }
+
+    #invokeSkipAction() {
+        this.#btnSkip.dispatchEvent(new Event('click'));
+    }
+
+    async #showStatGeneratedMessage() {
+        await Dialog.showMessageDialog('Artifact RNG', 'Stat is generated.');
+        this.#btnRoll.focus();
     }
 }

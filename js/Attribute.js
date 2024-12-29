@@ -1,5 +1,8 @@
 // Class Attribute
 class Attribute {
+    // Private static variable to hold the single instance
+    static #instance = null;
+
     // static variables
     static #HP_FLAT_VALUE = [ 209.13, 239.00, 268.88, 298.75 ];
     static #ATK_FLAT_VALUE = [ 13.62, 15.56, 17.51, 19.45 ];
@@ -34,18 +37,18 @@ class Attribute {
     
     // static array variables
     static VALUE_STATS = [
-        new ValueStat(this.HP_FLAT, this.#HP_FLAT_VALUE),
-        new ValueStat(this.ATK_FLAT, this.#ATK_FLAT_VALUE),
-        new ValueStat(this.DEF_FLAT, this.#DEF_FLAT_VALUE),
-        new ValueStat(this.HP_PER, this.#HP_PER_VALUE),
-        new ValueStat(this.ATK_PER, this.#ATK_PER_VALUE),
-        new ValueStat(this.DEF_PER, this.#DEF_PER_VALUE),
-        new ValueStat(this.ENERGY_RECHARGE, this.#ENERGY_RECHARGE_VALUE),
-        new ValueStat(this.ELEMENTAL_MASTERY, this.#ELEMENTAL_MASTERY_VALUE),
-        new ValueStat(this.CRIT_RATE, this.#CRIT_RATE_VALUE),
-        new ValueStat(this.CRIT_DMG, this.#CRIT_DMG_VALUE)
+        new AttributeValueStat(this.HP_FLAT, this.#HP_FLAT_VALUE),
+        new AttributeValueStat(this.ATK_FLAT, this.#ATK_FLAT_VALUE),
+        new AttributeValueStat(this.DEF_FLAT, this.#DEF_FLAT_VALUE),
+        new AttributeValueStat(this.HP_PER, this.#HP_PER_VALUE),
+        new AttributeValueStat(this.ATK_PER, this.#ATK_PER_VALUE),
+        new AttributeValueStat(this.DEF_PER, this.#DEF_PER_VALUE),
+        new AttributeValueStat(this.ENERGY_RECHARGE, this.#ENERGY_RECHARGE_VALUE),
+        new AttributeValueStat(this.ELEMENTAL_MASTERY, this.#ELEMENTAL_MASTERY_VALUE),
+        new AttributeValueStat(this.CRIT_RATE, this.#CRIT_RATE_VALUE),
+        new AttributeValueStat(this.CRIT_DMG, this.#CRIT_DMG_VALUE)
     ];
-    static ATTRIBUTES = [
+    static ATTRIBUTES_NAMES = [
         this.HP_FLAT, 
         this.ATK_FLAT, 
         this.DEF_FLAT,
@@ -57,7 +60,7 @@ class Attribute {
         this.CRIT_RATE, 
         this.CRIT_DMG
     ];
-    static SPECIAL_ATTRIBUTE = [
+    static SPECIAL_ATTRIBUTE_NAMES = [
         this.PYRO_DMG_BONUS, 
         this.ELECTRO_DMG_BONUS, 
         this.CRYO_DMG_BONUS,
@@ -70,19 +73,87 @@ class Attribute {
     ];
 
     constructor() {
-        if (new.target === Attribute) {
-            throw new Error("Cannot instantiate Attribute Class directly.");
+        if (Attribute.#instance) {
+            throw new Error("Use getInstance() to get the Singleton instance.");
         }
     }
 
-    // class methods
-    isNotSpecialAttribute(attribute) {
-        // checks if the type is not string
-        if (typeof attribute !== 'string') {
+    static getInstance() {
+        if (!Attribute.#instance) {
+            Attribute.#instance = new Attribute();
+        }
+
+        return Attribute.#instance;
+    }
+
+    getAttributeValues(attributeName) {
+        if (typeof attributeName !== 'string') {
             throw new TypeError('Invalid Data Type: must be a string.');
         }
 
-        // returns a boolean if the attribute matched
-        return Attribute.ATTRIBUTES.includes(attribute);
+        let retrievedValueStat = null;
+
+        for (const currValueStat of Attribute.VALUE_STATS) {
+            if (currValueStat.getAttributeName() === attributeName) {
+                retrievedValueStat = currValueStat;
+                break;
+            }
+        }
+
+        if (retrievedValueStat === null) {
+            throw new Error("Invalid attributeName: " + attributeName);
+        } else {
+            return retrievedValueStat.getAttributeValues();
+        }
+    }
+
+    isNotSpecialAttribute(attributeName) {
+        // checks if the type is not string
+        if (typeof attributeName !== 'string') {
+            throw new TypeError('Invalid Data Type: must be a string.');
+        }
+
+        // returns a boolean if the attributeName matched
+        return Attribute.ATTRIBUTES_NAMES.includes(attributeName);
+    }
+
+    getHpPer() {
+        return Attribute.#HP_PER_VALUE;
+    }
+
+    getAtkPer() {
+        return Attribute.#ATK_PER_VALUE;
+    }
+
+    getDefPer() {
+        return Attribute.#DEF_PER_VALUE;
+    }
+
+    getHpFlat() {
+        return Attribute.#HP_FLAT_VALUE;
+    }
+
+    getAtkFlat() {
+        return Attribute.#ATK_FLAT_VALUE;
+    }
+
+    getDefFlat() {
+        return Attribute.#DEF_FLAT_VALUE;
+    }
+
+    getEnergyRecharge() {
+        return Attribute.#ENERGY_RECHARGE_VALUE;
+    }
+
+    getElementalMastery() {
+        return Attribute.#ELEMENTAL_MASTERY_VALUE;
+    }
+
+    getCritRate() {
+        return Attribute.#CRIT_RATE_VALUE;
+    }
+
+    getCritDamage() {
+        return Attribute.#CRIT_DMG_VALUE;
     }
 }

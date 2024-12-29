@@ -1,29 +1,29 @@
 // Class AttributeStat
 class AttributeStat {
-    #attribute = null;
+    #attributeName = null;
 
     // constructor method
-    constructor(attribute) {
+    constructor(attributeName) {
         if (new.target === AttributeStat) {
             throw new Error("Cannot instantiate AttributeStat Class directly.");
         }
 
-        if (typeof attribute === 'string') {
-            this.#attribute = attribute;
+        if (typeof attributeName === 'string') {
+            this.#attributeName = attributeName;
         }
     }
 
-    getAttribute() {
-        return this.#attribute;
+    getAttributeName() {
+        return this.#attributeName;
     }
 
     toString() {
-        return `AttributeStat{attribute='${this.#attribute}'}`;
+        return `AttributeStat{attributeName='${this.#attributeName}'}`;
     }
 
     equals(o) {
         if (this == o) return true;                         // Check if both references point to the same object
         if (!(o instanceof AttributeStat)) return false;    // Check if the object is of the same type
-        return this.#attribute === o.getAttribute();        // Compare attribute for equality
+        return this.#attributeName === o.getAttributeName();// Compare attributeName for equality
     }
 }

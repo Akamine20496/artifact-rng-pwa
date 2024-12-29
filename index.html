@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme_color" content="#E5E8F1">
         <meta name="author" content="AKAMiNE">
-        <meta name="keywords" content="artifact rng, artifact rng pwa, artifact rolling simulator, artifact simulator">
+        <meta name="keywords" content="genshin artifact, genshin artifact simulator, artifact rng, artifact rng pwa, artifact rolling simulator, artifact simulator">
         <meta name="description" content="Genshin Impact Artifact Simulator Online, available as Progressive Web Apps (PWA)">
         <link rel="icon" href="asset/Amber Icon.jpg" type="image/jpeg">
         <!-- CSS -->
@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/modalCustomStat.css">
         <!-- Manifest -->
         <link rel="manifest" href="manifest/manifest.webmanifest">
-        <!-- Top Javascript Scripts -->
+        <!-- Top JavaScript -->
         <script src="https://res.cloudinary.com/dy0sbkf3u/raw/upload/Dialog.min.js"></script>
         <script src="jquery/jquery-3.7.1.min.js"></script>
         <script async src="app.js"></script>
@@ -30,7 +30,7 @@
                         <div class="row6">
                             <p class="text lblHeader modal-header">ARTIFACT PIECE</p>
                             <select id="cboArtifactPiece2" class="text modal-combo-box"></select>
-                            <p class="text lblHeader modal-header">MAIN STAT</p>
+                            <p class="text lblHeader modal-header">MAIN ATTRIBUTE</p>
                             <select id="cboMainStat" class="text modal-combo-box"></select>
                         </div>
                         <div class="list-container">
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="row-btn2">
                                     <button id="btnRemoveSubStat" class="text">Remove Sub-Stat</button>
-                                    <button id="btnDisplayStat" class="text">Display Stats</button>
+                                    <button id="btnFinalizeStat" class="text">Finalize Stat</button>
                                 </div>
                             </div>
                         </div>
@@ -148,16 +148,17 @@
         </div>
         <!-- Version Tag -->
         <div class="current-version" id="currentVersion"></div>
-        <!-- Bottom Javascript Scripts -->
+        <!-- Bottom JavaScript -->
         <script src="js/AttributeStat.js"></script>
-        <script src="js/ProbabilityStat.js"></script>
-        <script src="js/ValueStat.js"></script>
-        <script src="js/WeightedStat.js"></script>
+        <script src="js/AttributeProbabilityStat.js"></script>
+        <script src="js/AttributeValueStat.js"></script>
+        <script src="js/AttributeWeightStat.js"></script>
         <script src="js/Attribute.js"></script>
         <script src="js/Artifact.js"></script>
+        <script src="js/ArtifactSubStat.js"></script>
+        <script src="js/ArtifactStat.js"></script>
         <script src="js/ArtifactDisplayerPanel.js"></script>
         <script src="js/CustomStatDialog.js"></script>
-        <script src="js/customStatModal.js"></script>
         <script src="js/ArtifactSimulator.js"></script>
         <script src="js/main.js"></script>
     </body>
