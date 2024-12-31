@@ -24,7 +24,7 @@ $(document).ready(() => {
         https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg
     `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;');
 
-    const APP_VERSION = 'v12.0.0';
+    const APP_VERSION = 'v12.1.0';
     
     const messages = {
         artifactSimulatorMsg: `
@@ -101,7 +101,7 @@ $(document).ready(() => {
                 After selecting the main attribute, the sub-stats will be displayed in the list.
             </p> <br>
             <p>
-                <b>Adding a Sub-Stat</b>
+                <b>Adding Sub-Stat</b>
                 <p class='indent'>
                     Click the <b>'Add Sub-Stat'</b> button.
                 </p>
@@ -111,7 +111,7 @@ $(document).ready(() => {
                 </p>
             </p>
             <p>
-                <b>Removing a Specific Sub-Stat</b>
+                <b>Removing Specific Sub-Stat</b>
                 <p class='indent'>
                     Click the <b>'Remove Sub-Stat'</b> button.
                 </p>
@@ -124,6 +124,12 @@ $(document).ready(() => {
                 <b>Removing All Sub-Stats</b>
                 <p class='indent'>
                     Click the <b>'Remove All'</b> button.
+                </p>
+            </p>
+            <p>
+                <b>Displaying Stat</b>
+                <p class='indent'>
+                    When you made up your mind, click <b>'Finalize Stat'</b> to display the stat.
                 </p>
             </p> <br>
             <p>
