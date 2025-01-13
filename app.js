@@ -45,9 +45,7 @@ if ('serviceWorker' in navigator) {
 }
 
 window.addEventListener('online', () => {
-    if (navigator.onLine) {
-        window.location.reload();
-    }
+    window.location.reload();
 });
 
 window.addEventListener('offline', () => {
