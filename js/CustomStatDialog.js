@@ -612,7 +612,7 @@ class CustomStatDialog {
 
     setVisible(isVisible) {
         // accept only true or false
-        if (typeof isVisible === 'boolean') {
+        if (typeof isVisible !== 'boolean') {
             throw new Error('Input must be only true or false.');
         }
 
