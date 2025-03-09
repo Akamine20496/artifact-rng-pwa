@@ -318,7 +318,7 @@ class CustomStatDialog {
                                 await Dialog.showMessageDialog('Artifact RNG', 
                                     `Enter a number only ${this.#definedAffixMode ? '1 and 2' : 'from 1 to 4'}!`);
                         }
-                    } else if (response.operation === Dialog.CANCEL_OPTION) {
+                    } else if (response.option === Dialog.CANCEL_OPTION) {
                         break; // stop the loop
                     } else {
                         await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
@@ -335,7 +335,7 @@ class CustomStatDialog {
             } else {
                 const response = await Dialog.showConfirmDialog('Select an option', 'Remove all sub-stats?');
 
-                if (response === Dialog.YES_OPTION) {
+                if (response.option === Dialog.YES_OPTION) {
                     if (this.#definedAffixMode) {
                         this.#lblAttr1.innerText = 'None';
                         this.#lblAttr2.innerText = 'None';
@@ -387,7 +387,7 @@ class CustomStatDialog {
             } else {
                 const response = await Dialog.showConfirmDialog('Select an option', 'Finalize the stat?');
 
-                if (response === Dialog.YES_OPTION) {
+                if (response.option === Dialog.YES_OPTION) {
                     this.#displayCustomStat();
                     $(this.#modalOverlay).hide();
                     CustomStatDialog.#isCustomStatDisplayed = true;
