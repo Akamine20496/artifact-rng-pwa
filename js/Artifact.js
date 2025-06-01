@@ -245,10 +245,18 @@ class Artifact {
 		return upgradeTimes[0];
     }
 
-    generateRandomSlot() {
+    generateRandomSlot(definedAffixMode = false) {
+        if (typeof definedAffixMode !== 'boolean') {
+            return new Error('truthy or falsy is only allowed.');
+        }
+        
 		const slotChance = this.generateNumber();
-		const slots = [1, 2, 3, 4];
-		const probabilities = [25.00, 25.00, 25.00, 25.00];
+
+        const AFFIXED_SLOTS = [1, 2];
+        const ALL_SLOTS = [1, 2, 3, 4];
+
+		const slots = definedAffixMode ? AFFIXED_SLOTS : ALL_SLOTS;
+		const probabilities = this.#generateEqualProbabilities(slots.length);
 		let cumulativeProbability = 0;
 
 		for (let i = 0; i < slots.length; i++) {
@@ -261,6 +269,15 @@ class Artifact {
 		// If we reach here, something went wrong, so just return the first element
 		return slots[0];
 	}
+
+    #generateEqualProbabilities(length) {
+        const probabilities = new Array(length);
+        const value = 100.0 / length;
+
+        probabilities.fill(value);
+
+        return probabilities;
+    }
 
     generateSubAttributeValue(attributeName) {
         // checks if the type is not string

@@ -15,6 +15,13 @@ class ArtifactStat {
     #currentNewSubStat = null;
     #currentUpgradedSubStat = null;
 
+	#definedAffixMode = false;
+	#isGuaranteedRoll = false;
+
+	#guaranteedRollLimit = 2;
+
+	#subStatUpgradeCounts = {};
+
     constructor(artifactPiece, mainAttribute, ...artifactSubStats) {
         if (arguments.length === 0) {
             this.#artifactPiece = this.#artifact.generateRandomPiece();
@@ -97,6 +104,14 @@ class ArtifactStat {
 		return this.#artifactSubStats.length;
 	}
 
+	getDefinedAffixMode() {
+		return this.#definedAffixMode;
+	}
+
+	getSubStatUpgradeCounts() {
+		return {...this.#subStatUpgradeCounts};
+	}
+
     /**
 	 * Generates random Main Attribute, Max Upgrade, and Sub-Stats.
 	 * 
@@ -146,6 +161,8 @@ class ArtifactStat {
 			throw new Error("mainAttribute is null");
 		}
 		
+		this.#definedAffixMode = true;
+
 		this.#maxUpgrade = this.#artifact.generateMaxUpgrade();
 
 		if (this.#artifactSubStats[0].getIsInitialValueEmpty() && this.#artifactSubStats[1].getIsInitialValueEmpty()) {
@@ -159,6 +176,9 @@ class ArtifactStat {
                                             this.#artifactSubStats[0].getAttributeName(), 
                                             this.#artifactSubStats[1].getAttributeName(), 
                                             this.#artifactSubStats[2].getAttributeName());
+
+		this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] = 0;
+		this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] = 0;
 	}
 	
 	rerollStat() {
@@ -168,6 +188,11 @@ class ArtifactStat {
 		this.#upgradeCounter = 0;
 		this.#totalUpgrade = 0;
 		this.#isMax = false;
+
+		if (this.#definedAffixMode) {
+			this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] = 0;
+			this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] = 0;
+		}
 	}
 	
 	resetStat() {
@@ -180,6 +205,10 @@ class ArtifactStat {
 		this.#maxUpgrade = 0;
 		this.#totalUpgrade = 0;
 		this.#isMax = false;
+
+		this.#definedAffixMode = false;
+
+		this.#subStatUpgradeCounts = {};
 	}
 	
 	upgradeSubStatValue() {
@@ -193,8 +222,35 @@ class ArtifactStat {
 			if (!this.#isMax) { 													    // if the total upgrades of 5 or 4 is reached
 				if (this.#upgradeCounter === 0) { 									    // if the counter is 0, it will loop
 					while (this.#upgradeCounter === 0) { 							    // until the upgrade counter is not 0
-						this.#slotNumber = this.#artifact.generateRandomSlot();
+						// add all count from guaranteed roll counter
+						const totalAffixModeRoll = Object.values(this.#subStatUpgradeCounts).reduce((sum, val) => sum + val, 0);
+
+						const guaranteedLeft = this.#guaranteedRollLimit - totalAffixModeRoll;
+						
+						// How many +1's remain BEFORE this mini‐batch?
+                        // (Since upgradeCounter == 0, "applied so far" = totalUpgrade)
+						const remainingUpgrades = this.#maxUpgrade - this.#totalUpgrade;
+
+						// If we still owe some guaranteed rolls, AND there are exactly that many +1's left, force now:
+						if (this.#definedAffixMode && guaranteedLeft > 0 && remainingUpgrades === guaranteedLeft) {
+							this.#slotNumber = this.#artifact.generateRandomSlot(this.#definedAffixMode); // force 1 or 2
+							this.#isGuaranteedRoll = true;
+						} else {
+							// Normal 50% chance for affix vs all‐slots:
+							const randomChance = this.#artifact.generateNumber();
+
+							if (this.#definedAffixMode && totalAffixModeRoll !== this.#guaranteedRollLimit && randomChance <= 50.00) {
+								this.#slotNumber = this.#artifact.generateRandomSlot(this.#definedAffixMode);
+								this.#isGuaranteedRoll = true;
+							} else {
+								this.#slotNumber = this.#artifact.generateRandomSlot();
+							}
+						}
+
 						this.#upgradeCounter = this.#artifact.generateUpgradeTimes();
+
+						if (this.#upgradeCounter === 0) continue;						// If upgradeCounter is 0, reiterate
+
 						this.#totalUpgrade += this.#upgradeCounter;
 					}
 
@@ -221,15 +277,40 @@ class ArtifactStat {
 		if (this.#mainAttribute == null) {
 			throw new Error("mainAttribute is null");
 		}
+
+		// Compute how many +1's were applied BEFORE this call
+		const totalAppliedBefore = this.#totalUpgrade - this.#upgradeCounter;
+        // How many +1's remain (including this one)?
+		const remainingUpgrades = this.#maxUpgrade - totalAppliedBefore;
+        // How many guaranteed‐affix rolls have been used so far?
+        const totalAffixModeRoll = Object.values(this.#subStatUpgradeCounts).reduce((sum, val) => sum + val, 0);
+		const guaranteedLeft = this.#guaranteedRollLimit - totalAffixModeRoll;
+        
+        // If we still owe guaranteedLeft > 0 AND remainingUpgrades == guaranteedLeft,
+        // force an affix now—even if slotNumber wasn't 1 or 2 originally:
+        if (this.#definedAffixMode && guaranteedLeft > 0 && remainingUpgrades == guaranteedLeft) {
+            slotNumber = this.#artifact.generateRandomSlot(this.#definedAffixMode); // 1 or 2
+            this.#isGuaranteedRoll = true;
+        }
 		
 		switch (slotNumber) {
 			case 1:
 				this.#artifactSubStats[0].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[0].getAttributeName()));
 				this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, this.#artifactSubStats[0]);
+
+				if (this.#isGuaranteedRoll) {
+					this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] += 1;
+					this.#isGuaranteedRoll = false;
+				}
                 break;
 			case 2:
 				this.#artifactSubStats[1].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[1].getAttributeName()));
 				this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, this.#artifactSubStats[1]);
+
+				if (this.#isGuaranteedRoll) {
+					this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] += 1;
+					this.#isGuaranteedRoll = false;
+				}
                 break;
 			case 3:
 				this.#artifactSubStats[2].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[2].getAttributeName()));

@@ -170,7 +170,7 @@ class ArtifactSimulator {
             this.#artifactDisplayerPanel.displayStat();
 
             await Dialog.showMessageDialog('Artifact RNG', 'Stat is removed!');
-            
+
             this.#btnLock.disabled = false;
             this.#btnGenerate.disabled = false;
             this.#btnSkip.disabled = true;
@@ -302,58 +302,47 @@ class ArtifactSimulator {
                 }
 
                 .indent {
-                    text-indent: 1rem;
+                    margin-left: 1rem;
+                }
+
+                .section {
+                    margin-bottom: 1rem;
+                    line-height: 1.5;
+                    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-size: 0.95rem;
+                }
+
+                .section b {
+                    font-weight: bold;
                 }
             </style>
-            <p class='center'>
+
+            <div class="section center">
                 This application is <b>exclusive</b> only for 5 star artifact
-            </p> <br>
-            <p>
-                <b>Max Upgrade</b>: Displays the number of upgrades an artifact can have.
-            </p>
-            <p>
-                <b>Lock</b>: Locks the combo box and some buttons that are not needed.
-            </p>
-            <p>
-                <b>Generate</b>: Displays the artifact piece selected by the user 
-                and generates random main attribute (for sands, goblet, circlet piece) and sub-stats.
-            </p>
-            <p>
-                <b>Roll</b>: Upgrades a random value of a sub-stat.
-            </p>
-            <p>
-                <b>Reroll</b>: Removes the upgrades of the sub-stats.
-            </p>
-            <p>
-                <b>Reset</b>: Clears the artifact piece, main attribute, and sub-stats.
-            </p>
-            <p>
-                <b>Custom Stat</b>: Allows you to enter your own stat.
-            </p> <br>
-            <p>
-                If the sub-stats are 3 only, it will have <b>1 New Sub-Stat and 4 Upgrades</b>. 
+            </div>
+
+            <div class="section"><b>Max Upgrade</b>: Displays the number of upgrades an artifact can have.</div>
+            <div class="section"><b>Lock</b>: Locks the combo box and some buttons that are not needed.</div>
+            <div class="section"><b>Generate</b>: Displays the artifact piece selected by the user and generates random main attribute (for sands, goblet, circlet piece) and sub-stats.</div>
+            <div class="section"><b>Roll</b>: Upgrades a random value of a sub-stat.</div>
+            <div class="section"><b>Reroll</b>: Removes the upgrades of the sub-stats.</div>
+            <div class="section"><b>Reset</b>: Clears the artifact piece, main attribute, and sub-stats.</div>
+            <div class="section"><b>Custom Stat</b>: Allows you to enter your own stat.</div>
+
+            <div class="section">
+                If the sub-stats are 3 only, it will have <b>1 New Sub-Stat and 4 Upgrades</b>.
                 If the sub-stats are 4, it will have <b>5 Upgrades</b>.
-            </p> <br>
-            <p>
-                <b>Flags</b>
-            </p>
-            <p class='indent'>
-                <b>Random Stat</b>: Generate random artifact piece stat.
-            </p>
-            <p class='indent'>
-                <b>Full Upgrade</b>: Upgrades the value to the max upgrade. 
-                (Need 'Random Stat' to be selected first)
-            </p> <br>
-            <p>
-                These flags only works if it's "Lock". Otherwise, it will not work when it's "Unlock".
-            </p> <br>
-            <p>
-                Occasionally, it may display incorrect decimals due to rounding errors.
-            </p> <br>
-            <p class='center'>
-                Click <b>'OK'</b> to continue.
-            </p>
-        `
+            </div>
+
+            <div class="section"><b>Flags</b></div>
+            <div class="section indent"><b>Random Stat</b>: Generate random artifact piece stat.</div>
+            <div class="section indent"><b>Full Upgrade</b>: Upgrades the value to the max upgrade. (Need 'Random Stat' to be selected first)</div>
+
+            <div class="section">These flags only work if it's "Lock". Otherwise, it will not work when it's "Unlock".</div>
+            <div class="section">Occasionally, it may display incorrect decimals due to rounding errors.</div>
+
+            <div class="section center">Click <b>'OK'</b> to continue.</div>
+        `;
     }
 
     #displayCustomStatMessage() {
@@ -365,45 +354,35 @@ class ArtifactSimulator {
                     }
 
                     .indent {
-                        text-indent: 1rem;
+                        margin-left: 1rem;
+                    }
+
+                    .section {
+                        margin-bottom: 1rem;
+                        line-height: 1.5;
+                        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        font-size: 0.95rem;
                     }
                 </style>
-                <p>
-                    <b>Select an artifact piece and main attribute</b>. 
+
+                <div class="section">
+                    <b>Select an artifact piece and main attribute</b>.
                     After selecting the main attribute, the sub-stats will be displayed in the list.
-                </p> <br>
-                <p>
-                    <b>Adding Sub-Stat</b>
-                    <p class='indent'>
-                        Click the <b>'Add Sub-Stat'</b> button.
-                    </p>
-                    <p class='indent'>
-                        Select the slot where you want to add the sub-stat, then 
-                        click <b>'OK'</b>.
-                    </p>
-                </p>
-                <p>
-                    <b>Removing Specific Sub-Stat</b>
-                    <p class='indent'>
-                        Click the <b>'Remove Sub-Stat'</b> button.
-                    </p>
-                    <p class='indent'>
-                        Select the slot where you want to remove the sub-stat, then 
-                        click <b>'OK'</b>.
-                    </p>
-                </p>
-                <p>
-                    <b>Removing All Sub-Stats</b>
-                    <p class='indent'>
-                        Click the <b>'Remove All'</b> button.
-                    </p>
-                </p>
-                <p>
-                    <b>Displaying Stat</b>
-                    <p class='indent'>
-                        When you made up your mind, click <b>'Finalize Stat'</b> to display the stat.
-                    </p>
-                </p>
+                </div>
+
+                <div class="section"><b>Adding Sub-Stat</b></div>
+                <div class="section indent">Click the <b>'Add Sub-Stat'</b> button.</div>
+                <div class="section indent">Select the slot where you want to add the sub-stat, then click <b>'OK'</b>.</div>
+
+                <div class="section"><b>Removing Specific Sub-Stat</b></div>
+                <div class="section indent">Click the <b>'Remove Sub-Stat'</b> button.</div>
+                <div class="section indent">Select the slot where you want to remove the sub-stat, then click <b>'OK'</b>.</div>
+
+                <div class="section"><b>Removing All Sub-Stats</b></div>
+                <div class="section indent">Click the <b>'Remove All'</b> button.</div>
+
+                <div class="section"><b>Displaying Stat</b></div>
+                <div class="section indent">When you made up your mind, click <b>'Finalize Stat'</b> to display the stat.</div>
             `,
             /*html*/`
                 <style>
@@ -412,49 +391,45 @@ class ArtifactSimulator {
                     }
 
                     .indent {
-                        text-indent: 1rem;
+                        margin-left: 1rem;
+                    }
+
+                    .section {
+                        margin-bottom: 1rem;
+                        line-height: 1.5;
+                        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        font-size: 0.95rem;
                     }
                 </style>
-                <p>
+
+                <div class="section">
                     You can place <b>first 2 sub-stats and first 3 or 4 sub-stats</b>.
-                </p> <br>
-                <p>
-                    If you only placed first 2 sub-stats, the rest will automatically generated whether you
-                    will have 3 sub-stats or 4 sub-stats.
-                </p> <br>
-                <p>
-                    <b>Can display stats if</b>
-                    <p class='indent'>Slot 1 and Slot 2 are filled</p>
-                    <p class='indent'>Slot 1 to 3 are filled or Slot 1 to 4 are filled</p>
-                </p>
-                <p>
-                    <b>Cannot display stats if</b>
-                    <p class='indent'>All Slots are empty</p>
-                    <p class='indent'>Slot 1 and Slot 2 are empty but Slot 3 and Slot 4 are filled</p>
-                </p> <br>
-                <p>
-                    <b>Defined Affix Mode</b> <br> <br>
-                    <p>
-                        This mode works like new gadget "Artifact Transmuter". You will have to 
-                        choose <b>artifact piece (for sands, goblet, circlet piece) </b>, <b>main attribute</b>, 
-                        and <b>2 sub-stats</b>. The rest will automatically generate.
-                    </p> <br>
-                    <p>The catch is that you can't choose initial value, it will be automically generated as well.</p>
-                </p> <br>
-                <p>
-                    <b>** TIP **</b> <br>
-                    <p class='indent'>
-                        <b>For Desktop Users</b>: To quickly add a sub-stat, select it 
-                        and press "ENTER" instead of clicking the button.
-                    </p>
-                    <p class='indent'>
-                        <b>For Mobile Users (also works for Desktop Users)</b>: Double tap/click
-                        the sub-stat to appear the dialog for adding sub-stat.
-                    </p>
-                </p> <br>
-                <p class='center'>
-                    Click <b>'OK'</b> to continue.
-                </p>
+                </div>
+
+                <div class="section">
+                    If you only placed first 2 sub-stats, the rest will automatically generate whether you will have 3 sub-stats or 4 sub-stats.
+                </div>
+
+                <div class="section"><b>Can display stats if</b></div>
+                <div class="section indent">Slot 1 and Slot 2 are filled</div>
+                <div class="section indent">Slot 1 to 3 are filled or Slot 1 to 4 are filled</div>
+
+                <div class="section"><b>Cannot display stats if</b></div>
+                <div class="section indent">All Slots are empty</div>
+                <div class="section indent">Slot 1 and Slot 2 are empty but Slot 3 and Slot 4 are filled</div>
+
+                <div class="section"><b>Defined Affix Mode</b></div>
+                <div class="section">
+                    This mode works like new gadget "Artifact Transmuter". You will have to choose <b>artifact piece (for sands, goblet, circlet piece)</b>, <b>main attribute</b>, and <b>2 sub-stats</b>. The rest will automatically generate.
+                </div>
+                <div class="section">The catch is that you can't choose initial value, it will be automatically generated as well.</div>
+                <div class="section">Additionally, the sub-stats chosen will have at least <b>2</b> rolls when fully upgraded. These sub-stats will share this guaranteed roll.</div>
+
+                <div class="section"><b>** TIP **</b></div>
+                <div class="section indent"><b>For Desktop Users</b>: To quickly add a sub-stat, select it and press <b>"ENTER"</b> instead of clicking the button.</div>
+                <div class="section indent"><b>For Mobile Users (also works for Desktop Users)</b>: Double tap/click the sub-stat to appear the dialog for adding sub-stat.</div>
+
+                <div class="section center">Click <b>'OK'</b> to continue.</div>
             `
         ];
 

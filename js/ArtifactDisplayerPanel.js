@@ -9,12 +9,44 @@ class ArtifactDisplayerPanel {
 	#lblSlot3 = document.getElementById('lblSlot3');
 	#lblSlot4 = document.getElementById('lblSlot4');
 
+	#displayPanel = document.getElementById('displayPanel');
+	#hoverPopup = document.getElementById('hoverPopup');
+
 	constructor(artifactStat) {
 		if (artifactStat instanceof ArtifactStat) {
-            this.#artifactStat = artifactStat;
-        } else {
-            throw new TypeError("Not an instance of ArtifactStat Class");
-        }
+			this.#artifactStat = artifactStat;
+		} else {
+			throw new TypeError("Not an instance of ArtifactStat Class");
+		}
+
+		// Desktop
+		this.#displayPanel.addEventListener('mousemove', (e) => {
+			if (!this.#artifactStat.getDefinedAffixMode()) {
+				this.#hidePopup();
+				return;
+			}
+
+			this.#showPopup(e.clientX, e.clientY);
+		});
+
+		this.#displayPanel.addEventListener('mouseleave', () => this.#hidePopup());
+
+		// Mobile
+		this.#displayPanel.addEventListener('touchstart', (e) => {
+			if (!this.#artifactStat.getDefinedAffixMode()) return;
+			const touch = e.touches[0];
+			this.#showPopup(touch.clientX, touch.clientY);
+		});
+
+		// Hide popup on tap anywhere else
+		document.addEventListener('touchstart', (e) => {
+			if (!this.#displayPanel.contains(e.target)) {
+				this.#hidePopup();
+			}
+		});
+
+		// Hide popup on scroll (good UX on mobile)
+		window.addEventListener('scroll', () => this.#hidePopup(), true);
 	}
 
 	displayStat() {
@@ -35,5 +67,50 @@ class ArtifactDisplayerPanel {
 
 	#displaySubStat(subStat) {
 		return `· ${subStat}`;
+	}
+
+	#getPopupText() {
+		let text = '<b>Defined Affix Mode</b><br>';
+		text += `These sub-stats will share a guaranteed at least <b>2</b> rolls when fully upgraded.<br><br>`;
+		text += `Chosen sub-stats:<br>`;
+
+		for (const [key, value] of Object.entries(this.#artifactStat.getSubStatUpgradeCounts())) {
+			text += `· ${key} (${value})<br>`;
+		}
+
+		return text;
+	}
+
+	#showPopup(x, y) {
+		this.#hoverPopup.innerHTML = this.#getPopupText();
+		this.#hoverPopup.style.display = 'block';
+
+		const offsetX = 30;
+		const offsetY = 30;
+		const popupRect = this.#hoverPopup.getBoundingClientRect();
+		const screenW = window.innerWidth;
+		const screenH = window.innerHeight;
+
+		let posX = x + offsetX;
+		let posY = y + offsetY;
+
+		if (posX + popupRect.width > screenW) {
+			posX = x - popupRect.width - offsetX;
+		}
+
+		if (posY + popupRect.height > screenH) {
+			posY = y - popupRect.height - offsetY;
+		}
+
+		posX = Math.max(0, Math.min(posX, screenW - popupRect.width));
+		posY = Math.max(0, Math.min(posY, screenH - popupRect.height));
+
+
+		this.#hoverPopup.style.left = `${posX}px`;
+		this.#hoverPopup.style.top = `${posY}px`;
+	}
+
+	#hidePopup() {
+		this.#hoverPopup.style.display = 'none';
 	}
 }
