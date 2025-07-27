@@ -245,17 +245,17 @@ class Artifact {
 		return upgradeTimes[0];
     }
 
-    generateRandomSlot(definedAffixMode = false) {
-        if (typeof definedAffixMode !== 'boolean') {
-            return new Error('truthy or falsy is only allowed.');
+    generateRandomSlot(slots = [ 1, 2, 3, 4 ]) {
+        if (!Array.isArray(slots)) {
+            throw new TypeError("Must be array type");
+        }
+
+        if (slots.length !== 2 && slots.length !== 4) {
+            throw new Error("Invalid slot array: expected length 2 or 4, but got " + slots.length);
         }
         
 		const slotChance = this.generateNumber();
 
-        const AFFIXED_SLOTS = [1, 2];
-        const ALL_SLOTS = [1, 2, 3, 4];
-
-		const slots = definedAffixMode ? AFFIXED_SLOTS : ALL_SLOTS;
 		const probabilities = this.#generateEqualProbabilities(slots.length);
 		let cumulativeProbability = 0;
 

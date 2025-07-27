@@ -8,6 +8,7 @@ class ArtifactSimulator {
     #btnSkip = document.getElementById('btnSkip');
     #btnRoll = document.getElementById('btnRoll');
     #btnReroll = document.getElementById('btnReroll');
+    #btnReshape = document.getElementById('btnReshape');
     #btnReset = document.getElementById('btnReset');
     #btnLock = document.getElementById('btnLock');
     #btnCustomStat = document.getElementById('btnCustomStat');
@@ -97,6 +98,7 @@ class ArtifactSimulator {
             this.#btnSkip.disabled = true;
             this.#btnRoll.disabled = true;
             this.#btnReroll.disabled = false;
+            this.#btnReshape.disabled = false;
             this.#btnReroll.focus();
         });
 
@@ -121,6 +123,7 @@ class ArtifactSimulator {
 
                 if (this.#rollCounter === maxUpgradeValue) {
                     this.#btnRoll.disabled = true;
+                    this.#btnReshape.disabled = false;
                     this.#btnReroll.focus();
                 }
 
@@ -143,12 +146,19 @@ class ArtifactSimulator {
             this.#btnSkip.disabled = false;
             this.#btnRoll.disabled = false;
             this.#btnReroll.disabled = true;
+            this.#btnReshape.disabled = true;
             this.#btnReset.disabled = false;
             this.#isNewAttribute = true;
 
             this.#rollCounter = 0;
 
             this.#btnRoll.focus();
+        });
+
+        // btnReshape
+        this.#btnReshape.addEventListener('click', () => {
+            const reshapeConfig = new ReshapeConfigDialog(this.#artifactStat);
+            reshapeConfig.setVisible(true);
         });
 
         // btnReset
@@ -176,6 +186,7 @@ class ArtifactSimulator {
             this.#btnSkip.disabled = true;
             this.#btnRoll.disabled = true;
             this.#btnReroll.disabled = true;
+            this.#btnReshape.disabled = true;
             this.#btnReset.disabled = true;
             this.#btnCustomStat.disabled = false;
             this.#rollCounter = 0;
@@ -326,6 +337,7 @@ class ArtifactSimulator {
             <div class="section"><b>Generate</b>: Displays the artifact piece selected by the user and generates random main attribute (for sands, goblet, circlet piece) and sub-stats.</div>
             <div class="section"><b>Roll</b>: Upgrades a random value of a sub-stat.</div>
             <div class="section"><b>Reroll</b>: Removes the upgrades of the sub-stats.</div>
+            <div class="section"><b>Reshape</b>: Upgrade rolls are guaranteed for two of the selected sub-stats.</div>
             <div class="section"><b>Reset</b>: Clears the artifact piece, main attribute, and sub-stats.</div>
             <div class="section"><b>Custom Stat</b>: Allows you to enter your own stat.</div>
 

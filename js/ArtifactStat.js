@@ -18,7 +18,7 @@ class ArtifactStat {
 	#definedAffixMode = false;
 	#isGuaranteedRoll = false;
 
-	#guaranteedRollLimit = 2;
+	#guaranteedRollLimit = 0;
 
 	#subStatUpgradeCounts = {};
 
@@ -43,7 +43,7 @@ class ArtifactStat {
             this.#artifactPiece = this.#artifact.isArtifactPiece(artifactPiece);
             this.#mainAttribute = this.#artifact.isMainAttribute(mainAttribute);
             this.#initializeSubStats();
-        } else if (arguments.length === 3) {
+        } else if (arguments.length > 3) {
             if (typeof artifactPiece !== 'string' && typeof mainAttribute !== 'string') {
                 throw new TypeError('Invalid Data Type: artifactPiece must be a string and mainAttribute must be a string.');
             }
@@ -78,6 +78,21 @@ class ArtifactStat {
 		} else {
 			throw new Error("Max Upgrade is either 4 or 5");
         }
+	}
+
+	setReshapeConfig(reshapeConfig) {
+		if (reshapeConfig instanceof ReshapeConfig) {
+			if (Object.keys(reshapeConfig.getSubStatUpgradeCounts()).length !== 2) {
+				throw new Error("Must contain at most 2 entries, but got " + Object.keys(reshapeConfig.getSubStatUpgradeCounts()).length);
+			}
+
+			this.#definedAffixMode = true;
+
+			this.#subStatUpgradeCounts = {...reshapeConfig.getSubStatUpgradeCounts()};
+			this.#guaranteedRollLimit = reshapeConfig.getGuaranteedRollLimit();
+		} else {
+			throw new Error("Not an instance of ReshapeConfig Class");
+		}
 	}
 
 	getArtifactPiece() {
@@ -177,6 +192,8 @@ class ArtifactStat {
                                             this.#artifactSubStats[1].getAttributeName(), 
                                             this.#artifactSubStats[2].getAttributeName());
 
+		this.#guaranteedRollLimit = 2;
+
 		this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] = 0;
 		this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] = 0;
 	}
@@ -207,7 +224,7 @@ class ArtifactStat {
 		this.#isMax = false;
 
 		this.#definedAffixMode = false;
-
+		this.#guaranteedRollLimit = 0;
 		this.#subStatUpgradeCounts = {};
 	}
 	
@@ -233,17 +250,18 @@ class ArtifactStat {
 
 						// If we still owe some guaranteed rolls, AND there are exactly that many +1's left, force now:
 						if (this.#definedAffixMode && guaranteedLeft > 0 && remainingUpgrades === guaranteedLeft) {
-							this.#slotNumber = this.#artifact.generateRandomSlot(this.#definedAffixMode); // force 1 or 2
+							this.#slotNumber = this.#artifact.generateRandomSlot(this.#getSlotsFromUpgradeCounts()); // force based on the subStatUpgradeCounts
 							this.#isGuaranteedRoll = true;
 						} else {
 							// Normal 50% chance for affix vs all‐slots:
 							const randomChance = this.#artifact.generateNumber();
 
 							if (this.#definedAffixMode && totalAffixModeRoll !== this.#guaranteedRollLimit && randomChance <= 50.00) {
-								this.#slotNumber = this.#artifact.generateRandomSlot(this.#definedAffixMode);
+								this.#slotNumber = this.#artifact.generateRandomSlot(this.#getSlotsFromUpgradeCounts()); // force based on the subStatUpgradeCounts
 								this.#isGuaranteedRoll = true;
 							} else {
 								this.#slotNumber = this.#artifact.generateRandomSlot();
+								this.#isGuaranteedRoll = false;
 							}
 						}
 
@@ -289,37 +307,19 @@ class ArtifactStat {
         // If we still owe guaranteedLeft > 0 AND remainingUpgrades == guaranteedLeft,
         // force an affix now—even if slotNumber wasn't 1 or 2 originally:
         if (this.#definedAffixMode && guaranteedLeft > 0 && remainingUpgrades == guaranteedLeft) {
-            slotNumber = this.#artifact.generateRandomSlot(this.#definedAffixMode); // 1 or 2
+            slotNumber = this.#artifact.generateRandomSlot(this.#getSlotsFromUpgradeCounts()); // force based on the subStatUpgradeCounts
             this.#isGuaranteedRoll = true;
         }
 		
-		switch (slotNumber) {
-			case 1:
-				this.#artifactSubStats[0].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[0].getAttributeName()));
-				this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, this.#artifactSubStats[0]);
+		// retrieve the ArtifactSubStat object based on the slotNumber and upgrade its value
+		const subStat = this.#artifactSubStats[slotNumber - 1];
 
-				if (this.#isGuaranteedRoll) {
-					this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] += 1;
-					this.#isGuaranteedRoll = false;
-				}
-                break;
-			case 2:
-				this.#artifactSubStats[1].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[1].getAttributeName()));
-				this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, this.#artifactSubStats[1]);
+		subStat.addAttributeValue(this.#artifact.generateSubAttributeValue(subStat.getAttributeName()));
+		this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, subStat);
 
-				if (this.#isGuaranteedRoll) {
-					this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] += 1;
-					this.#isGuaranteedRoll = false;
-				}
-                break;
-			case 3:
-				this.#artifactSubStats[2].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[2].getAttributeName()));
-				this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, this.#artifactSubStats[2]);
-                break;
-			case 4:
-				this.#artifactSubStats[3].addAttributeValue(this.#artifact.generateSubAttributeValue(this.#artifactSubStats[3].getAttributeName()));
-				this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, this.#artifactSubStats[3]);
-                break;
+		if (this.#isGuaranteedRoll) {
+			this.#subStatUpgradeCounts[subStat.getAttributeName()] += 1;
+			this.#isGuaranteedRoll = false;
 		}
 
 		this.#upgradeCounter--;
@@ -588,5 +588,27 @@ class ArtifactStat {
         }
         
 		return this.#addContainerToText(template);
+	}
+
+	// Retrieving their index position
+	#getSlotsFromUpgradeCounts() {
+		const matchedIndexes = [];
+		let count = 0;
+
+		for (let i = 0; i < this.#artifactSubStats.length && count < 2; i++) {
+		    const subStat = this.#artifactSubStats[i];
+		    
+		    if (this.#subStatUpgradeCounts.hasOwnProperty(subStat.getAttributeName())) {
+		        matchedIndexes[count++] = i + 1; // store 1-based index
+		    }
+		}
+
+		if (count < 2) {
+		    throw new Error("Less than 2 matching attributes found");
+		}
+
+		console.log(matchedIndexes);
+
+		return matchedIndexes;
 	}
 }

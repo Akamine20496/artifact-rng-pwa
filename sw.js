@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const APP_VERSION = 'v12.4.0';
+const APP_VERSION = 'v13.0.0';
 const CACHE_NAME = `${CACHE_NAMING}-${APP_VERSION}`;
 
 const ASSETS = [
@@ -19,6 +19,9 @@ const ASSETS = [
     "js/Artifact.js",
     "js/ArtifactSubStat.js",
     "js/ArtifactStat.js",
+    "js/ReshapeConfig.js",
+    "js/ReshapeConfigDialog.js",
+    "js/ReshapeResultDialog.js",
     "js/ArtifactDisplayerPanel.js",
     "js/CustomStatDialog.js",
     "js/ArtifactSimulator.js",
