@@ -143,13 +143,18 @@ class ArtifactStat {
 
 		this.#artifactSubStats[0] = this.#artifact.generateSubStat(this.#mainAttribute);
 		this.#artifactSubStats[1] = this.#artifact.generateSubStat(this.#mainAttribute, this.#artifactSubStats[0].getAttributeName());
-		this.#artifactSubStats[2] = 
-            this.#artifact.generateSubStat(this.#mainAttribute, this.#artifactSubStats[0].getAttributeName(), this.#artifactSubStats[1].getAttributeName());
+		this.#artifactSubStats[2] = this.#artifact.generateSubStat(this.#mainAttribute, this.#artifactSubStats[0].getAttributeName(), this.#artifactSubStats[1].getAttributeName());
 		this.#artifactSubStats[3] = this.#maxUpgrade == 4 ? new ArtifactSubStat(null, 0) : 
-            this.#artifact.generateSubStat(this.#mainAttribute, 
-                                            this.#artifactSubStats[0].getAttributeName(), 
-                                            this.#artifactSubStats[1].getAttributeName(), 
-                                            this.#artifactSubStats[2].getAttributeName());
+            this.#artifact.generateSubStat(
+				this.#mainAttribute, 
+				this.#artifactSubStats[0].getAttributeName(), 
+				this.#artifactSubStats[1].getAttributeName(), 
+				this.#artifactSubStats[2].getAttributeName()
+			);
+
+		if (this.#maxUpgrade === 4) {
+			this.generatePreviewAttributeNameForFourthSubStat();
+		}
 	}
 	
 	#generateFourthSubStat() {
@@ -157,11 +162,9 @@ class ArtifactStat {
 			throw new Error("mainAttribute is null and maxUpgrade is 0");
 		}
 		
-		this.#artifactSubStats[3] = this.#artifact.generateSubStat(this.#mainAttribute, 
-                                                                    this.#artifactSubStats[0].getAttributeName(), 
-                                                                    this.#artifactSubStats[1].getAttributeName(), 
-                                                                    this.#artifactSubStats[2].getAttributeName());
-		
+		// Add the preview attribute to 4th sub-stat and generate value
+		this.#artifactSubStats[3].applyPreviewAttributeNameToSubStat();
+
         this.#currentNewSubStat = this.#artifact.formatSubStatByMode(0, this.#artifactSubStats[3]);
 	}
 	
@@ -187,10 +190,16 @@ class ArtifactStat {
 
 		this.#artifactSubStats[2] = this.#artifact.generateSubStat(this.#mainAttribute, this.#artifactSubStats[0].getAttributeName(), this.#artifactSubStats[1].getAttributeName());
 		this.#artifactSubStats[3] = this.#maxUpgrade == 4 ? new ArtifactSubStat(null, 0) : 
-            this.#artifact.generateSubStat(this.#mainAttribute, 
-                                            this.#artifactSubStats[0].getAttributeName(), 
-                                            this.#artifactSubStats[1].getAttributeName(), 
-                                            this.#artifactSubStats[2].getAttributeName());
+            this.#artifact.generateSubStat(
+				this.#mainAttribute, 
+				this.#artifactSubStats[0].getAttributeName(), 
+				this.#artifactSubStats[1].getAttributeName(), 
+				this.#artifactSubStats[2].getAttributeName()
+			);
+
+		if (this.#maxUpgrade === 4) {
+			this.generatePreviewAttributeNameForFourthSubStat();
+		}
 
 		this.#guaranteedRollLimit = 2;
 
@@ -200,21 +209,30 @@ class ArtifactStat {
 	
 	rerollStat() {
 		this.#removeSubStatUpgrades();
-		
-		this.#slotNumber = 0;
-		this.#upgradeCounter = 0;
-		this.#totalUpgrade = 0;
-		this.#isMax = false;
+
+		if (this.#maxUpgrade === 4) {
+			this.generatePreviewAttributeNameForFourthSubStat();
+		}
 
 		if (this.#definedAffixMode) {
 			this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] = 0;
 			this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] = 0;
 		}
+		
+		this.#slotNumber = 0;
+		this.#upgradeCounter = 0;
+		this.#totalUpgrade = 0;
+		this.#isMax = false;
 	}
 	
 	resetStat() {
 		this.#resetSubStats();
+
+		if (this.#maxUpgrade === 4) {
+			this.#artifactSubStats[3].setPreviewAttributeName(null);
+		}
 		
+		this.#artifactPiece = null;
 		this.#mainAttribute = null;
 		
 		this.#slotNumber = 0;
@@ -610,5 +628,30 @@ class ArtifactStat {
 		console.log(matchedIndexes);
 
 		return matchedIndexes;
+	}
+
+	// generate preview attribute name for 4th slot (sub-stat)
+	generatePreviewAttributeNameForFourthSubStat() {
+		if (this.#maxUpgrade === 0) {
+			throw new Error('Max upgrade must not be 0.');
+		}
+
+		if (this.#artifactPiece === null) {
+			throw new Error('Artifact piece must not be null.');
+		}
+
+		if (this.#mainAttribute === null) {
+			throw new Error('Main attribute must not be null.');
+		}
+
+		const previewAttributeName = 
+			this.#artifact.generateSubAttribute(
+				this.#mainAttribute,
+				this.#artifactSubStats[0].getAttributeName(),
+				this.#artifactSubStats[1].getAttributeName(),
+				this.#artifactSubStats[2].getAttributeName()
+			);
+
+		this.#artifactSubStats[3].setPreviewAttributeName(previewAttributeName);
 	}
 }

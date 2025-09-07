@@ -176,7 +176,6 @@ class ArtifactSimulator {
 
             this.#pMaxUpgradeValue.innerText = 0;
             this.#artifactStat.resetStat();
-            this.#artifactStat.setArtifactPiece(null);
             this.#artifactDisplayerPanel.displayStat();
 
             await Dialog.showMessageDialog('Artifact RNG', 'Stat is removed!');

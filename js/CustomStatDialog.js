@@ -505,6 +505,7 @@ class CustomStatDialog {
         } else {
             if (attr4 === null) {
                 this.#artifactStat.setMaxUpgrade(4);
+                this.#artifactStat.generatePreviewAttributeNameForFourthSubStat();
             } else {
                 this.#artifactStat.setMaxUpgrade(5);
             }

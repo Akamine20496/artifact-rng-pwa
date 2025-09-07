@@ -60,8 +60,26 @@ class ArtifactDisplayerPanel {
 
 		const lblSlots = [this.#lblSlot1, this.#lblSlot2, this.#lblSlot3, this.#lblSlot4];
 
-		for (let index = 0; index < lblSlots.length; index++) {
-			lblSlots[index].innerText = this.#displaySubStat(this.#artifactStat.getSubStatAt(index).getSubStat());
+		const length = this.#artifactStat.getArraySubStatsLength();
+
+		for (let index = 0; index < length; index++) {
+			const subStat = this.#artifactStat.getSubStatAt(index);
+			let text = this.#displaySubStat(subStat.getSubStat());
+			let color = lblSlots[index].style.color;
+
+			if (index === length - 1 && this.#artifactStat.getMaxUpgrade() === 4) {
+				if (subStat.getIsInitialValueEmpty()) {
+					text = subStat.getSubStat();
+					color = 'rgba(88, 88, 88, 0.6)';
+				} else {
+					color = 'rgb(88, 88, 88)';
+				}
+			} else if (this.#artifactStat.getMaxUpgrade() === 0) {
+				color = 'rgb(88, 88, 88)';
+			}
+
+			lblSlots[index].innerText = text;
+			lblSlots[index].style.color = color;
 		}
 	}
 

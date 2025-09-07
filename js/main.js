@@ -27,7 +27,7 @@ $(document).ready(() => {
         https://i.pinimg.com/originals/dd/6a/53/dd6a53af112346d57377e9b4403bdc9e.jpg
     `, 'font-family: Segoe UI; font-size: 0.750rem; cursor: pointer;');
 
-    const APP_VERSION = 'v13.0.0';
+    const APP_VERSION = 'v14.0.0';
 
     $('#currentVersion').text(APP_VERSION);
 
