@@ -17,9 +17,10 @@ You can make this application kind of guess your artifact rolls or just generate
 2. **Custom Stat**: Adjust any parameters such main stats, and sub-stats.
 3. **Generate Stats**: Click the "Generate" button to roll for your artifact.
 4. **Reroll Stats**: Reroll your sub-stats for different results.
-5. **Skip Upgrades**: Allows you to directly maxed out the upgrade of your artifact.
-6. **Reset Stats**: Reset your stats so that you can generate new ones.
-7. **Preview Results**: View the generated stats and see if the legitimate roll matches on your simulated roll or close to it.
+5. **Reshape Stats**: Reroll you sub-stats with certain number of guaranteed rolls.
+6. **Skip Upgrades**: Allows you to directly maxed out the upgrade of your artifact.
+7. **Reset Stats**: Reset your stats so that you can generate new ones.
+8. **Preview Results**: View the generated stats and see if the legitimate roll matches on your simulated roll or close to it.
 
 ## Installation
 

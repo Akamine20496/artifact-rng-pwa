@@ -1,6 +1,5 @@
 class ArtifactSubStat {
     #attributeName = null;
-    #previewAttributeName = null;
     #initialAttributeValue = 0;
     #attributeValue = 0;
     #prevAttributeValue = 0;
@@ -8,11 +7,13 @@ class ArtifactSubStat {
 
     #artifact = new Artifact();
 
+    #subStatPreview = null;
+
     constructor(attributeName, attributeValue) {
         if ((typeof attributeName === 'string' || attributeName === null) && typeof attributeValue === 'number') {
             this.#attributeName = this.#artifact.isSubAttribute(attributeName);
             this.#initialAttributeValue = this.#attributeValue = this.#artifact.isSubAttributeValue(attributeName, attributeValue);
-            this.#isInitialValueEmpty = (attributeName === null);
+            this.#isInitialValueEmpty = (this.#initialAttributeValue === 0);
         }
     }
 
@@ -20,8 +21,12 @@ class ArtifactSubStat {
         this.#attributeName = attributeName;
     }
 
-    setPreviewAttributeName(attributeName) {
-        this.#previewAttributeName = this.#artifact.isSubAttribute(attributeName);
+    setSubStatPreview(subStatPreview) {
+        if ((subStatPreview instanceof SubStatPreview) || subStatPreview === null) {
+            this.#subStatPreview = subStatPreview;
+        } else {
+            throw new TypeError("Not an instance of SubStatPreview Class");
+        }
     }
 
     setInitialAttributeValue(initialAttributeValue) {
@@ -41,8 +46,8 @@ class ArtifactSubStat {
         return this.#attributeName;
     }
 
-    getPreviewAttributeName() {
-        return this.#previewAttributeName;
+    getSubStatPreview() {
+        return this.#subStatPreview;
     }
 
     getInitialAttributeValue() {
@@ -61,12 +66,15 @@ class ArtifactSubStat {
         return this.#isInitialValueEmpty;
     }
 
-    applyPreviewAttributeNameToSubStat() {
-        this.#attributeName = this.#previewAttributeName;
-        this.#initialAttributeValue = this.#attributeValue = this.#artifact.generateSubAttributeValue(this.#attributeName);
-        this.#isInitialValueEmpty = false;
+    applySubStatPreviewToActualSubStat() {
+        const attributeNamePreview = this.#subStatPreview.getAttributeName();
+        const attributeValuePreview = this.#subStatPreview.getAttributeValue();
 
-        this.#previewAttributeName = null;
+        this.#attributeName = this.#artifact.isSubAttribute(attributeNamePreview);
+        this.#initialAttributeValue = this.#attributeValue = this.#artifact.isSubAttributeValue(attributeNamePreview, attributeValuePreview)
+        this.#isInitialValueEmpty = (this.#initialAttributeValue === 0);
+
+        this.#subStatPreview = null;
     }
 
     addAttributeValue(attributeValue) {
@@ -75,11 +83,11 @@ class ArtifactSubStat {
     }
 
     getSubStat() {
-        if (this.#attributeName === null && this.#previewAttributeName === null) {
+        if (this.#attributeName === null && this.#subStatPreview === null) {
             return 'None';
         } else {
-            if (this.#previewAttributeName !== null) {
-                return `(${this.#previewAttributeName})`;
+            if (this.#subStatPreview !== null) {
+                return this.#artifact.formatSubStat(this.#subStatPreview.getAttributeName(), this.#subStatPreview.getAttributeValue());
             } else {
                 return this.#artifact.formatSubStat(this.#attributeName, this.#attributeValue);
             }
@@ -89,11 +97,11 @@ class ArtifactSubStat {
     toString() {
         return 'ArtifactSubStat{' +
                 "attributeName='" + this.#attributeName + "', " +
-                "previewAttributeName='" + this.#previewAttributeName + "', " +
                 'initialAttributeValue=' + this.#initialAttributeValue + ', ' +
                 'attributeValue=' + this.#attributeValue + ', ' +
                 'prevAttributeValue=' + this.#prevAttributeValue + ', ' +
                 'isInitialValueEmpty=' + this.#isInitialValueEmpty + 
+                "subStatPreview=" + (this.#subStatPreview !== null ? this.#subStatPreview.toString() : 'null') +
                 '}';
     }
 
@@ -103,13 +111,13 @@ class ArtifactSubStat {
         // Check if the object is an instance of ArtifactSubStat
         if (!(o instanceof ArtifactSubStat)) return false;
         // Compare the relevant fields for equality
-        return (this.#attributeName === null ? o.getAttributeName() === null :
-                this.#attributeName === o.getAttributeName()) && 
-                (this.#previewAttributeName === null ? o.getPreviewAttributeName() === null :
-                this.#previewAttributeName === o.getPreviewAttributeName()) && 
-                this.#initialAttributeValue === o.getInitialAttributeValue() && 
-                this.#attributeValue === o.getAttributeValue() && 
-                this.#prevAttributeValue === o.getPrevAttributeValue() && 
-                this.#isInitialValueEmpty === o.getIsInitialValueEmpty();
+        return Object.is(this.#attributeName, o.getAttributeName()) &&
+                Object.is(this.#initialAttributeValue, o.getInitialAttributeValue()) &&
+                Object.is(this.#attributeValue, o.getAttributeValue()) &&
+                Object.is(this.#prevAttributeValue, o.getPrevAttributeValue()) &&
+                this.#isInitialValueEmpty === o.getIsInitialValueEmpty() &&
+                ((this.#subStatPreview === null && o.getSubStatPreview() === null) ||
+                (this.#subStatPreview !== null && o.getSubStatPreview() !== null &&
+                this.#subStatPreview.equals(o.getSubStatPreview())));
     }
 }

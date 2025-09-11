@@ -69,7 +69,7 @@ class ArtifactDisplayerPanel {
 
 			if (index === length - 1 && this.#artifactStat.getMaxUpgrade() === 4) {
 				if (subStat.getIsInitialValueEmpty()) {
-					text = subStat.getSubStat();
+					text = `(${subStat.getSubStat()})`;
 					color = 'rgba(88, 88, 88, 0.6)';
 				} else {
 					color = 'rgb(88, 88, 88)';

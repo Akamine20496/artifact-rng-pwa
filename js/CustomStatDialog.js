@@ -246,7 +246,7 @@ class CustomStatDialog {
                         } else if (response.option === Dialog.CANCEL_OPTION) {
                             break; // stop loop
                         } else {
-                            await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
+                            await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to add the sub-stat!');
                         }
                     } while (!isAdded);
                 } else {
@@ -321,7 +321,7 @@ class CustomStatDialog {
                     } else if (response.option === Dialog.CANCEL_OPTION) {
                         break; // stop the loop
                     } else {
-                        await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the stat!');
+                        await Dialog.showMessageDialog('Artifact RNG', 'Enter the slot number to remove the sub-stat!');
                     }
                 } while (!isRemoved);
             }
@@ -505,7 +505,7 @@ class CustomStatDialog {
         } else {
             if (attr4 === null) {
                 this.#artifactStat.setMaxUpgrade(4);
-                this.#artifactStat.generatePreviewAttributeNameForFourthSubStat();
+                this.#artifactStat.generateSubStatPreviewForFourthSubStat();
             } else {
                 this.#artifactStat.setMaxUpgrade(5);
             }

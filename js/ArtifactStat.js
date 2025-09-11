@@ -153,7 +153,7 @@ class ArtifactStat {
 			);
 
 		if (this.#maxUpgrade === 4) {
-			this.generatePreviewAttributeNameForFourthSubStat();
+			this.generateSubStatPreviewForFourthSubStat();
 		}
 	}
 	
@@ -162,8 +162,8 @@ class ArtifactStat {
 			throw new Error("mainAttribute is null and maxUpgrade is 0");
 		}
 		
-		// Add the preview attribute to 4th sub-stat and generate value
-		this.#artifactSubStats[3].applyPreviewAttributeNameToSubStat();
+		// Add the sub-stat preview to 4th slot
+		this.#artifactSubStats[3].applySubStatPreviewToActualSubStat();
 
         this.#currentNewSubStat = this.#artifact.formatSubStatByMode(0, this.#artifactSubStats[3]);
 	}
@@ -197,11 +197,11 @@ class ArtifactStat {
 				this.#artifactSubStats[2].getAttributeName()
 			);
 
-		if (this.#maxUpgrade === 4) {
-			this.generatePreviewAttributeNameForFourthSubStat();
-		}
-
 		this.#guaranteedRollLimit = 2;
+
+		if (this.#maxUpgrade === 4) {
+			this.generateSubStatPreviewForFourthSubStat();
+		}
 
 		this.#subStatUpgradeCounts[this.#artifactSubStats[0].getAttributeName()] = 0;
 		this.#subStatUpgradeCounts[this.#artifactSubStats[1].getAttributeName()] = 0;
@@ -211,7 +211,7 @@ class ArtifactStat {
 		this.#removeSubStatUpgrades();
 
 		if (this.#maxUpgrade === 4) {
-			this.generatePreviewAttributeNameForFourthSubStat();
+			this.generateSubStatPreviewForFourthSubStat();
 		}
 
 		if (this.#definedAffixMode) {
@@ -229,7 +229,7 @@ class ArtifactStat {
 		this.#resetSubStats();
 
 		if (this.#maxUpgrade === 4) {
-			this.#artifactSubStats[3].setPreviewAttributeName(null);
+			this.#artifactSubStats[3].setSubStatPreview(null);
 		}
 		
 		this.#artifactPiece = null;
@@ -559,6 +559,54 @@ class ArtifactStat {
             }
         }
     }
+
+	// Retrieving their index position
+	#getSlotsFromUpgradeCounts() {
+		const matchedIndexes = [];
+		let count = 0;
+
+		for (let i = 0; i < this.#artifactSubStats.length && count < 2; i++) {
+		    const subStat = this.#artifactSubStats[i];
+		    
+		    if (this.#subStatUpgradeCounts.hasOwnProperty(subStat.getAttributeName())) {
+		        matchedIndexes[count++] = i + 1; // store 1-based index
+		    }
+		}
+
+		if (count < 2) {
+		    throw new Error("Less than 2 matching attributes found");
+		}
+
+		console.log(matchedIndexes);
+
+		return matchedIndexes;
+	}
+
+	// generate sub-stat preview for 4th slot
+	generateSubStatPreviewForFourthSubStat() {
+		if (this.#maxUpgrade === 0) {
+			throw new Error('Max upgrade must not be 0.');
+		}
+
+		if (this.#artifactPiece === null) {
+			throw new Error('Artifact piece must not be null.');
+		}
+
+		if (this.#mainAttribute === null) {
+			throw new Error('Main attribute must not be null.');
+		}
+
+		const attributeNamePreview = 
+			this.#artifact.generateSubAttribute(
+				this.#mainAttribute,
+				this.#artifactSubStats[0].getAttributeName(),
+				this.#artifactSubStats[1].getAttributeName(),
+				this.#artifactSubStats[2].getAttributeName()
+			);
+		const attributeValuePreview = this.#artifact.generateSubAttributeValue(attributeNamePreview);
+
+		this.#artifactSubStats[3].setSubStatPreview(new SubStatPreview(attributeNamePreview, attributeValuePreview));
+	}
 	
 	#addContainerToText(str) {
 	    // Define a minimum width for the container
@@ -600,58 +648,22 @@ class ArtifactStat {
         template += 'Main Attribute: ' + this.#mainAttribute + '\n';
         template += 'Max Upgrade: ' + this.#maxUpgrade + '\n\n';
         template += 'Sub-Stats:\n';
-        
-        for (const subStat of this.#artifactSubStats) {
-            template += subStat.getSubStat() + '\n';
-        }
+
+		const length = this.#artifactSubStats.length;
+
+		for (let index = 0; index < length; index++) {
+			const artifactSubStat = this.#artifactSubStats[index];
+			let subStat = artifactSubStat.getSubStat();
+
+			if (index === length - 1 && this.#maxUpgrade === 4) {
+				if (artifactSubStat.getIsInitialValueEmpty()) {
+					subStat = `(${subStat})`;
+				}
+			}
+
+			template += subStat + '\n';
+		}
         
 		return this.#addContainerToText(template);
-	}
-
-	// Retrieving their index position
-	#getSlotsFromUpgradeCounts() {
-		const matchedIndexes = [];
-		let count = 0;
-
-		for (let i = 0; i < this.#artifactSubStats.length && count < 2; i++) {
-		    const subStat = this.#artifactSubStats[i];
-		    
-		    if (this.#subStatUpgradeCounts.hasOwnProperty(subStat.getAttributeName())) {
-		        matchedIndexes[count++] = i + 1; // store 1-based index
-		    }
-		}
-
-		if (count < 2) {
-		    throw new Error("Less than 2 matching attributes found");
-		}
-
-		console.log(matchedIndexes);
-
-		return matchedIndexes;
-	}
-
-	// generate preview attribute name for 4th slot (sub-stat)
-	generatePreviewAttributeNameForFourthSubStat() {
-		if (this.#maxUpgrade === 0) {
-			throw new Error('Max upgrade must not be 0.');
-		}
-
-		if (this.#artifactPiece === null) {
-			throw new Error('Artifact piece must not be null.');
-		}
-
-		if (this.#mainAttribute === null) {
-			throw new Error('Main attribute must not be null.');
-		}
-
-		const previewAttributeName = 
-			this.#artifact.generateSubAttribute(
-				this.#mainAttribute,
-				this.#artifactSubStats[0].getAttributeName(),
-				this.#artifactSubStats[1].getAttributeName(),
-				this.#artifactSubStats[2].getAttributeName()
-			);
-
-		this.#artifactSubStats[3].setPreviewAttributeName(previewAttributeName);
 	}
 }

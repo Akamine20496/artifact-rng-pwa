@@ -1,5 +1,5 @@
 const CACHE_NAMING = 'artifact-rng-cache';
-const APP_VERSION = 'v14.0.0';
+const APP_VERSION = 'v15.0.1';
 const CACHE_NAME = `${CACHE_NAMING}-${APP_VERSION}`;
 
 const ASSETS = [
@@ -17,6 +17,7 @@ const ASSETS = [
     "js/AttributeWeightedStat.js",
     "js/Attribute.js",
     "js/Artifact.js",
+    "js/SubStatPreview.js",
     "js/ArtifactSubStat.js",
     "js/ArtifactStat.js",
     "js/ReshapeConfig.js",
