@@ -29,7 +29,7 @@ class ReshapeConfigDialog {
                 <p class="instruction">Select 2 sub-stats that will receive guaranteed enhancements.</p>
                 <div class="checkboxes">
                     ${[0, 1, 2, 3].map(i => `
-                        <label><input type="checkbox" class="chkSlot" data-index="${i}"> ${artifactStat.getSubStatAt(i).getSubStat()}</label>
+                        <label><input type="checkbox" class="chkSlot"> ${artifactStat.getSubStatAt(i).getSubStat()}</label>
                     `).join('')}
                 </div>
                 <div class="buttons">

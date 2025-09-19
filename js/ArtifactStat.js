@@ -333,6 +333,7 @@ class ArtifactStat {
 		const subStat = this.#artifactSubStats[slotNumber - 1];
 
 		subStat.addAttributeValue(this.#artifact.generateSubAttributeValue(subStat.getAttributeName()));
+		subStat.incrementRollCount();
 		this.#currentUpgradedSubStat = this.#artifact.formatSubStatByMode(2, subStat);
 
 		if (this.#isGuaranteedRoll) {
@@ -477,6 +478,8 @@ class ArtifactStat {
 				artifactSubStat.setAttributeValue(artifactSubStat.getInitialAttributeValue());
 				artifactSubStat.setPrevAttributeValue(artifactSubStat.getAttributeValue());
 			}
+
+			artifactSubStat.resetRollCount();
 		}
 	}
 	
@@ -487,6 +490,7 @@ class ArtifactStat {
 			artifactSubStat.setAttributeName(null);
 			artifactSubStat.setInitialAttributeValue(0);
 			artifactSubStat.setPrevAttributeValue(artifactSubStat.getAttributeValue());
+			artifactSubStat.resetRollCount();
 		}
 	}
 	
@@ -576,8 +580,6 @@ class ArtifactStat {
 		if (count < 2) {
 		    throw new Error("Less than 2 matching attributes found");
 		}
-
-		console.log(matchedIndexes);
 
 		return matchedIndexes;
 	}

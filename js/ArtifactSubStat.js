@@ -4,6 +4,7 @@ class ArtifactSubStat {
     #attributeValue = 0;
     #prevAttributeValue = 0;
     #isInitialValueEmpty = false;
+    #rollCount = 0;
 
     #artifact = new Artifact();
 
@@ -66,6 +67,20 @@ class ArtifactSubStat {
         return this.#isInitialValueEmpty;
     }
 
+    getRollCount() {
+        return this.#rollCount;
+    }
+
+    incrementRollCount() {
+        if (this.#rollCount <= 5) {
+            this.#rollCount++;
+        }
+    }
+
+    resetRollCount() {
+        this.#rollCount = 0;
+    }
+
     applySubStatPreviewToActualSubStat() {
         const attributeNamePreview = this.#subStatPreview.getAttributeName();
         const attributeValuePreview = this.#subStatPreview.getAttributeValue();
@@ -89,7 +104,7 @@ class ArtifactSubStat {
             if (this.#subStatPreview !== null) {
                 return this.#artifact.formatSubStat(this.#subStatPreview.getAttributeName(), this.#subStatPreview.getAttributeValue());
             } else {
-                return this.#artifact.formatSubStat(this.#attributeName, this.#attributeValue);
+                return `(${this.#rollCount}) ` + this.#artifact.formatSubStat(this.#attributeName, this.#attributeValue);
             }
         }
     }
@@ -100,7 +115,8 @@ class ArtifactSubStat {
                 'initialAttributeValue=' + this.#initialAttributeValue + ', ' +
                 'attributeValue=' + this.#attributeValue + ', ' +
                 'prevAttributeValue=' + this.#prevAttributeValue + ', ' +
-                'isInitialValueEmpty=' + this.#isInitialValueEmpty + 
+                'isInitialValueEmpty=' + this.#isInitialValueEmpty + ', ' +
+                'rollCount=' + this.#rollCount + ', ' +
                 "subStatPreview=" + (this.#subStatPreview !== null ? this.#subStatPreview.toString() : 'null') +
                 '}';
     }
@@ -115,6 +131,7 @@ class ArtifactSubStat {
                 Object.is(this.#initialAttributeValue, o.getInitialAttributeValue()) &&
                 Object.is(this.#attributeValue, o.getAttributeValue()) &&
                 Object.is(this.#prevAttributeValue, o.getPrevAttributeValue()) &&
+                Object.is(this.#rollCount, o.getRollCount()) &&
                 this.#isInitialValueEmpty === o.getIsInitialValueEmpty() &&
                 ((this.#subStatPreview === null && o.getSubStatPreview() === null) ||
                 (this.#subStatPreview !== null && o.getSubStatPreview() !== null &&
