@@ -26,6 +26,7 @@ class CustomStatDialog {
     #btnRemoveSubStat = document.getElementById('btnRemoveSubStat');
     #btnFinalizeStat = document.getElementById('btnFinalizeStat');
     #definedAffixMode = false;
+    #enablePreviewSubStat = false;
 
     // initial selected index
     #selectedIndex = -1;
@@ -385,9 +386,14 @@ class CustomStatDialog {
             } else if (this.#equals(attribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
                 await Dialog.showMessageDialog('Artifact RNG', 'A sub-stat cannot be the same as the main stat!');
             } else {
-                const response = await Dialog.showConfirmDialog('Select an option', 'Finalize the stat?');
+                const response1 = await Dialog.showConfirmDialog('Initial 4 sub-stats?', 
+                    'Are these sub-stats initialized with 4 sub-stats? (not 3 sub-stats with preview sub-stat)');
 
-                if (response.option === Dialog.YES_OPTION) {
+                this.#enablePreviewSubStat = (response1.option === Dialog.NO_OPTION);
+
+                const response2 = await Dialog.showConfirmDialog('Select an option', 'Finalize the stat?');
+
+                if (response2.option === Dialog.YES_OPTION) {
                     this.#displayCustomStat();
                     $(this.#modalOverlay).hide();
                     CustomStatDialog.#isCustomStatDisplayed = true;
@@ -493,11 +499,15 @@ class CustomStatDialog {
         const value3 = +this.#cboValue3.value;
         const value4 = +this.#cboValue4.value;
 
+        const subStat4 = this.#enablePreviewSubStat ? new ArtifactSubStat(null, 0.0) : new ArtifactSubStat(attr4, value4);
+        
         this.#artifactStat.setArtifactPiece(artifactPiece);
         this.#artifactStat.setMainAttribute(mainAttribute);
         this.#artifactStat.updateArtifactSubStats(
-            new ArtifactSubStat(attr1, value1), new ArtifactSubStat(attr2, value2),
-            new ArtifactSubStat(attr3, value3), new ArtifactSubStat(attr4, value4)
+            new ArtifactSubStat(attr1, value1), 
+            new ArtifactSubStat(attr2, value2),
+            new ArtifactSubStat(attr3, value3), 
+            subStat4
         );
 
         if ((attr1 !== null && attr2 !== null) && (attr3 === null || this.#definedAffixMode)) {
@@ -506,6 +516,9 @@ class CustomStatDialog {
             if (attr4 === null) {
                 this.#artifactStat.setMaxUpgrade(4);
                 this.#artifactStat.generateSubStatPreviewForFourthSubStat();
+            } else if (this.#enablePreviewSubStat) {
+                this.#artifactStat.setMaxUpgrade(4);
+                this.#artifactStat.getSubStatAt(3).setSubStatPreview(new SubStatPreview(attr4, value4));
             } else {
                 this.#artifactStat.setMaxUpgrade(5);
             }
