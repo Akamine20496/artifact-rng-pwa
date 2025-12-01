@@ -386,10 +386,15 @@ class CustomStatDialog {
             } else if (this.#equals(attribute, this.#lblAttr1, this.#lblAttr2, this.#lblAttr3, this.#lblAttr4)) {
                 await Dialog.showMessageDialog('Artifact RNG', 'A sub-stat cannot be the same as the main stat!');
             } else {
-                const response1 = await Dialog.showConfirmDialog('Initial 4 sub-stats?', 
-                    'Are these sub-stats initialized with 4 sub-stats? (not 3 sub-stats with preview sub-stat)');
+                const attr4HasAttributeName = !this.#isNone(this.#lblAttr4.innerText);
+                let response1 = -69; // funny number but reasonable
 
-                this.#enablePreviewSubStat = (response1.option === Dialog.NO_OPTION);
+                if (attr4HasAttributeName) {
+                    response1 = await Dialog.showConfirmDialog('Initial 4 sub-stats?', 
+                            'Are these sub-stats initialized with 4 sub-stats? (not 3 sub-stats with preview sub-stat)');
+
+                    this.#enablePreviewSubStat = (response1.option === Dialog.NO_OPTION);
+                }
 
                 const response2 = await Dialog.showConfirmDialog('Select an option', 'Finalize the stat?');
 
@@ -491,8 +496,8 @@ class CustomStatDialog {
 
         const attr1 = this.#lblAttr1.innerText;
         const attr2 = this.#lblAttr2.innerText;
-        const attr3 = this.#lblAttr3.textContent === 'None' ? null : this.#lblAttr3.innerText;
-        const attr4 = this.#lblAttr4.textContent === 'None' ? null : this.#lblAttr4.innerText;
+        const attr3 = this.#isNone(this.#lblAttr3.textContent) ? null : this.#lblAttr3.innerText;
+        const attr4 = this.#isNone(this.#lblAttr4.textContent) ? null : this.#lblAttr4.innerText;
 
         const value1 = +this.#cboValue1.value;
         const value2 = +this.#cboValue2.value;
